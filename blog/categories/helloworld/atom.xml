@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 <feed xmlns="http://www.w3.org/2005/Atom">
 
-  <title><![CDATA[Jean's Blog]]></title>
-  <link href="http://ziwu1216.github.com/atom.xml" rel="self"/>
+  <title><![CDATA[Category: helloworld | Jean's Blog]]></title>
+  <link href="http://ziwu1216.github.com/blog/categories/helloworld/atom.xml" rel="self"/>
   <link href="http://ziwu1216.github.com/"/>
   <updated>2012-11-25T15:53:55+08:00</updated>
   <id>http://ziwu1216.github.com/</id>
@@ -76,7 +76,7 @@ export PATH=${JAVA_HOME}/bin:$PATH
 
 <p>显示</p>
 
-<blockquote><p>java version &#8220;1.7.0_09&#8221;</p></blockquote>
+<blockquote><p>java version "1.7.0_09"</p></blockquote>
 
 <p>说明安装成功</p>
 
@@ -104,7 +104,7 @@ export PATH=${JAVA_HOME}/bin:$PATH
 
 <p>选中所需的平台进行安装。</p>
 
-<p>（在tools>options中，可以根据网络情况设置代理或选中force https://&#8230; sources to be fetched using http://&#8230;）</p>
+<p>（在tools>options中，可以根据网络情况设置代理或选中force https://... sources to be fetched using http://...）</p>
 ]]></content>
   </entry>
   
