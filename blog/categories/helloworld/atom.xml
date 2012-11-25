@@ -4,7 +4,7 @@
   <title><![CDATA[Category: helloworld | Jean's Blog]]></title>
   <link href="http://ziwu1216.github.com/blog/categories/helloworld/atom.xml" rel="self"/>
   <link href="http://ziwu1216.github.com/"/>
-  <updated>2012-11-25T15:53:55+08:00</updated>
+  <updated>2012-11-26T00:13:56+08:00</updated>
   <id>http://ziwu1216.github.com/</id>
   <author>
     <name><![CDATA[Jean]]></name>
@@ -54,6 +54,9 @@
 <p>在lib下创建目录用于安装<code>sudo mkdir /usr/lib/java</code></p>
 
 <p>解压到目录下<code>sudo tar zxvf ./jdk-7u9-linux-i586.tar.gz -C /usr/lib/java/</code></p>
+
+<!--more-->
+
 
 <h3>2.配置环境变量</h3>
 
