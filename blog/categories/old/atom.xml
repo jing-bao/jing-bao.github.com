@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="utf-8"?>
+<feed xmlns="http://www.w3.org/2005/Atom">
+
+  <title><![CDATA[Category: old | Jean's Blog]]></title>
+  <link href="http://ziwu1216.github.com/blog/categories/old/atom.xml" rel="self"/>
+  <link href="http://ziwu1216.github.com/"/>
+  <updated>2012-11-26T23:46:55+08:00</updated>
+  <id>http://ziwu1216.github.com/</id>
+  <author>
+    <name><![CDATA[Jean]]></name>
+    
+  </author>
+  <generator uri="http://octopress.org/">Octopress</generator>
+
+  
+  <entry>
+    <title type="html"><![CDATA[[旧] hello android 1.0 </br>- Linux下开发环境搭建]]></title>
+    <link href="http://ziwu1216.github.com/blog/2012/11/26/old-hello-android-1-dot-0/"/>
+    <updated>2012-11-26T23:32:00+08:00</updated>
+    <id>http://ziwu1216.github.com/blog/2012/11/26/old-hello-android-1-dot-0</id>
+    <content type="html"><![CDATA[<p>待整理</p>
+]]></content>
+  </entry>
+  
+</feed>

@@ -4,7 +4,7 @@
   <title><![CDATA[Category: android | Jean's Blog]]></title>
   <link href="http://ziwu1216.github.com/blog/categories/android/atom.xml" rel="self"/>
   <link href="http://ziwu1216.github.com/"/>
-  <updated>2012-11-26T20:04:10+08:00</updated>
+  <updated>2012-11-26T23:46:55+08:00</updated>
   <id>http://ziwu1216.github.com/</id>
   <author>
     <name><![CDATA[Jean]]></name>
@@ -14,11 +14,29 @@
 
   
   <entry>
-    <title type="html"><![CDATA[hello android 1 - Linux下开发环境搭建]]></title>
+    <title type="html"><![CDATA[[旧] hello android 1.0 </br>- Linux下开发环境搭建]]></title>
+    <link href="http://ziwu1216.github.com/blog/2012/11/26/old-hello-android-1-dot-0/"/>
+    <updated>2012-11-26T23:32:00+08:00</updated>
+    <id>http://ziwu1216.github.com/blog/2012/11/26/old-hello-android-1-dot-0</id>
+    <content type="html"><![CDATA[<p>待整理</p>
+]]></content>
+  </entry>
+  
+  <entry>
+    <title type="html"><![CDATA[hello android 1 </br>- Linux下开发环境搭建]]></title>
     <link href="http://ziwu1216.github.com/blog/2012/11/25/hello-android-1/"/>
     <updated>2012-11-25T14:46:00+08:00</updated>
     <id>http://ziwu1216.github.com/blog/2012/11/25/hello-android-1</id>
-    <content type="html"><![CDATA[<h2>需要准备的安装文件</h2>
+    <content type="html"><![CDATA[<p>想试试android的游戏开发，但想换台笔记本做，于是翻出了之前自己写的环境搭建入门，居然已经是半年前了……我果然没什么坚持能力……去android开发官网看了下，google在API Level 17下提供了新的ADT Bundle，集成了Eclipse和ADT plugin，意味着环境搭建被大大简化，再也不用卡在ADT安装的各种网络连接问题上了:)</p>
+
+<p>于是新开了一个ubuntu12.04虚拟机，重新搭建了一次开发环境。根据官网所说，如果已经有eclipse或者其他IDE，可以继续使用单独的SDK安装。半年前的搭建入门在[这里]（/blog/2012/11/26/old-hello-android-1-dot-0/）,供参考</p>
+
+<p>以下为使用ADT Bundle的具体环境搭建过程</p>
+
+<!--more-->
+
+
+<h2>需要准备的安装文件</h2>
 
 <ul>
 <li><p>adt-bundle-linux-x86.zip</p>
@@ -55,9 +73,6 @@
 
 <p>解压到目录下<code>sudo tar zxvf ./jdk-7u9-linux-i586.tar.gz -C /usr/lib/java/</code></p>
 
-<!--more-->
-
-
 <h3>2.配置环境变量</h3>
 
 <pre><code>sudo gedit /etc/profile
@@ -71,7 +86,7 @@ export CLASSPATH=.:${JAVA_HOME}/lib:${JRE_HOME}/lib
 export PATH=${JAVA_HOME}/bin:$PATH
 </code></pre>
 
-<p>保存退出，重启ubuntu。</p>
+<p>保存退出，重启ubuntu</p>
 
 <h3>3.验证是否安装成功</h3>
 
@@ -93,7 +108,7 @@ export PATH=${JAVA_HOME}/bin:$PATH
 
 <h3>2.首次启动</h3>
 
-<p>进入解压后的adt-bundle-linux-x86/eclipse目录，执行eclipse文件，即可启动eclipse。第一次启动可以选择workspace和是否参加google信息收集。</p>
+<p>进入解压后的adt-bundle-linux-x86/eclipse目录，执行eclipse文件，即可启动eclipse。第一次启动可以选择workspace和是否参加google信息收集</p>
 
 <h2>Android SDK Manager配置</h2>
 
@@ -105,9 +120,30 @@ export PATH=${JAVA_HOME}/bin:$PATH
 ./android
 </code></pre>
 
-<p>选中所需的平台进行安装。</p>
+<p>选中所需的平台进行安装，我安装了2.3.3，这是我手机的android版本</p>
 
-<p>（在tools>options中，可以根据网络情况设置代理或选中force https://... sources to be fetched using http://...）</p>
+<p><img src="/images/hello-android-1-sdkManager.png" title="sdkManager" alt="图片加载失败 :("></p>
+
+<p>在tools>options中，可以根据网络情况设置代理或选中<br/>
+force https://... sources to be fetched using http://...</p>
+
+<p>google要求必须安装的包是</p>
+
+<ul>
+<li>SDK Tools</li>
+<li>SDK Platform-tools</li>
+<li>SDK Platform（至少一个版本）</li>
+</ul>
+
+
+<p>推荐安装的包是</p>
+
+<ul>
+<li>System Image（便于使用android模拟器）</li>
+<li>Android Support</li>
+<li>SDK Samples</li>
+</ul>
+
 ]]></content>
   </entry>
   
