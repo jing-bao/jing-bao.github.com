@@ -4,7 +4,7 @@
   <title><![CDATA[Category: android | Jean's Blog]]></title>
   <link href="http://ziwu1216.github.com/blog/categories/android/atom.xml" rel="self"/>
   <link href="http://ziwu1216.github.com/"/>
-  <updated>2012-11-26T23:56:27+08:00</updated>
+  <updated>2012-11-27T17:26:51+08:00</updated>
   <id>http://ziwu1216.github.com/</id>
   <author>
     <name><![CDATA[Jean]]></name>
@@ -18,7 +18,128 @@
     <link href="http://ziwu1216.github.com/blog/2012/11/26/old-hello-android-1-dot-0/"/>
     <updated>2012-11-26T23:32:00+08:00</updated>
     <id>http://ziwu1216.github.com/blog/2012/11/26/old-hello-android-1-dot-0</id>
-    <content type="html"><![CDATA[<p>待整理</p>
+    <content type="html"><![CDATA[<p>这是4月左右写的，软件的版本可能比较旧了，仅供参考</p>
+
+<p>以下为搭建过程，包括文件下载、java安装、eclipse和ADT安装、SDK Manager配置等</p>
+
+<!--more-->
+
+
+<h2>需要准备的安装文件</h2>
+
+<ul>
+<li>android-sdk_r17-linux.tgz</li>
+<li>ADT-17.0.0.zip</li>
+<li>jdk-7u3-linux-i586.tar.gz</li>
+<li>eclipse-jee-indigo-SR2-linux-gtk.tar.gz
+
+<h3>下载地址</h3>
+
+<p><a href="http://developer.android.com/sdk/index.html">http://developer.android.com/sdk/index.html</a></p></li>
+</ul>
+
+
+<p><a href="http://developer.android.com/sdk/eclipse-adt.html">http://developer.android.com/sdk/eclipse-adt.html</a></p>
+
+<p><a href="http://www.oracle.com/technetwork/java/javase/downloads/index.html">http://www.oracle.com/technetwork/java/javase/downloads/index.html</a></p>
+
+<p><a href="http://www.eclipse.org/downloads/">http://www.eclipse.org/downloads/</a></p>
+
+<p>将其拷贝到一个文件夹，以/home/android/为例</p>
+
+<h2>Java环境安装配置</h2>
+
+<h3>1.解压文件</h3>
+
+<p>进入安装文件目录<code>cd /home/android/</code></p>
+
+<p>在lib下创建目录用于安装<code>sudo mkdir /usr/lib/java</code></p>
+
+<p>解压到目录下<code>sudo tar zxvf ./jdk-7u3-linux-i586.tar.gz -C /usr/lib/java/</code></p>
+
+<h3>2.配置环境变量</h3>
+
+<pre><code>sudo gedit /etc/bash.bashrc
+</code></pre>
+
+<p>在其中加入如下内容：</p>
+
+<pre><code>export JAVA_HOME=/usr/lib/java/jdk1.7.0_03
+export JRE_HOME=${JAVA_HOME}/jre
+export CLASSPATH=.:${JAVA_HOME}/lib:${JRE_HOME}/lib
+export PATH=${JAVA_HOME}/bin:$PATH
+</code></pre>
+
+<p>保存退出，重新开启终端</p>
+
+<h3>3.验证是否安装成功</h3>
+
+<p>执行命令</p>
+
+<pre><code>java -version 
+</code></pre>
+
+<p>显示</p>
+
+<pre><code>java version "1.7.0_03" 
+Java(TM) SE Runtime Environment (build 1.7.0_03-b04) 
+Java HotSpot(TM) Client VM (build 22.1-b02, mixed mode)
+</code></pre>
+
+<p>说明安装成功</p>
+
+<h2>eclipse安装</h2>
+
+<p>进入安装文件目录<code>cd /home/android/</code></p>
+
+<p>解压文件<code>tar zxvf eclipse-jee-indigo-SR2-linux-gtk.tar.gz</code></p>
+
+<p>进入解压后的eclipse目录，执行eclipse文件，即可启动eclipse</p>
+
+<h2>android SDK安装</h2>
+
+<h3>1.解压文件</h3>
+
+<p>进入安装文件目录<code>cd /home/android/</code></p>
+
+<p>解压文件<code>tar zxvf android-sdk_r17-linux.tgz</code></p>
+
+<h3>2.安装ADT插件</h3>
+
+<p>在线安装容易连接不上网站，所以选择离线安装</p>
+
+<p>启动 Eclipse, 在菜单栏选择 Help > Install New Software....</p>
+
+<p>单击右上角的Add按钮，在弹出的对话框中，Name填写 "ADT",单击Archive按钮，找到插件所在到包ADT-17.0.0.zip，点击OK</p>
+
+<p><img src="/images/hello-android-1-0-add.png" title="add repository" alt="图片加载失败 :("></p>
+
+<p>选择所有安装包，点击next根据提示进行安装，同意所有条款。把Contact all update sites during install to find required software 前面的复选框取消掉，否则下载会很慢</p>
+
+<p><img src="/images/hello-android-1-0-adt-install.png" title="ADT install" alt="图片加载失败 :("></p>
+
+<p>安装完重启eclipse，开头的对话框可以先取消，后续会安装</p>
+
+<p>在eclipse中选择Window > Preferences..，在弹出的对话框中左边选择Android标签，右边SDK location选择Android SDK的目录，单击apply，再单击ok。在此过程中会弹出一个对话框问你是否要参加google的满意度调查报告，可以选择参加还是不参加，单击process按钮即可</p>
+
+<p><img src="/images/hello-android-1-0-preferences.png" title="eclipse preferences" alt="图片加载失败 :("></p>
+
+<h3>3.配置Android SDK Manager</h3>
+
+<p>进入android sdk安装目录下的tools目录，运行Android SDK Manager</p>
+
+<pre><code>cd /home/android/android-sdk-linux/tools/ 
+./android 
+</code></pre>
+
+<p>在tools>options选中force https……http，等待列表刷新后，选中tools和想要版本的android平台，进行安装</p>
+
+<p><img src="/images/hello-android-1-0-sdkManager-setting.png" title="SDK Manager setting" alt="图片加载失败 :(">
+<img src="/images/hello-android-1-0-sdkManager.png" title="SDK Manager" alt="图片加载失败 :("></p>
+
+<p>*不知道为什么，从eclipse启动SDK Manager时，tools选项里没有options……推荐从目录运行</p>
+
+<p>*一些第三方插件如htc的工具等，需要注册，可以暂时不安装</p>
 ]]></content>
   </entry>
   
@@ -94,7 +215,8 @@ export PATH=${JAVA_HOME}/bin:$PATH
 
 <p>显示</p>
 
-<blockquote><p>java version "1.7.0_09"</p></blockquote>
+<pre><code>java version "1.7.0_09"
+</code></pre>
 
 <p>说明安装成功</p>
 
