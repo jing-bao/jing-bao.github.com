@@ -1,0 +1,314 @@
+
+<!DOCTYPE html>
+<!--[if IEMobile 7 ]><html class="no-js iem7"><![endif]-->
+<!--[if lt IE 9]><html class="no-js lte-ie8"><![endif]-->
+<!--[if (gt IE 8)|(gt IEMobile 7)|!(IEMobile)|!(IE)]><!--><html class="no-js" lang="en"><!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  <title>hello octopress - Jean's Blog</title>
+  <meta name="author" content="Jean">
+
+  
+  <meta name="description" content="理论上来说，这才应该是我第一篇博客……描述博客的搭建过程。只是作为一个博客菜鸟 + octopress菜鸟 + linux菜鸟，我其实也是依葫芦画瓢，照着官网的步骤和别人的博客一步一步做的。所以过程就不赘述了，列一下我的主要参考网站和解决的一些小问题吧 主要参考网站 octopress官网 &hellip;">
+  
+
+  <!-- http://t.co/dKP3o1e -->
+  <meta name="HandheldFriendly" content="True">
+  <meta name="MobileOptimized" content="320">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+
+  
+  <link rel="canonical" href="http://ziwu1216.github.com/blog/2012/11/28/hello-octopress/">
+  <link href="/favicon.png" rel="icon">
+  <link href="/stylesheets/screen.css" media="screen, projection" rel="stylesheet" type="text/css">
+  <script src="/javascripts/modernizr-2.0.js"></script>
+  <script src="/javascripts/ender.js"></script>
+  <script src="/javascripts/octopress.js" type="text/javascript"></script>
+  <link href="/atom.xml" rel="alternate" title="Jean's Blog" type="application/atom+xml">
+  <!--Fonts from Google"s Web font directory at http://google.com/webfonts -->
+
+  
+
+</head>
+
+<body   >
+  <header role="banner"><hgroup>
+  <h1><a href="/">Jean's Blog</a></h1>
+  
+    <h2>Try and Enjoy</h2>
+  
+</hgroup>
+
+</header>
+  <nav role="navigation"><ul class="subscription" data-subscription="rss">
+  <li><a href="/atom.xml" rel="subscribe-rss" title="subscribe via RSS">RSS</a></li>
+  
+</ul>
+  
+<form action="http://google.com/search" method="get">
+  <fieldset role="search">
+    <input type="hidden" name="q" value="site:ziwu1216.github.com" />
+    <input class="search" type="text" name="q" results="0" placeholder="Search"/>
+  </fieldset>
+</form>
+  
+<ul class="main-navigation">
+  <li><a href="/">Blog</a></li>
+  <li><a href="/blog/archives">Archives</a></li>
+</ul>
+
+</nav>
+  <div id="main">
+    <div id="content">
+      <div>
+<article class="hentry" role="article">
+  
+  <header>
+    
+      <h1 class="entry-title">Hello Octopress</h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2012-11-28T13:56:00+08:00" pubdate data-updated="true">Nov 28<span>th</span>, 2012</time>
+        
+      </p>
+    
+  </header>
+
+
+<div class="entry-content"><p>理论上来说，这才应该是我第一篇博客……描述博客的搭建过程。只是作为一个博客菜鸟 + octopress菜鸟 + linux菜鸟，我其实也是依葫芦画瓢，照着官网的步骤和别人的博客一步一步做的。所以过程就不赘述了，列一下我的主要参考网站和解决的一些小问题吧</p>
+
+<!--more-->
+
+
+<h2>主要参考网站</h2>
+
+<ul>
+<li><p><a href="http://octopress.org/">octopress官网</a></p>
+
+<p>  官网的文档写的非常简明清晰，其实不需要其他教程，基本上照着做就行了</p></li>
+<li><p><a href="http://blog.devtang.com/blog/2012/02/10/setup-blog-based-on-github/">搭建参考</a></p>
+
+<p>  这篇博文总结了根据国内需求进行的一些配置，比如删除twitter和增加分享到国内微博等等</p></li>
+<li><p><a href="http://wowubuntu.com/markdown/#link">markdown语法</a></p>
+
+<p>  我是最近用github之后才开始接触markdown的，所以还是经常要查一下语法</p></li>
+</ul>
+
+
+<h2>遇到的问题</h2>
+
+<h3>用rbenv安装ruby</h3>
+
+<p>我不得不说，如果没有特殊理由的话，还是用rvm吧……万一遇到问题，网上可以搜到很多解决方法。我没了解过ruby，随意挑了rbenv来安装，过程实在是纠结……</p>
+
+<h4>1.ruby的版本</h4>
+
+<p>官网上在<a href="http://octopress.org/docs/setup/rbenv/">Installing Ruby With Rbenv</a>页面说用<code>rbenv install 1.9.3-p0</code>安装ruby，但我clone的octopress项目中<code>.rbenv-version</code>文件其实写的是<code>1.9.3-p194</code>，所以会提示版本未安装。直接按照<code>.rbenv-version</code>里要求的版本安装就行。</p>
+
+<h4>2.缺少zlib依赖</h4>
+
+<pre><code>sudo apt-get install zlib1g-dev
+</code></pre>
+
+<h4>3.缺少openssl依赖</h4>
+
+<p>这个问题纠结了我半天，反复卸载安装了好几次。网上的解决方案大多是针对rvm的，搜寻资料也很痛苦。最后在<a href="https://gist.github.com/1200482">这里</a>找到了解决方案</p>
+
+<p>安装依赖库，我开始只安装了openssl，是不够的</p>
+
+<pre><code>sudo apt-get install openssl
+sudo apt-get install libssl-dev
+sudo apt-get install libssl0.9.8
+</code></pre>
+
+<p>安装rbenv，按照官网来就行</p>
+
+<p>安装ruby-build</p>
+
+<pre><code>git clone git@github.com:sstephenson/ruby-build.git
+cd ruby-build
+./install.sh
+</code></pre>
+
+<p>然后才能安装ruby</p>
+
+<pre><code>ruby-build 1.9.3-p194 ~/.rbenv/versions/1.9.3-p194 --with-openssl-dir=/usr/local
+rbenv rehash
+</code></pre>
+
+<p>如果要设置全局ruby的版本的话可以用<code>rbenv global 1.9.3-p194</code></p>
+
+<p>进入octopress文件夹下可以查询ruby是否安装成功<code>ruby -v</code></p>
+
+<p>检查下openssl是否正常，应该返回<code>true</code></p>
+
+<pre><code>irb
+require 'openssl' 
+</code></pre>
+
+<h3>用root用户<code>rake deploy</code>时提示ssh密钥错误</h3>
+
+<p>这大概是只有我这种小白才会犯的错误……是因为root用户和普通用户存放密钥的文件夹不一样，所以尽量用同一个用户操作，或者把密钥拷贝一份</p>
+
+<h3>添加Jiathis分享插件时显示一小块空白</h3>
+
+<p>参考<a href="http://geeksavetheworld.com/blog/2012/11/05/add-jiathis-to-octopress-blog/">这篇博文</a></p>
+
+<h3>在侧栏添加分类列表</h3>
+
+<p>我主要是觉得侧栏太空了……参考<a href="http://codemacro.com/2012/07/18/add-category-list-to-octopress/">这篇博文</a></p>
+
+<h2>其他</h2>
+
+<p>其实对octopress博客的个性化还有很多，可以搜到很多教程，只是我比较懒。作为有一个菜鸟，我觉得默认主题已经很漂亮啦:)</p>
+
+<p>我之前做项目接触了github，然后搜教程的时候突然发现可以用它写博客，所以一时好奇才写的。希望能记录下平时看到或者学到的东西，虽然水平有限，不值一哂，但对我自己来说毕竟是花过力气的东西，还是留些痕迹做纪念吧，也省得经常觉得自己很颓废</p>
+
+<p>最近会整理一些以前的文档，用【旧】标注的文章可能会有些过时。我其实是个好奇心甚重的人，但是有点浅尝辄止的毛病，所以可以预感到我的“helloworld”分类下会有很多乱七八糟的东西……</p>
+
+<h3>希望我能坚持下去</h3>
+</div>
+
+
+  <footer>
+    <p class="meta">
+      
+  
+
+<span class="byline author vcard">Posted by <span class="fn">Jean</span></span>
+
+      
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2012-11-28T13:56:00+08:00" pubdate data-updated="true">Nov 28<span>th</span>, 2012</time>
+      
+
+<span class="categories">
+  
+    <a class='category' href='/blog/categories/helloworld/'>helloworld</a>
+  
+</span>
+
+
+    </p>
+    
+      <div class="sharing">
+  
+  
+  
+  
+    <!-- JiaThis Button BEGIN -->
+<div class="jiathis_style">
+	<span class="jiathis_txt">分享到：</span>
+	<a class="jiathis_button_tools_1"></a>
+	<a class="jiathis_button_tools_2"></a>
+	<a class="jiathis_button_tools_3"></a>
+	<a class="jiathis_button_tools_4"></a>
+	<a href="http://www.jiathis.com/share?uid=1713528" class="jiathis jiathis_txt jiathis_separator jtico jtico_jiathis" target="_blank">更多</a>
+	<a class="jiathis_counter_style"></a>
+</div>
+<script type="text/javascript">
+var jiathis_config = {data_track_clickback:'true'};
+</script>
+<script type="text/javascript" src="http://v3.jiathis.com/code/jia.js?uid=1351176419875879" charset="utf-8"></script>
+<!-- JiaThis Button END -->
+
+<!-- UY BEGIN -->
+<div id="uyan_frame"></div>
+<script type="text/javascript" id="UYScript" src="http://v1.uyan.cc/js/iframe.js?UYUserId=1713528" async=""></script>
+<!-- UY END -->
+
+  
+</div>
+
+    
+    <p class="meta">
+      
+        <a class="basic-alignment left" href="/blog/2012/11/26/old-hello-android-1-dot-0/" title="Previous Post: 『旧』 hello android 1.0：Linux下开发环境搭建">&laquo; 『旧』 hello android 1.0：Linux下开发环境搭建</a>
+      
+      
+    </p>
+  </footer>
+</article>
+
+</div>
+
+<aside class="sidebar">
+  
+    <section>
+  <h1>Recent Posts</h1>
+  <ul id="recent_posts">
+    
+      <li class="post">
+        <a href="/blog/2012/11/28/hello-octopress/">hello octopress</a>
+      </li>
+    
+      <li class="post">
+        <a href="/blog/2012/11/26/old-hello-android-1-dot-0/">『旧』 hello android 1.0：Linux下开发环境搭建</a>
+      </li>
+    
+      <li class="post">
+        <a href="/blog/2012/11/25/hello-android-1/">hello android 1：Linux下开发环境搭建</a>
+      </li>
+    
+  </ul>
+</section>
+<section>
+  <h1>Categories</h1>
+  <ul id="categories">
+    <li class='category'><a href='/blog/categories/android/'>android (2)</a></li>
+<li class='category'><a href='/blog/categories/helloworld/'>helloworld (3)</a></li>
+<li class='category'><a href='/blog/categories/old/'>old (1)</a></li>
+
+  </ul>
+</section>
+
+
+  
+</aside>
+
+
+    </div>
+  </div>
+  <footer role="contentinfo"><p>
+  Copyright &copy; 2012 - Jean -
+  <span class="credit">Powered by <a href="http://octopress.org">Octopress</a></span>
+</p>
+
+</footer>
+  
+
+
+
+
+
+
+
+
+
+
+
+</body>
+</html>
