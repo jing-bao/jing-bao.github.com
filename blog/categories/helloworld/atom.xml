@@ -4,7 +4,7 @@
   <title><![CDATA[Category: helloworld | Jean's Blog]]></title>
   <link href="http://ziwu1216.github.com/blog/categories/helloworld/atom.xml" rel="self"/>
   <link href="http://ziwu1216.github.com/"/>
-  <updated>2013-01-05T17:40:38+08:00</updated>
+  <updated>2013-01-05T18:03:01+08:00</updated>
   <id>http://ziwu1216.github.com/</id>
   <author>
     <name><![CDATA[Jean]]></name>
@@ -12,6 +12,58 @@
   </author>
   <generator uri="http://octopress.org/">Octopress</generator>
 
+  
+  <entry>
+    <title type="html"><![CDATA[hello octopress 2：流程记录]]></title>
+    <link href="http://ziwu1216.github.com/blog/2013/01/05/hello-octopress-2/"/>
+    <updated>2013-01-05T18:01:00+08:00</updated>
+    <id>http://ziwu1216.github.com/blog/2013/01/05/hello-octopress-2</id>
+    <content type="html"><![CDATA[<p>打了一段时间页游，好久不更新这里了，果然意志不坚啊。再写的时候生疏了很多，所以简单记录一下整个流程，方便以后参考。</p>
+
+<!--more-->
+
+
+<p>进入octopress的目录
+<code>
+cd /directory/to/octopress
+</code>
+使配置生效。这个应该可以改变写配置命令的地方使其自动生效吧，我懒得改了。
+<code>
+source ~/.bash_profile
+</code>
+生成新博客，注意方括号之前不要留空格
+<code>
+rake new_post["title"]
+</code>
+修改生成的页面，其中category的写法是这样滴
+```</p>
+
+<h1>Multiple categories example 1</h1>
+
+<p>categories: [CSS3, Sass, Media Queries]
+<code>
+写好后在本机4000端口实时预览
+</code>
+rake preview
+<code>
+生成文件
+</code>
+rake generate
+<code>
+发布文件到github
+</code>
+rake deploy
+```
+搞定！</p>
+
+<p>可以不时备个份
+<code>
+git add .
+git commit -m "changes"
+git push origin source
+</code></p>
+]]></content>
+  </entry>
   
   <entry>
     <title type="html"><![CDATA[hello octopress]]></title>

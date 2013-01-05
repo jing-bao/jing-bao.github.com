@@ -4,7 +4,7 @@
   <title><![CDATA[Jean's Blog]]></title>
   <link href="http://ziwu1216.github.com/atom.xml" rel="self"/>
   <link href="http://ziwu1216.github.com/"/>
-  <updated>2013-01-05T17:40:38+08:00</updated>
+  <updated>2013-01-05T18:03:01+08:00</updated>
   <id>http://ziwu1216.github.com/</id>
   <author>
     <name><![CDATA[Jean]]></name>
@@ -12,6 +12,74 @@
   </author>
   <generator uri="http://octopress.org/">Octopress</generator>
 
+  
+  <entry>
+    <title type="html"><![CDATA[hello octopress 2：流程记录]]></title>
+    <link href="http://ziwu1216.github.com/blog/2013/01/05/hello-octopress-2/"/>
+    <updated>2013-01-05T18:01:00+08:00</updated>
+    <id>http://ziwu1216.github.com/blog/2013/01/05/hello-octopress-2</id>
+    <content type="html"><![CDATA[<p>打了一段时间页游，好久不更新这里了，果然意志不坚啊。再写的时候生疏了很多，所以简单记录一下整个流程，方便以后参考。</p>
+
+<!--more-->
+
+
+<p>进入octopress的目录</p>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>cd /directory/to/octopress</span></code></pre></td></tr></table></div></figure>
+
+
+<p>使配置生效。这个应该可以改变写配置命令的地方使其自动生效吧，我懒得改了。</p>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>source ~/.bash_profile</span></code></pre></td></tr></table></div></figure>
+
+
+<p>生成新博客，注意方括号之前不要留空格</p>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>rake new_post["title"]</span></code></pre></td></tr></table></div></figure>
+
+
+<p>修改生成的页面，其中category的写法是这样滴</p>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'># Multiple categories example 1
+</span><span class='line'>categories: [CSS3, Sass, Media Queries]</span></code></pre></td></tr></table></div></figure>
+
+
+<p>写好后在本机4000端口实时预览</p>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>rake preview</span></code></pre></td></tr></table></div></figure>
+
+
+<p>生成文件</p>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>rake generate </span></code></pre></td></tr></table></div></figure>
+
+
+<p>发布文件到github</p>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>rake deploy </span></code></pre></td></tr></table></div></figure>
+
+
+<p>搞定！</p>
+
+<p>可以不时备个份</p>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>git add .
+</span><span class='line'>git commit -m "changes"
+</span><span class='line'>git push origin source</span></code></pre></td></tr></table></div></figure>
+
+]]></content>
+  </entry>
   
   <entry>
     <title type="html"><![CDATA[C++ Primer 读书笔记 1]]></title>
