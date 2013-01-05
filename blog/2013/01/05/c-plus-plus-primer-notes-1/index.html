@@ -1,0 +1,358 @@
+
+<!DOCTYPE html>
+<!--[if IEMobile 7 ]><html class="no-js iem7"><![endif]-->
+<!--[if lt IE 9]><html class="no-js lte-ie8"><![endif]-->
+<!--[if (gt IE 8)|(gt IEMobile 7)|!(IEMobile)|!(IE)]><!--><html class="no-js" lang="en"><!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  <title>C++ Primer 读书笔记 1 - Jean's Blog</title>
+  <meta name="author" content="Jean">
+
+  
+  <meta name="description" content="最近在看一些源代码，立刻发现自己的C++功底相当的弱，于是决定静心开始读经典的《C++ Primer》中文版，开头似乎是入门的知识，所以决定做些笔记，偶尔加些自己的验证。这样以后直接翻笔记就行了。笔记很零碎，感觉很适合C++考试的选择题……汗。 书籍信息：C++ Primer 中文版（第4版） &hellip;">
+  
+
+  <!-- http://t.co/dKP3o1e -->
+  <meta name="HandheldFriendly" content="True">
+  <meta name="MobileOptimized" content="320">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+
+  
+  <link rel="canonical" href="http://ziwu1216.github.com/blog/2013/01/05/c-plus-plus-primer-notes-1/">
+  <link href="/favicon.png" rel="icon">
+  <link href="/stylesheets/screen.css" media="screen, projection" rel="stylesheet" type="text/css">
+  <script src="/javascripts/modernizr-2.0.js"></script>
+  <script src="/javascripts/ender.js"></script>
+  <script src="/javascripts/octopress.js" type="text/javascript"></script>
+  <link href="/atom.xml" rel="alternate" title="Jean's Blog" type="application/atom+xml">
+  <!--Fonts from Google"s Web font directory at http://google.com/webfonts -->
+
+  
+
+</head>
+
+<body   >
+  <header role="banner"><hgroup>
+  <h1><a href="/">Jean's Blog</a></h1>
+  
+    <h2>Try and Enjoy</h2>
+  
+</hgroup>
+
+</header>
+  <nav role="navigation"><ul class="subscription" data-subscription="rss">
+  <li><a href="/atom.xml" rel="subscribe-rss" title="subscribe via RSS">RSS</a></li>
+  
+</ul>
+  
+<form action="http://google.com/search" method="get">
+  <fieldset role="search">
+    <input type="hidden" name="q" value="site:ziwu1216.github.com" />
+    <input class="search" type="text" name="q" results="0" placeholder="Search"/>
+  </fieldset>
+</form>
+  
+<ul class="main-navigation">
+  <li><a href="/">Blog</a></li>
+  <li><a href="/blog/archives">Archives</a></li>
+</ul>
+
+</nav>
+  <div id="main">
+    <div id="content">
+      <div>
+<article class="hentry" role="article">
+  
+  <header>
+    
+      <h1 class="entry-title">C++ Primer 读书笔记 1</h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2013-01-05T15:50:00+08:00" pubdate data-updated="true">Jan 5<span>th</span>, 2013</time>
+        
+      </p>
+    
+  </header>
+
+
+<div class="entry-content"><p>最近在看一些源代码，立刻发现自己的C++功底相当的弱，于是决定静心开始读经典的《C++ Primer》中文版，开头似乎是入门的知识，所以决定做些笔记，偶尔加些自己的验证。这样以后直接翻笔记就行了。笔记很零碎，感觉很适合C++考试的选择题……汗。</p>
+
+<p>书籍信息：C++ Primer 中文版（第4版）Stanley B. Lippman, Josee Lajoie, Barbara E. Moo 著；李师贤等译；人民邮电出版社</p>
+
+<p>以下为第一章笔记。</p>
+
+<!--more-->
+
+
+<h2>第一章</h2>
+
+<h3>1.1</h3>
+
+<ul>
+<li><p>返回值必须和函数的返回类型相同，或者可以转换成函数的返回类型<br/>
+【需要返回double时可以return int，反之不行】</p></li>
+<li><p>常见C++程序文件后缀： *.cc *.cxx *.cpp *.cp *.C</p></li>
+</ul>
+
+
+<h3>1.2</h3>
+
+<ul>
+<li><p>iostream库的基础是两种命名为istream和ostream的类型，分别表示输入流和输出流。标准库定义了4个IO对象，处理输入时使用命名为cin的istream类型对象，也称为标准输入。处理输出时使用命名为cout的ostream类型对象，也称为标准输出。另外，cerr和clog都是ostream对象。<br/>
+【都忘了原来istream是类啊】</p></li>
+<li><p>输出操作符&lt;&lt;：接受两个操作数，左操作数必须是ostream对象，右操作数是要输出的值，返回输出流本身（即左操作数）。输入操作符类推。</p></li>
+<li><p>endl称为操纵符（manipulator），换行，刷新与设备相关联的缓冲区，用户立即看到写入到流中的输出。忘记刷新输出流可能会造成输出停留在缓冲区中，如果程序崩溃，将会导致对程序崩溃位置的错误推断。</p></li>
+<li><p>使用命名空间，可以避免由于无意中使用了与库中所定义名字相同的名字而引起冲突。从而我们可以使用与标准库相同的名字。</p></li>
+<li><p>空格符不允许出现在预处理指示中<br/>
+【<br/>
+预处理是指在编译前所作的工作。例如#include, #define等<br/>
+带参宏定义中，宏名和形参表之间不能有空格出现<br/>
+例如<code>#define MAX(a,b) (a&gt;b)?a:b</code>不能写成<code>#define MAX (a,b) (a&gt;b)?a:b</code><br/>
+】</p></li>
+</ul>
+
+
+<h3>1.3</h3>
+
+<ul>
+<li>注释对不可嵌套。临时忽略一段代码更好的方法，是用编辑器在要忽略的每一行代码前面插入单行注释//，这样就无需担心是否已包含注释对/**/</li>
+</ul>
+
+
+<h3>1.4</h3>
+
+<ul>
+<li><p>for(int val = 1; val &lt;= 10; ++ val)执行顺序：</p>
+
+<ol>
+<li>创建val并初始化为1</li>
+<li>测试val是否&lt;= 10<br/>
+【<br/>
+第一次进入时就要测试！！<br/>
+<code>for(int val = 11; val &lt;= 10; ++ val) cout&lt;&lt;val&lt;&lt;endl;</code><br/>
+不会有输出<br/>
+】</li>
+<li>如果是，则执行for循环体；如果不是，则退出循环</li>
+<li>Val递增</li>
+<li>重复第2步的测试</li>
+</ol>
+</li>
+<li><p>读入未知数目的输入<br/>
+<code>while(cin &gt;&gt; value) sum += value;</code><br/>
+测试cin，即测试流的状态。如果流有效，测试成功。遇到文件结束符或无效输入【如类型和value不符合】，条件失败。<br/>
+【</p></li>
+</ul>
+
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+</pre></td><td class='code'><pre><code class='c'><span class='line'><span class="kt">int</span> <span class="nf">main</span><span class="p">()</span>
+</span><span class='line'><span class="p">{</span>
+</span><span class='line'>  <span class="kt">int</span> <span class="n">value</span><span class="p">;</span>
+</span><span class='line'>  <span class="k">while</span><span class="p">(</span><span class="n">cin</span> <span class="o">&gt;&gt;</span> <span class="n">value</span><span class="p">)</span>
+</span><span class='line'>      <span class="n">cout</span><span class="o">&lt;&lt;</span><span class="n">value</span><span class="o">&lt;&lt;</span><span class="n">endl</span><span class="p">;</span>
+</span><span class='line'>  <span class="k">return</span> <span class="mi">0</span><span class="p">;</span>
+</span><span class='line'><span class="p">}</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>在输入<code>1 2 3 回车</code>后会显示</p>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+</pre></td><td class='code'><pre><code class='c'><span class='line'><span class="mi">1</span> <span class="mi">2</span> <span class="mi">3</span>
+</span><span class='line'><span class="mi">1</span>
+</span><span class='line'><span class="mi">2</span>
+</span><span class='line'><span class="mi">3</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>可以继续输入。<br/>
+在输入<code>1 2 3 ^Z 回车</code>或<code>1 2 3 str 回车</code>后会显示</p>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+</pre></td><td class='code'><pre><code class='c'><span class='line'><span class="mi">1</span> <span class="mi">2</span> <span class="mi">3</span> <span class="n">str</span>
+</span><span class='line'><span class="mi">1</span>
+</span><span class='line'><span class="mi">2</span>
+</span><span class='line'><span class="mi">3</span>
+</span><span class='line'><span class="err">请按任意键继续</span><span class="p">.</span> <span class="p">.</span> <span class="p">.</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>不可以继续输入。<br/>
+回车的作用：windows是行缓冲，只有按下回车后，系统才会将输入的这一行数据存放到程序的输入缓存中。<br/>
+】</p>
+
+<ul>
+<li>文件结束符，windows下ctrl+z，unix下ctrl+d</li>
+</ul>
+
+
+<h3>1.5</h3>
+
+<ul>
+<li>标准库的头文件用&lt;>， 非标准库的文件用””</li>
+</ul>
+
+</div>
+
+
+  <footer>
+    <p class="meta">
+      
+  
+
+<span class="byline author vcard">Posted by <span class="fn">Jean</span></span>
+
+      
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2013-01-05T15:50:00+08:00" pubdate data-updated="true">Jan 5<span>th</span>, 2013</time>
+      
+
+<span class="categories">
+  
+    <a class='category' href='/blog/categories/c-/'>c++</a>, <a class='category' href='/blog/categories/notes/'>notes</a>
+  
+</span>
+
+
+    </p>
+    
+      <div class="sharing">
+  
+  
+  
+  
+    <!-- JiaThis Button BEGIN -->
+<div class="jiathis_style">
+	<span class="jiathis_txt">分享到：</span>
+	<a class="jiathis_button_tools_1"></a>
+	<a class="jiathis_button_tools_2"></a>
+	<a class="jiathis_button_tools_3"></a>
+	<a class="jiathis_button_tools_4"></a>
+	<a href="http://www.jiathis.com/share?uid=1713528" class="jiathis jiathis_txt jiathis_separator jtico jtico_jiathis" target="_blank">更多</a>
+	<a class="jiathis_counter_style"></a>
+</div>
+<script type="text/javascript">
+var jiathis_config = {data_track_clickback:'true'};
+</script>
+<script type="text/javascript" src="http://v3.jiathis.com/code/jia.js?uid=1351176419875879" charset="utf-8"></script>
+<!-- JiaThis Button END -->
+
+<!-- UY BEGIN -->
+<div id="uyan_frame"></div>
+<script type="text/javascript" id="UYScript" src="http://v1.uyan.cc/js/iframe.js?UYUserId=1713528" async=""></script>
+<!-- UY END -->
+
+  
+</div>
+
+    
+    <p class="meta">
+      
+        <a class="basic-alignment left" href="/blog/2012/11/28/hello-octopress/" title="Previous Post: hello octopress">&laquo; hello octopress</a>
+      
+      
+    </p>
+  </footer>
+</article>
+
+</div>
+
+<aside class="sidebar">
+  
+    <section>
+  <h1>Recent Posts</h1>
+  <ul id="recent_posts">
+    
+      <li class="post">
+        <a href="/blog/2013/01/05/c-plus-plus-primer-notes-1/">C++ Primer 读书笔记 1</a>
+      </li>
+    
+      <li class="post">
+        <a href="/blog/2012/11/28/hello-octopress/">hello octopress</a>
+      </li>
+    
+      <li class="post">
+        <a href="/blog/2012/11/26/old-hello-android-1-dot-0/">『旧』 hello android 1.0：Linux下开发环境搭建</a>
+      </li>
+    
+      <li class="post">
+        <a href="/blog/2012/11/25/hello-android-1/">hello android 1：Linux下开发环境搭建</a>
+      </li>
+    
+  </ul>
+</section>
+<section>
+  <h1>Categories</h1>
+  <ul id="categories">
+    <li class='category'><a href='/blog/categories/android/'>android (2)</a></li>
+<li class='category'><a href='/blog/categories/c-/'>c++ (1)</a></li>
+<li class='category'><a href='/blog/categories/helloworld/'>helloworld (3)</a></li>
+<li class='category'><a href='/blog/categories/notes/'>notes (1)</a></li>
+<li class='category'><a href='/blog/categories/old/'>old (1)</a></li>
+
+  </ul>
+</section>
+
+
+  
+</aside>
+
+
+    </div>
+  </div>
+  <footer role="contentinfo"><p>
+  Copyright &copy; 2013 - Jean -
+  <span class="credit">Powered by <a href="http://octopress.org">Octopress</a></span>
+</p>
+
+</footer>
+  
+
+
+
+
+
+
+
+
+
+
+
+</body>
+</html>

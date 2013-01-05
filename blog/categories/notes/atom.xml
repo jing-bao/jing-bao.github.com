@@ -1,0 +1,141 @@
+<?xml version="1.0" encoding="utf-8"?>
+<feed xmlns="http://www.w3.org/2005/Atom">
+
+  <title><![CDATA[Category: notes | Jean's Blog]]></title>
+  <link href="http://ziwu1216.github.com/blog/categories/notes/atom.xml" rel="self"/>
+  <link href="http://ziwu1216.github.com/"/>
+  <updated>2013-01-05T17:40:38+08:00</updated>
+  <id>http://ziwu1216.github.com/</id>
+  <author>
+    <name><![CDATA[Jean]]></name>
+    
+  </author>
+  <generator uri="http://octopress.org/">Octopress</generator>
+
+  
+  <entry>
+    <title type="html"><![CDATA[C++ Primer 读书笔记 1]]></title>
+    <link href="http://ziwu1216.github.com/blog/2013/01/05/c-plus-plus-primer-notes-1/"/>
+    <updated>2013-01-05T15:50:00+08:00</updated>
+    <id>http://ziwu1216.github.com/blog/2013/01/05/c-plus-plus-primer-notes-1</id>
+    <content type="html"><![CDATA[<p>最近在看一些源代码，立刻发现自己的C++功底相当的弱，于是决定静心开始读经典的《C++ Primer》中文版，开头似乎是入门的知识，所以决定做些笔记，偶尔加些自己的验证。这样以后直接翻笔记就行了。笔记很零碎，感觉很适合C++考试的选择题……汗。</p>
+
+<p>书籍信息：C++ Primer 中文版（第4版）Stanley B. Lippman, Josee Lajoie, Barbara E. Moo 著；李师贤等译；人民邮电出版社</p>
+
+<p>以下为第一章笔记。</p>
+
+<!--more-->
+
+
+<h2>第一章</h2>
+
+<h3>1.1</h3>
+
+<ul>
+<li><p>返回值必须和函数的返回类型相同，或者可以转换成函数的返回类型<br/>
+【需要返回double时可以return int，反之不行】</p></li>
+<li><p>常见C++程序文件后缀： *.cc *.cxx *.cpp *.cp *.C</p></li>
+</ul>
+
+
+<h3>1.2</h3>
+
+<ul>
+<li><p>iostream库的基础是两种命名为istream和ostream的类型，分别表示输入流和输出流。标准库定义了4个IO对象，处理输入时使用命名为cin的istream类型对象，也称为标准输入。处理输出时使用命名为cout的ostream类型对象，也称为标准输出。另外，cerr和clog都是ostream对象。<br/>
+【都忘了原来istream是类啊】</p></li>
+<li><p>输出操作符&lt;&lt;：接受两个操作数，左操作数必须是ostream对象，右操作数是要输出的值，返回输出流本身（即左操作数）。输入操作符类推。</p></li>
+<li><p>endl称为操纵符（manipulator），换行，刷新与设备相关联的缓冲区，用户立即看到写入到流中的输出。忘记刷新输出流可能会造成输出停留在缓冲区中，如果程序崩溃，将会导致对程序崩溃位置的错误推断。</p></li>
+<li><p>使用命名空间，可以避免由于无意中使用了与库中所定义名字相同的名字而引起冲突。从而我们可以使用与标准库相同的名字。</p></li>
+<li><p>空格符不允许出现在预处理指示中<br/>
+【<br/>
+预处理是指在编译前所作的工作。例如#include, #define等<br/>
+带参宏定义中，宏名和形参表之间不能有空格出现<br/>
+例如<code>#define MAX(a,b) (a&gt;b)?a:b</code>不能写成<code>#define MAX (a,b) (a&gt;b)?a:b</code><br/>
+】</p></li>
+</ul>
+
+
+<h3>1.3</h3>
+
+<ul>
+<li>注释对不可嵌套。临时忽略一段代码更好的方法，是用编辑器在要忽略的每一行代码前面插入单行注释//，这样就无需担心是否已包含注释对/**/</li>
+</ul>
+
+
+<h3>1.4</h3>
+
+<ul>
+<li><p>for(int val = 1; val &lt;= 10; ++ val)执行顺序：</p>
+
+<ol>
+<li>创建val并初始化为1</li>
+<li>测试val是否&lt;= 10<br/>
+【<br/>
+第一次进入时就要测试！！<br/>
+<code>for(int val = 11; val &lt;= 10; ++ val) cout&lt;&lt;val&lt;&lt;endl;</code><br/>
+不会有输出<br/>
+】</li>
+<li>如果是，则执行for循环体；如果不是，则退出循环</li>
+<li>Val递增</li>
+<li>重复第2步的测试</li>
+</ol>
+</li>
+<li><p>读入未知数目的输入<br/>
+<code>while(cin &gt;&gt; value) sum += value;</code><br/>
+测试cin，即测试流的状态。如果流有效，测试成功。遇到文件结束符或无效输入【如类型和value不符合】，条件失败。<br/>
+【</p></li>
+</ul>
+
+
+<p>```c
+int main()
+{</p>
+
+<pre><code>int value;
+while(cin &gt;&gt; value) 
+    cout&lt;&lt;value&lt;&lt;endl;
+return 0;
+</code></pre>
+
+<p>}
+```</p>
+
+<p>在输入<code>1 2 3 回车</code>后会显示</p>
+
+<p><code>
+1 2 3
+1
+2
+3
+</code></p>
+
+<p>可以继续输入。<br/>
+在输入<code>1 2 3 ^Z 回车</code>或<code>1 2 3 str 回车</code>后会显示</p>
+
+<p><code>
+1 2 3 str
+1
+2
+3
+请按任意键继续. . .
+</code></p>
+
+<p>不可以继续输入。<br/>
+回车的作用：windows是行缓冲，只有按下回车后，系统才会将输入的这一行数据存放到程序的输入缓存中。<br/>
+】</p>
+
+<ul>
+<li>文件结束符，windows下ctrl+z，unix下ctrl+d</li>
+</ul>
+
+
+<h3>1.5</h3>
+
+<ul>
+<li>标准库的头文件用&lt;>， 非标准库的文件用””</li>
+</ul>
+
+]]></content>
+  </entry>
+  
+</feed>
