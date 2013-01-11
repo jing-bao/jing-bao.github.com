@@ -4,7 +4,7 @@
   <title><![CDATA[Jean's Blog]]></title>
   <link href="http://ziwu1216.github.com/atom.xml" rel="self"/>
   <link href="http://ziwu1216.github.com/"/>
-  <updated>2013-01-05T18:03:01+08:00</updated>
+  <updated>2013-01-11T23:30:31+08:00</updated>
   <id>http://ziwu1216.github.com/</id>
   <author>
     <name><![CDATA[Jean]]></name>
@@ -12,6 +12,41 @@
   </author>
   <generator uri="http://octopress.org/">Octopress</generator>
 
+  
+  <entry>
+    <title type="html"><![CDATA[关于毕业设计]]></title>
+    <link href="http://ziwu1216.github.com/blog/2013/01/11/about-graduation-project/"/>
+    <updated>2013-01-11T23:02:00+08:00</updated>
+    <id>http://ziwu1216.github.com/blog/2013/01/11/about-graduation-project</id>
+    <content type="html"><![CDATA[<p>这周听了师兄师姐们的毕业设计答辩，老师给的一些意见都很中肯也很有意义。</p>
+
+<!--more-->
+
+
+<h2>关于论文编排</h2>
+
+<ul>
+<li>论文中要对涉及到的基本概念进行阐释，因为不是所有人都熟悉你做的内容，但是篇幅也不能太多</li>
+<li>用到的图像要清晰美观，如果是照片之类的请保持微笑:)</li>
+<li>论文排版要注意
+
+<h2>关于论文内容</h2></li>
+<li>测试集要尽量大，这样结论才有说服力</li>
+<li>在优化时，第一个考虑的其实是根据实际情况筛选，排除不需要进行处理的情况，这是最彻底的减轻运算量的方法</li>
+<li>经典算法的改进效果要实事求是，大家都知道经典算法的情况，所以改进效果太好的话容易引起质疑，必须要有强力的理论和测试支撑才行</li>
+<li><p>对自己成果的描述口吻要客观，分清“提出了”和“改进了”</p>
+
+<h2>关于ppt演讲</h2>
+
+<p>以下这些就是我自己的感觉了</p></li>
+<li><p>演讲时的语速语调真的对演讲效果有很大影响的，语调振奋一点可能比较好，平淡无起伏的声音比较像读书，让人昏昏欲睡</p></li>
+<li>内容和时间要把握好，宁可提前删减一些内容，也不要用加快语速的方法，听众会跟不上思路。<br/>
+我自己好像是习惯快语速，还总想略讲一些内容，不管时间够不够，不知道是不是由于紧张，一定要有意识地改进</li>
+<li>检查ppt，不要出现错别字等等，否则容易让人觉得自己对这次演讲重视不够</li>
+</ul>
+
+]]></content>
+  </entry>
   
   <entry>
     <title type="html"><![CDATA[hello octopress 2：流程记录]]></title>
