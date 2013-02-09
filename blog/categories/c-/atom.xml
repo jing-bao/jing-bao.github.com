@@ -4,7 +4,7 @@
   <title><![CDATA[Category: c++ | Jean's Blog]]></title>
   <link href="http://ziwu1216.github.com/blog/categories/c-/atom.xml" rel="self"/>
   <link href="http://ziwu1216.github.com/"/>
-  <updated>2013-01-11T23:30:31+08:00</updated>
+  <updated>2013-02-09T13:29:13+08:00</updated>
   <id>http://ziwu1216.github.com/</id>
   <author>
     <name><![CDATA[Jean]]></name>
@@ -12,6 +12,142 @@
   </author>
   <generator uri="http://octopress.org/">Octopress</generator>
 
+  
+  <entry>
+    <title type="html"><![CDATA[数据结构与算法分析 读书笔记 1]]></title>
+    <link href="http://ziwu1216.github.com/blog/2013/02/09/data-structures-notes-1/"/>
+    <updated>2013-02-09T13:16:00+08:00</updated>
+    <id>http://ziwu1216.github.com/blog/2013/02/09/data-structures-notes-1</id>
+    <content type="html"><![CDATA[<p>看扫描pdf真心累啊，可是家里没有纸质书。。。</p>
+
+<p>书籍信息：数据结构与算法分析 C++描述（第3版）Mark Allen Weiss 著；张怀勇等译；人民邮电出版社</p>
+
+<!--more-->
+
+
+<h2>第一章 引论</h2>
+
+<h3>1.1</h3>
+
+<p>问题1：选择问题设有一组N个数，要确定其中第k个最大的数</p>
+
+<p>问题2：输入由一个二维字母数组和一个单词表组成，找出水平、垂直或对角方向放置的单词</p>
+
+<h3>1.2</h3>
+
+<ul>
+<li>几何级数：（l=0-N）A<sup>l</sup> = (A<sup>(N+1)</sup> - 1) / (A-1)</li>
+<li>算术级数：（i=1-N）i = N（N+1）/2</li>
+<li>调和数：（i=1-N）1/i ~= logeN</li>
+</ul>
+
+
+<p>归纳法：第一步证明基准情形（对于某个或某些值），接着归纳假设（k），然后证明k+1。必须k有限。</p>
+
+<h3>1.3</h3>
+
+<p>递归：需要处理基准情况base case和递归调用。</p>
+
+<ul>
+<li>基准情形</li>
+<li>不断推进：递归调用将一直进行到基准情形出现为止，若永远不能到达基准情形，则出错。</li>
+<li>设计法则：假设所有的递归调用都能运行。不追踪实际的递归调用序列。</li>
+<li>合成效益法则：在求解一个问题的同一实例时，切勿在不同的递归调用中做重复性的工作。</li>
+</ul>
+
+
+<h3>1.4</h3>
+
+<p>构造函数中，const数据成员和自定义类数据成员，必须在初始化列表里初始化</p>
+
+<p>所有单参数的构造函数都必须是explicit的，以避免后台的类型转换</p>
+
+<p>C++标准定义了两个类vector和string，意在替代内置数组和字符串，增加了=复制、大小确定、==比较等，使用他们几乎总是较好的选择</p>
+
+<h3>1.5</h3>
+
+<p>指针最好进行初始化，可以初始化为NULL</p>
+
+<p>按值调用适用于不被函数更改的小对象，按常量引用调用适用于不被函数更改的大对象，引址调用适用于所有可以被函数更改的对象</p>
+
+<p>如果返回值是类类型的，可以使用按常量引用返回以节省复制的开销，但必须保证返回语句中的表达式在函数返回时不被销毁。</p>
+
+<p>三个默认特殊函数：</p>
+
+<ul>
+<li>析构函数</li>
+<li>复制构造函数：IntCell B = C； IntCell B(C); 按值调用传递时；按值返回时。每个数据成员依次复制，若有类对象的数据成员，调用数据成员的复制构造函数</li>
+<li>operator=
+有指针数据成员时，默认特殊函数会造成内存泄露和浅复制</li>
+</ul>
+
+
+<h3>1.6</h3>
+
+<p>函数模板可以应需要而自动扩展-->代码膨胀</p>
+
+<p>模板实参可以使用任何类类型，因此尽量使用常量引用</p>
+
+<p>类模板：例如数据成员类型不确定</p>
+
+<p>函数对象：定义一个包含零个数据和一个成员函数的类。使用operator(),调用cmp.operator()(x,y)可以简写为cmp(x,y)，看上去就像函数调用，因此operator()被称为函数调用操作符</p>
+
+<p>``` c++
+class CaseInsensitiveCompare
+{
+public:</p>
+
+<pre><code>bool operator()(const string &amp; lhs, const string &amp; rhs) const
+{ return stricmp(lhs.c_str(), rhs.c_str()) &lt; 0; } 
+</code></pre>
+
+<p>};</p>
+
+<p>template <typename Object, typename Comparator>
+const Object &amp; findMax(const vector<Object> &amp; arr, Comparator isLessThan)
+{</p>
+
+<pre><code>...
+isLessThan(arr[maxIndex], arr[i])
+...
+</code></pre>
+
+<p>}</p>
+
+<p>int main()
+{</p>
+
+<pre><code>...
+cout &lt;&lt; findMax(arr, CaseInsensitiveCompare()) &lt;&lt; endl;
+...
+</code></pre>
+
+<p>}
+```</p>
+
+<h3>1.7</h3>
+
+<p>矩阵matrix类的构造，使用向量的向量，重载operator[]。需要有两个版本的operator[],因为<code>to[i] = from[i]</code>,需要返回一个常量引用给from，返回一个普通引用给to。</p>
+
+<p>【？？？】【C++这样重载可以正常工作吗？为什么知道调用哪个operator[]？】</p>
+
+<p>``` c++
+public:</p>
+
+<pre><code>const vector&lt;Object&gt; &amp; operator[](int row) const
+{ return array[row]; }
+vector&lt;Object&gt; &amp; operator[](int row)
+{ return array[row]; }
+</code></pre>
+
+<p>private:</p>
+
+<pre><code>vector&lt; vector&lt;Object&gt; &gt; array;
+</code></pre>
+
+<p>```</p>
+]]></content>
+  </entry>
   
   <entry>
     <title type="html"><![CDATA[C++ Primer 读书笔记 1]]></title>
