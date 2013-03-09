@@ -4,7 +4,7 @@
   <title><![CDATA[Jean's Blog]]></title>
   <link href="http://ziwu1216.github.com/atom.xml" rel="self"/>
   <link href="http://ziwu1216.github.com/"/>
-  <updated>2013-02-09T13:29:13+08:00</updated>
+  <updated>2013-03-10T00:24:40+08:00</updated>
   <id>http://ziwu1216.github.com/</id>
   <author>
     <name><![CDATA[Jean]]></name>
@@ -12,6 +12,274 @@
   </author>
   <generator uri="http://octopress.org/">Octopress</generator>
 
+  
+  <entry>
+    <title type="html"><![CDATA[『转载整理』javascript prototype 详解]]></title>
+    <link href="http://ziwu1216.github.com/blog/2013/03/10/javascript-prototype-explanation/"/>
+    <updated>2013-03-10T00:05:00+08:00</updated>
+    <id>http://ziwu1216.github.com/blog/2013/03/10/javascript-prototype-explanation</id>
+    <content type="html"><![CDATA[<p>没有系统学过JavaScript语言，就要开始对JavaScript引擎做些改动，因此不可避免地撞上了JavaScript的一些独特的特性，例如prototype。</p>
+
+<p>只是最基本的概念理清，不包含复杂的编程模式之类。</p>
+
+<!--more-->
+
+
+<h2><code>__proto__</code>属性和原型链</h2>
+
+<ul>
+<li><code>__proto__</code>是每个JavaScript对象的私有属性，指向对象的原型。原型也是对象。</li>
+<li>原型链是指对象上的<code>__proto__</code>链。</li>
+<li>属性查找通过原型链进行。</li>
+</ul>
+
+
+<p>这是一个简单的对象定义。</p>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+</pre></td><td class='code'><pre><code class='javascript'><span class='line'><span class="kd">var</span> <span class="nx">foo</span> <span class="o">=</span> <span class="p">{</span>
+</span><span class='line'>  <span class="nx">x</span><span class="o">:</span> <span class="mi">10</span><span class="p">,</span>
+</span><span class='line'>  <span class="nx">y</span><span class="o">:</span> <span class="mi">20</span>
+</span><span class='line'><span class="p">};</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>这个结构定义了两个显式属性和一个隐式属性 <code>__proto__</code>，它指向foo的原型
+<img src="http://ziwu1216.github.com/images/javascript-prototype-explanation-proto.gif" title="foo对象" alt="图片加载失败 :("></p>
+
+<p>设想两个对象有一些属性不同而其他所有属性都相同的情况，很明显，设计良好的系统应当代码重用，而不是在一个对象中重复定义。
+ECMAScript没有类的概念，它是通过原型链来达到同样的效果的。</p>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+<span class='line-number'>9</span>
+<span class='line-number'>10</span>
+<span class='line-number'>11</span>
+<span class='line-number'>12</span>
+<span class='line-number'>13</span>
+<span class='line-number'>14</span>
+<span class='line-number'>15</span>
+<span class='line-number'>16</span>
+<span class='line-number'>17</span>
+<span class='line-number'>18</span>
+<span class='line-number'>19</span>
+<span class='line-number'>20</span>
+</pre></td><td class='code'><pre><code class='javascript'><span class='line'><span class="kd">var</span> <span class="nx">a</span> <span class="o">=</span> <span class="p">{</span>
+</span><span class='line'>  <span class="nx">x</span><span class="o">:</span> <span class="mi">10</span><span class="p">,</span>
+</span><span class='line'>  <span class="nx">calculate</span><span class="o">:</span> <span class="kd">function</span> <span class="p">(</span><span class="nx">z</span><span class="p">)</span> <span class="p">{</span>
+</span><span class='line'>    <span class="k">return</span> <span class="k">this</span><span class="p">.</span><span class="nx">x</span> <span class="o">+</span> <span class="k">this</span><span class="p">.</span><span class="nx">y</span> <span class="o">+</span> <span class="nx">z</span>
+</span><span class='line'>  <span class="p">}</span>
+</span><span class='line'><span class="p">};</span>
+</span><span class='line'>
+</span><span class='line'><span class="kd">var</span> <span class="nx">b</span> <span class="o">=</span> <span class="p">{</span>
+</span><span class='line'>  <span class="nx">y</span><span class="o">:</span> <span class="mi">20</span><span class="p">,</span>
+</span><span class='line'>  <span class="nx">__proto__</span><span class="o">:</span> <span class="nx">a</span>
+</span><span class='line'><span class="p">};</span>
+</span><span class='line'>
+</span><span class='line'><span class="kd">var</span> <span class="nx">c</span> <span class="o">=</span> <span class="p">{</span>
+</span><span class='line'>  <span class="nx">y</span><span class="o">:</span> <span class="mi">30</span><span class="p">,</span>
+</span><span class='line'>  <span class="nx">__proto__</span><span class="o">:</span> <span class="nx">a</span>
+</span><span class='line'><span class="p">};</span>
+</span><span class='line'>
+</span><span class='line'><span class="c1">// call the inherited method</span>
+</span><span class='line'><span class="nx">b</span><span class="p">.</span><span class="nx">calculate</span><span class="p">(</span><span class="mi">30</span><span class="p">);</span> <span class="c1">// 60</span>
+</span><span class='line'><span class="nx">c</span><span class="p">.</span><span class="nx">calculate</span><span class="p">(</span><span class="mi">40</span><span class="p">);</span> <span class="c1">// 80</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>b和c可以访问a中定义的calculate方法，这就是通过原型链达到的。
+规则很简单：如果一个方法或者属性不在一个对象本身里面，那么就尝试在原型链中查找。如果在原型中没有找到，那么就在原型的原型中查找，以此类推查找整个原型链。最先发现的属性或者方法最先使用。如果在整个原型链中都没有找到，将返回undefined值。</p>
+
+<p>注意，那个在继承方法中的this值是原始的对象（b和c），而不是定义这个方法的对象（a），在这个例子中，this.y是b和c中的y，而不是a中的。然而this.x来自于a，但这是通过原型链机制得到的（x本来应该是从b和c中获得，但他们本身没有）</p>
+
+<p>如果一个对象没有显式指定原型，那么默认的<code>__proto__</code>值是Object.prototype。Object.prototype本身也有一个<code>__proto__</code>，它是原型链中的最后一个，其值为null
+<img src="http://ziwu1216.github.com/images/javascript-prototype-explanation-prototype-chain.gif" title="原型链" alt="图片加载失败 :("></p>
+
+<h2>prototype和<code>__proto__</code></h2>
+
+<ul>
+<li>prototype是JavaScript函数具有的属性</li>
+<li>new的时候会把函数的prototype赋给对象的<code>__proto__</code>属性。</li>
+</ul>
+
+
+<p>以下是一个简单的new的过程</p>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+</pre></td><td class='code'><pre><code class='javascript'><span class='line'><span class="kd">var</span> <span class="nx">Person</span> <span class="o">=</span> <span class="kd">function</span> <span class="p">()</span> <span class="p">{</span> <span class="p">};</span>
+</span><span class='line'><span class="kd">var</span> <span class="nx">p</span> <span class="o">=</span> <span class="k">new</span> <span class="nx">Person</span><span class="p">();</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>可以把new的过程拆分成三步：</p>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+</pre></td><td class='code'><pre><code class='javascript'><span class='line'><span class="kd">var</span> <span class="nx">p</span><span class="o">=</span><span class="p">{};</span>
+</span><span class='line'><span class="nx">p</span><span class="p">.</span><span class="nx">__proto__</span><span class="o">=</span><span class="nx">Person</span><span class="p">.</span><span class="nx">prototype</span><span class="p">;</span>
+</span><span class='line'><span class="nx">Person</span><span class="p">.</span><span class="nx">call</span><span class="p">(</span><span class="nx">p</span><span class="p">);</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>证明一下第二步。</p>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+</pre></td><td class='code'><pre><code class='javascript'><span class='line'><span class="kd">var</span> <span class="nx">Person</span> <span class="o">=</span> <span class="kd">function</span> <span class="p">()</span> <span class="p">{</span> <span class="p">};</span>
+</span><span class='line'><span class="kd">var</span> <span class="nx">p</span> <span class="o">=</span> <span class="k">new</span> <span class="nx">Person</span><span class="p">();</span>
+</span><span class='line'><span class="nx">alert</span><span class="p">(</span><span class="nx">p</span><span class="p">.</span><span class="nx">__proto__</span> <span class="o">===</span> <span class="nx">Person</span><span class="p">.</span><span class="nx">prototype</span><span class="p">);</span><span class="c1">//true,ie不支持访问此私有属性</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<h2>prototype</h2>
+
+<p>在学习prototype(原型)的时候，我们首先要搞明白这样两个规则：</p>
+
+<ul>
+<li>使用原型可以大量减少每个对象对内存的需求量，因为对象可以继承许多属性。</li>
+<li>即使属性在对象被创建之后才被添加至原型中，对象也能够继承这些属性。</li>
+</ul>
+
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+<span class='line-number'>9</span>
+<span class='line-number'>10</span>
+<span class='line-number'>11</span>
+<span class='line-number'>12</span>
+<span class='line-number'>13</span>
+<span class='line-number'>14</span>
+<span class='line-number'>15</span>
+<span class='line-number'>16</span>
+<span class='line-number'>17</span>
+</pre></td><td class='code'><pre><code class='javascript'><span class='line'><span class="c1">//创建一个构造函数 “用户”</span>
+</span><span class='line'><span class="kd">function</span> <span class="nx">User</span><span class="p">(</span><span class="nx">name</span><span class="p">)</span>
+</span><span class='line'><span class="p">{</span>
+</span><span class='line'>    <span class="k">this</span><span class="p">.</span><span class="nx">name</span> <span class="o">=</span> <span class="nx">name</span><span class="p">;</span>
+</span><span class='line'><span class="p">}</span>
+</span><span class='line'>
+</span><span class='line'><span class="c1">//实例化一个用户——&gt;老张</span>
+</span><span class='line'><span class="kd">var</span> <span class="err">老张</span> <span class="o">=</span> <span class="k">new</span> <span class="nx">User</span><span class="p">(</span><span class="s1">&#39;老张&#39;</span><span class="p">);</span>
+</span><span class='line'>
+</span><span class='line'><span class="c1">//弹窗显示老张的名字</span>
+</span><span class='line'><span class="nx">alert</span><span class="p">(</span><span class="err">老张</span><span class="p">.</span><span class="nx">name</span><span class="p">);</span>
+</span><span class='line'>
+</span><span class='line'><span class="c1">//定义原型，注意这里对象“老张”已经被实例化了</span>
+</span><span class='line'><span class="nx">User</span><span class="p">.</span><span class="nx">prototype</span><span class="p">.</span><span class="nx">favchannel</span> <span class="o">=</span> <span class="s1">&#39;CCAV&#39;</span><span class="p">;</span>
+</span><span class='line'>
+</span><span class='line'><span class="c1">//弹窗显示老张最喜欢的电视台</span>
+</span><span class='line'><span class="nx">alert</span><span class="p">(</span><span class="err">老张</span><span class="p">.</span><span class="nx">favchannel</span><span class="p">);</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>读属性时，顺序是：老张——>User.prototype——>Object.prototype</p>
+
+<p>只有读属性的时候才会使用prototype，写属性的时候是不会用到prototype的。</p>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+<span class='line-number'>9</span>
+<span class='line-number'>10</span>
+<span class='line-number'>11</span>
+</pre></td><td class='code'><pre><code class='javascript'><span class='line'><span class="c1">//老李是一个新的用户</span>
+</span><span class='line'><span class="kd">var</span> <span class="err">老李</span> <span class="o">=</span> <span class="k">new</span> <span class="nx">User</span><span class="p">(</span><span class="s1">&#39;老李&#39;</span><span class="p">);</span>
+</span><span class='line'>
+</span><span class='line'><span class="c1">//老李喜欢小电影</span>
+</span><span class='line'><span class="err">老李</span><span class="p">.</span><span class="nx">favchannel</span> <span class="o">=</span> <span class="s1">&#39;JAPANTV&#39;</span><span class="p">;</span>
+</span><span class='line'>
+</span><span class='line'><span class="c1">//弹窗显示JAPANTV</span>
+</span><span class='line'><span class="nx">alert</span><span class="p">(</span><span class="err">老李</span><span class="p">.</span><span class="nx">favchannel</span><span class="p">);</span>
+</span><span class='line'>
+</span><span class='line'><span class="c1">//弹窗显示老张还是中意CCAV</span>
+</span><span class='line'><span class="nx">alert</span><span class="p">(</span><span class="err">老张</span><span class="p">.</span><span class="nx">favchannel</span><span class="p">);</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>复杂点的原型链</p>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+<span class='line-number'>9</span>
+<span class='line-number'>10</span>
+<span class='line-number'>11</span>
+<span class='line-number'>12</span>
+<span class='line-number'>13</span>
+<span class='line-number'>14</span>
+<span class='line-number'>15</span>
+<span class='line-number'>16</span>
+<span class='line-number'>17</span>
+</pre></td><td class='code'><pre><code class='javascript'><span class='line'><span class="kd">var</span> <span class="nx">Person</span> <span class="o">=</span> <span class="kd">function</span> <span class="p">()</span> <span class="p">{</span> <span class="p">};</span>
+</span><span class='line'><span class="nx">Person</span><span class="p">.</span><span class="nx">prototype</span><span class="p">.</span><span class="nx">Say</span> <span class="o">=</span> <span class="kd">function</span> <span class="p">()</span> <span class="p">{</span>
+</span><span class='line'>    <span class="nx">alert</span><span class="p">(</span><span class="s2">&quot;Person say&quot;</span><span class="p">);</span>
+</span><span class='line'><span class="p">}</span>
+</span><span class='line'><span class="nx">Person</span><span class="p">.</span><span class="nx">prototype</span><span class="p">.</span><span class="nx">Salary</span> <span class="o">=</span> <span class="mi">50000</span><span class="p">;</span>
+</span><span class='line'>
+</span><span class='line'><span class="kd">var</span> <span class="nx">Programmer</span> <span class="o">=</span> <span class="kd">function</span> <span class="p">()</span> <span class="p">{</span> <span class="p">};</span>
+</span><span class='line'><span class="nx">Programmer</span><span class="p">.</span><span class="nx">prototype</span> <span class="o">=</span> <span class="k">new</span> <span class="nx">Person</span><span class="p">();</span>
+</span><span class='line'><span class="nx">Programmer</span><span class="p">.</span><span class="nx">prototype</span><span class="p">.</span><span class="nx">WriteCode</span> <span class="o">=</span> <span class="kd">function</span> <span class="p">()</span> <span class="p">{</span>
+</span><span class='line'>    <span class="nx">alert</span><span class="p">(</span><span class="s2">&quot;programmer writes code&quot;</span><span class="p">);</span>
+</span><span class='line'><span class="p">};</span>
+</span><span class='line'><span class="nx">Programmer</span><span class="p">.</span><span class="nx">prototype</span><span class="p">.</span><span class="nx">Salary</span> <span class="o">=</span> <span class="mi">500</span><span class="p">;</span>
+</span><span class='line'>
+</span><span class='line'><span class="kd">var</span> <span class="nx">p</span> <span class="o">=</span> <span class="k">new</span> <span class="nx">Programmer</span><span class="p">();</span>
+</span><span class='line'><span class="nx">p</span><span class="p">.</span><span class="nx">Say</span><span class="p">();</span>
+</span><span class='line'><span class="nx">p</span><span class="p">.</span><span class="nx">WriteCode</span><span class="p">();</span>
+</span><span class='line'><span class="nx">alert</span><span class="p">(</span><span class="nx">p</span><span class="p">.</span><span class="nx">Salary</span><span class="p">);</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>详细推导：
+<code>var p=new Programmer()</code> => <code>p.__proto__=Programmer.prototype</code>;</p>
+
+<p><code>Programmer.prototype=new Person()</code> => <code>Programmer.prototype.__proto__=Person.prototype</code>;</p>
+
+<p>=> <code>p.__proto__.__proto__=Person.prototype</code></p>
+
+<h2>Next</h2>
+
+<p>我还看到一张更复杂的图，不过要理解下constructor属性，下次继续</p>
+
+<hr />
+
+<p>参考链接：</p>
+
+<p><a href="http://blog.csdn.net/wanghui499917270/article/details/7170207">V8引擎实现标准ECMA-262（二）</a></p>
+
+<p><a href="http://www.cnblogs.com/kym/archive/2010/01/09/1643062.html">Javascript学习笔记7——原型链的原理</a></p>
+
+<p><a href="http://www.xiaoxiaozi.com/2009/06/29/995/">JavaScript prototype原型对象</a></p>
+]]></content>
+  </entry>
   
   <entry>
     <title type="html"><![CDATA[数据结构与算法分析 读书笔记 1]]></title>
