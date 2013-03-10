@@ -5,14 +5,14 @@
 <!--[if (gt IE 8)|(gt IEMobile 7)|!(IEMobile)|!(IE)]><!--><html class="no-js" lang="en"><!--<![endif]-->
 <head>
   <meta charset="utf-8">
-  <title>关于毕业设计 - Jean's Blog</title>
+  <title>数据结构与算法分析 读书笔记 2 - Jean's Blog</title>
   <meta name="author" content="Jean">
 
   
-  <meta name="description" content="这周听了师兄师姐们的毕业设计答辩，老师给的一些意见都很中肯也很有意义。 关于论文编排 论文中要对涉及到的基本概念进行阐释，因为不是所有人都熟悉你做的内容，但是篇幅也不能太多
-用到的图像要清晰美观，如果是照片之类的请保持微笑:)
-论文排版要注意 关于论文内容
-测试集要尽量大，这样结论才有说服力 &hellip;">
+  <meta name="description" content="半个多月前就记了，一直都没整理…… 第二章 算法分析 算法是为求解一个问题需要遵循的、被清楚地指定的简单指令的集合。 2.1 数学基础 这些定义是相对增长率的比较。 大O，f是T的上界
+omega，g是T的下界
+theta，表示严格的增长率相等。
+【？？？】【为什么定义四是对所有常数？】 重要法则 &hellip;">
   
 
   <!-- http://t.co/dKP3o1e -->
@@ -21,7 +21,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1">
 
   
-  <link rel="canonical" href="http://ziwu1216.github.com/blog/2013/01/11/about-graduation-project/">
+  <link rel="canonical" href="http://ziwu1216.github.com/blog/2013/03/10/data-structures-notes-2/">
   <link href="/favicon.png" rel="icon">
   <link href="/stylesheets/screen.css" media="screen, projection" rel="stylesheet" type="text/css">
   <script src="/javascripts/modernizr-2.0.js"></script>
@@ -68,7 +68,7 @@
   
   <header>
     
-      <h1 class="entry-title">关于毕业设计</h1>
+      <h1 class="entry-title">数据结构与算法分析 读书笔记 2</h1>
     
     
       <p class="meta">
@@ -84,40 +84,89 @@
   
 
 
-<time datetime="2013-01-11T23:02:00+08:00" pubdate data-updated="true">Jan 11<span>th</span>, 2013</time>
+<time datetime="2013-03-10T22:39:00+08:00" pubdate data-updated="true">Mar 10<span>th</span>, 2013</time>
         
       </p>
     
   </header>
 
 
-<div class="entry-content"><p>这周听了师兄师姐们的毕业设计答辩，老师给的一些意见都很中肯也很有意义。</p>
+<div class="entry-content"><p>半个多月前就记了，一直都没整理……</p>
 
 <!--more-->
 
 
-<h2>关于论文编排</h2>
+<h2>第二章 算法分析</h2>
+
+<p>算法是为求解一个问题需要遵循的、被清楚地指定的简单指令的集合。</p>
+
+<h3>2.1 数学基础</h3>
+
+<p><img src="/images/data-structures-notes-2-def.PNG" title="定义" alt="图片加载失败 :(">
+这些定义是相对增长率的比较。</p>
 
 <ul>
-<li>论文中要对涉及到的基本概念进行阐释，因为不是所有人都熟悉你做的内容，但是篇幅也不能太多</li>
-<li>用到的图像要清晰美观，如果是照片之类的请保持微笑:)</li>
-<li>论文排版要注意
-
-<h2>关于论文内容</h2></li>
-<li>测试集要尽量大，这样结论才有说服力</li>
-<li>在优化时，第一个考虑的其实是根据实际情况筛选，排除不需要进行处理的情况，这是最彻底的减轻运算量的方法</li>
-<li>经典算法的改进效果要实事求是，大家都知道经典算法的情况，所以改进效果太好的话容易引起质疑，必须要有强力的理论和测试支撑才行</li>
-<li><p>对自己成果的描述口吻要客观，分清“提出了”和“改进了”</p>
-
-<h2>关于ppt演讲</h2>
-
-<p>以下这些就是我自己的感觉了</p></li>
-<li><p>演讲时的语速语调真的对演讲效果有很大影响的，语调振奋一点可能比较好，平淡无起伏的声音比较像读书，让人昏昏欲睡</p></li>
-<li>内容和时间要把握好，宁可提前删减一些内容，也不要用加快语速的方法，听众会跟不上思路。<br/>
-我自己好像是习惯快语速，还总想略讲一些内容，不管时间够不够，不知道是不是由于紧张，一定要有意识地改进</li>
-<li>检查ppt，不要出现错别字等等，否则容易让人觉得自己对这次演讲重视不够</li>
+<li>大O，f是T的上界</li>
+<li>omega，g是T的下界</li>
+<li>theta，表示严格的增长率相等。<br/>
+【？？？】【为什么定义四是对所有常数？】</li>
 </ul>
 
+
+<p>重要法则：<img src="/images/data-structures-notes-2-rule.PNG" title="法则" alt="图片加载失败 :("><br/>
+典型增长率：<img src="/images/data-structures-notes-2-rate.PNG" title="典型增长率" alt="图片加载失败 :("></p>
+
+<p>不要将常数或低阶项放进大O</p>
+
+<p>可以通过计算lim（N→+∞）f(N)/g(N)来比较函数的相对增长率（洛必达法则，分子分母求导）</p>
+
+<h3>2.3 要分析的问题</h3>
+
+<p>分析程序的运行时间，一般需要最坏情况而非平均情况，一是因为对所有输入提供界限，二是因为平均计算起来困难。</p>
+
+<p>高效算法中，数据读入常常成为瓶颈。</p>
+
+<h3>2.4 运行时间计算</h3>
+
+<p>一般法则</p>
+
+<ul>
+<li>法则1： for循环，时间至多是该循环内语句（包括测试）的运行时间乘以迭代的次数</li>
+<li>法则2： 嵌套循环，从里向外分析【也是分析运行时间的基本策略】，一组嵌套循环内部的一条语句总的运行时间，为该语句时间乘以该组所有循环的大小的乘积</li>
+<li>法则3： 顺序语句，将各个语句的运行时间求和</li>
+<li>法则4： if/else语句，不超过判断语句时间加分支中运行较长的时间之和</li>
+</ul>
+
+
+<p>递归和调用的运行时间分析举例【！！！需复习】<br/>
+令T(N)为求解大小为N的问题所花费时间，基准条件得到T(0)，T(1)等，迭代得到关系式如T(N) = 2T(N/2) + O(N),求解。【？？？】【如何求解】</p>
+
+<h4>最大子序列和问题的求解</h4>
+
+<p>多重求和公式计算算法复杂度【！！！需复习】</p>
+
+<p>递归算法，“分治”策略，把整组数据分为左右两个子序列，考虑可能出现在左边，右边，或横跨左右。【！！！需编码】  <br/>
+递归函数调用的一般形式是传递输入数组以及左边界和右边界，它们界定了数组要被处理的部分。<br/>
+【在递归中，设计传递参数很重要，书中的例子避免了子序列的拷贝，比我开始设计的参数好很多】</p>
+
+<p>联机算法：在任意时刻，算法都能对它已经读入的数据给出问题的正确答案。仅需要常量空间并以线性时间运行的算法几乎是完美的算法。</p>
+
+<h4>O(logN)</h4>
+
+<p>如果一个算法用常数时间将问题的大小削减为其一部分（通常是1/2），那么该算法就是O(logN)的。</p>
+
+<ul>
+<li>二分搜索</li>
+<li>欧几里得算法</li>
+<li>幂运算</li>
+</ul>
+
+
+<h4>检验分析</h4>
+
+<p>方法一是编程并比较N扩大一倍后实际运行时间与分析是否匹配。很多时候很困难。</p>
+
+<p>方法二：验证是否O(f(N))，对N的某个范围计算T(N)/f(n)，T(N)是观察到的运行时间。（收敛于正常数，收敛于0，发散）【？？？】【什么是“用2的倍数隔开”】</p>
 </div>
 
 
@@ -140,12 +189,12 @@
   
 
 
-<time datetime="2013-01-11T23:02:00+08:00" pubdate data-updated="true">Jan 11<span>th</span>, 2013</time>
+<time datetime="2013-03-10T22:39:00+08:00" pubdate data-updated="true">Mar 10<span>th</span>, 2013</time>
       
 
 <span class="categories">
   
-    <a class='category' href='/blog/categories/random-thoughts/'>random thoughts</a>
+    <a class='category' href='/blog/categories/c-/'>c++</a>, <a class='category' href='/blog/categories/notes/'>notes</a>
   
 </span>
 
@@ -184,10 +233,8 @@ var jiathis_config = {data_track_clickback:'true'};
     
     <p class="meta">
       
-        <a class="basic-alignment left" href="/blog/2013/01/05/hello-octopress-2/" title="Previous Post: hello octopress 2：流程记录">&laquo; hello octopress 2：流程记录</a>
+        <a class="basic-alignment left" href="/blog/2013/03/10/javascript-prototype-explanation/" title="Previous Post: 『转载整理』javascript prototype 详解">&laquo; 『转载整理』javascript prototype 详解</a>
       
-      
-        <a class="basic-alignment right" href="/blog/2013/02/09/data-structures-notes-1/" title="Next Post: 数据结构与算法分析 读书笔记 1">数据结构与算法分析 读书笔记 1 &raquo;</a>
       
     </p>
   </footer>
