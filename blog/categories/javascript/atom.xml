@@ -4,7 +4,7 @@
   <title><![CDATA[Category: javascript | Jean's Blog]]></title>
   <link href="http://ziwu1216.github.com/blog/categories/javascript/atom.xml" rel="self"/>
   <link href="http://ziwu1216.github.com/"/>
-  <updated>2013-03-10T23:20:53+08:00</updated>
+  <updated>2013-03-11T10:56:38+08:00</updated>
   <id>http://ziwu1216.github.com/</id>
   <author>
     <name><![CDATA[Jean]]></name>
@@ -12,6 +12,135 @@
   </author>
   <generator uri="http://octopress.org/">Octopress</generator>
 
+  
+  <entry>
+    <title type="html"><![CDATA[『转载整理』javascript constructor 详解]]></title>
+    <link href="http://ziwu1216.github.com/blog/2013/03/11/javascript-constructor-explanation/"/>
+    <updated>2013-03-11T10:43:00+08:00</updated>
+    <id>http://ziwu1216.github.com/blog/2013/03/11/javascript-constructor-explanation</id>
+    <content type="html"><![CDATA[<h2>constructor简介</h2>
+
+<ul>
+<li>constructor 属性是每个具有原型的对象的原型成员。</li>
+<li>这包括除 Global 和 Math 对象之外的所有内部 JavaScript 对象。</li>
+</ul>
+
+
+<!--more-->
+
+
+<p>用法：<br/>
+``` javascript
+// A constructor function.
+function MyObj() {</p>
+
+<pre><code>this.number = 1;
+</code></pre>
+
+<p>}</p>
+
+<p>var x = new String("Hi");</p>
+
+<p>if (x.constructor == String)</p>
+
+<pre><code>document.write("Object is a String.");
+</code></pre>
+
+<p>document.write ("<br />");</p>
+
+<p>var y = new MyObj;
+if (y.constructor == MyObj)</p>
+
+<pre><code>document.write("Object constructor is MyObj.");
+</code></pre>
+
+<p>// Output:
+// Object is a String.
+// Object constructor is MyObj.
+```</p>
+
+<h2>constructor和prototype</h2>
+
+<ul>
+<li><code>Foo.prototype.constructor</code>是系统(浏览器)创建的，默认指向Foo。</li>
+<li>对象b的constructor属性是通过找到<code>b.__proto__.constructor</code>(即<code>Foo.prototype.constructor</code>)访问的，存在于原型链中，而非对象本身属性</li>
+</ul>
+
+
+<p>``` javascript
+// 构造函数
+function Foo(y) {
+  this.y = y;
+}</p>
+
+<p>//Foo.prototype存储了新创建对象的原型的引用，我们可以使用它来定义共享的属性或方法
+Foo.prototype.x = 10;
+Foo.prototype.calculate = function (z) {
+  return this.x + this.y + z;
+};</p>
+
+<p>var b = new Foo(20);
+var c = new Foo(30);</p>
+
+<p>console.log(
+  // Foo.prototype 会自动创建一个特别的属性constructor指向构造函数Foo
+  // 对象b和c可以通过代理找到此构造函数
+  b.constructor === Foo, // true
+  c.constructor === Foo, // true
+  Foo.prototype.constructor === Foo // true
+);
+```</p>
+
+<p>以上对象的关系如下图所示
+<img src="/images/javascript-constructor-explanation-relation.jpg" title="关系示意图" alt="图片加载失败:("></p>
+
+<h2>constructor易变</h2>
+
+<p>constructor易变，是因为函数的prototype属性容易被更改。例如：</p>
+
+<p>``` javascript
+function F() {}
+F.prototype = {
+<em>name: 'Eric',
+getName: function() {
+return this.</em>name;
+}
+};</p>
+
+<p>var f = new F();
+alert(f.constructor === F); // output false</p>
+
+<p>alert(f.constructor === Object.prototype.constructor);//output true
+alert(f.constructor === Object);// also output true<br/>
+```</p>
+
+<p>F的原型被开发者重写了，这种方式将原有的prototype对象用一个对象的字面量{}来代替。而新建的对象{}只是Object的一个实例，系统（浏览器）在解析的时候并不会在{}上自动添加一个constructor属性，因为这是function创建时的专属操作，仅当你声明函数的时候解析器才会做此动作。<br/>
+因为{}是创建对象的一种简写，所以{}相当于是new Object()。因为{}是Object的实例，而Object.prototype上有一个指向Object本身的constructor属性。所以可以看出f.constructor其实就是Object.prototype的constructor，</p>
+
+<p>一个解决办法就是手动恢复他的constructor：</p>
+
+<p>``` javascript
+function F() {}
+F.prototype = {
+constructor: F, /<em> reset constructor </em>/
+<em>name: 'Eric',
+getName: function() {
+return this.</em>name;
+}
+};</p>
+
+<p>var f = new F();
+alert(f.constructor === F); // output true this time ^^
+```</p>
+
+<hr />
+
+<p>参考链接：<br/>
+<a href="http://msdn.microsoft.com/zh-cn/library/c1hcx253.aspx">constructor 属性 (JavaScript)</a><br/>
+<a href="http://blog.csdn.net/wanghui499917270/article/details/7171542">V8引擎实现标准ECMA-262（三）</a><br/>
+<a href="http://www.douban.com/group/topic/23280359/">揭开constructor属性的神秘面纱</a></p>
+]]></content>
+  </entry>
   
   <entry>
     <title type="html"><![CDATA[『转载整理』javascript prototype 详解]]></title>
