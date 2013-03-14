@@ -1,0 +1,370 @@
+
+<!DOCTYPE html>
+<!--[if IEMobile 7 ]><html class="no-js iem7"><![endif]-->
+<!--[if lt IE 9]><html class="no-js lte-ie8"><![endif]-->
+<!--[if (gt IE 8)|(gt IEMobile 7)|!(IEMobile)|!(IE)]><!--><html class="no-js" lang="en"><!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  <title>数据结构与算法分析 读书笔记 3 - Jean's Blog</title>
+  <meta name="author" content="Jean">
+
+  
+  <meta name="description" content="3.1到3.3节。重点记录的是vector和list的操作函数，因为以前用的比较少 第三章 表、栈和队列 3.1 抽象数据类型ADT 抽象数据类型（ADT）是带有一组操作的一些对象的集合。在ADT的定义中根本没有提到这组操作是如何实现的 3.2 表ADT 简单数组实现：适合在末尾插入元素， &hellip;">
+  
+
+  <!-- http://t.co/dKP3o1e -->
+  <meta name="HandheldFriendly" content="True">
+  <meta name="MobileOptimized" content="320">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+
+  
+  <link rel="canonical" href="http://ziwu1216.github.com/blog/2013/03/14/data-structures-notes-3/">
+  <link href="/favicon.png" rel="icon">
+  <link href="/stylesheets/screen.css" media="screen, projection" rel="stylesheet" type="text/css">
+  <script src="/javascripts/modernizr-2.0.js"></script>
+  <script src="/javascripts/ender.js"></script>
+  <script src="/javascripts/octopress.js" type="text/javascript"></script>
+  <link href="/atom.xml" rel="alternate" title="Jean's Blog" type="application/atom+xml">
+  <!--Fonts from Google"s Web font directory at http://google.com/webfonts -->
+
+  
+
+</head>
+
+<body   >
+  <header role="banner"><hgroup>
+  <h1><a href="/">Jean's Blog</a></h1>
+  
+    <h2>Try and Enjoy</h2>
+  
+</hgroup>
+
+</header>
+  <nav role="navigation"><ul class="subscription" data-subscription="rss">
+  <li><a href="/atom.xml" rel="subscribe-rss" title="subscribe via RSS">RSS</a></li>
+  
+</ul>
+  
+<form action="http://google.com/search" method="get">
+  <fieldset role="search">
+    <input type="hidden" name="q" value="site:ziwu1216.github.com" />
+    <input class="search" type="text" name="q" results="0" placeholder="Search"/>
+  </fieldset>
+</form>
+  
+<ul class="main-navigation">
+  <li><a href="/">Blog</a></li>
+  <li><a href="/blog/archives">Archives</a></li>
+</ul>
+
+</nav>
+  <div id="main">
+    <div id="content">
+      <div>
+<article class="hentry" role="article">
+  
+  <header>
+    
+      <h1 class="entry-title">数据结构与算法分析 读书笔记 3</h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2013-03-14T23:58:00+08:00" pubdate data-updated="true">Mar 14<span>th</span>, 2013</time>
+        
+      </p>
+    
+  </header>
+
+
+<div class="entry-content"><p>3.1到3.3节。重点记录的是vector和list的操作函数，因为以前用的比较少</p>
+
+<!--more-->
+
+
+<h2>第三章 表、栈和队列</h2>
+
+<h3>3.1 抽象数据类型ADT</h3>
+
+<p>抽象数据类型（ADT）是带有一组操作的一些对象的集合。在ADT的定义中根本没有提到这组操作是如何实现的</p>
+
+<h3>3.2 表ADT</h3>
+
+<ul>
+<li>简单数组实现：适合在末尾插入元素，之后只有数组访问<br/>
+数组是静态分配的，但vector类允许在需要的时候将数组的大小增加一倍</li>
+<li>链表实现：适合插入和删除在整个表中都发生<br/>
+典型的链表保持至表的两端的链接，为了第一项的添加删除和末尾的新项添加为常量时间【应该是由于在两端操作数据最为常见】<br/>
+双向链表，可以方便删除最后一项(方便找到倒数第二项)</li>
+</ul>
+
+
+<h3>3.3 STL中的向量和表</h3>
+
+<p>标准模板库STL实现了公共数据结构，例如表ADT。这些数据结构称为集合（collection）或容器（container）</p>
+
+<ul>
+<li>vector给出了表ADT的可增长的数组实现。<br/>
+优点：常量时间内可索引【findKth】，缺点：插入或删除代价昂贵（除非发生在末尾），查找效率低【find】</li>
+<li>list提供表ADT的双向链表实现。<br/>
+优点：插入和删除代价小，缺点：不容易索引，查找效率低</li>
+</ul>
+
+
+<p>常用方法：</p>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+<span class='line-number'>9</span>
+<span class='line-number'>10</span>
+<span class='line-number'>11</span>
+<span class='line-number'>12</span>
+<span class='line-number'>13</span>
+<span class='line-number'>14</span>
+<span class='line-number'>15</span>
+<span class='line-number'>16</span>
+<span class='line-number'>17</span>
+<span class='line-number'>18</span>
+</pre></td><td class='code'><pre><code class='c'><span class='line'><span class="kt">int</span> <span class="n">size</span><span class="p">()</span> <span class="k">const</span><span class="p">;</span>
+</span><span class='line'><span class="kt">void</span> <span class="n">clear</span><span class="p">();</span><span class="c1">//删除容器内的所有元素</span>
+</span><span class='line'><span class="n">bool</span> <span class="n">empty</span><span class="p">();</span>
+</span><span class='line'><span class="c1">//以下四个都为常量时间</span>
+</span><span class='line'><span class="kt">void</span> <span class="n">push_back</span><span class="p">(</span><span class="k">const</span> <span class="n">Object</span> <span class="o">&amp;</span> <span class="n">x</span><span class="p">);</span><span class="c1">//在表的末尾添加x</span>
+</span><span class='line'><span class="kt">void</span> <span class="n">pop_back</span><span class="p">();</span><span class="c1">//删除表的末尾对象</span>
+</span><span class='line'><span class="k">const</span> <span class="n">Object</span> <span class="o">&amp;</span> <span class="n">back</span><span class="p">()</span> <span class="k">const</span><span class="p">;</span>
+</span><span class='line'><span class="k">const</span> <span class="n">Object</span> <span class="o">&amp;</span> <span class="n">front</span><span class="p">()</span> <span class="k">const</span><span class="p">;</span>
+</span><span class='line'>
+</span><span class='line'><span class="c1">//仅针对list</span>
+</span><span class='line'><span class="kt">void</span> <span class="n">push_front</span><span class="p">(</span><span class="k">const</span> <span class="n">Object</span> <span class="o">&amp;</span> <span class="n">x</span><span class="p">);</span>
+</span><span class='line'><span class="kt">void</span> <span class="n">pop_front</span><span class="p">();</span>
+</span><span class='line'>
+</span><span class='line'><span class="c1">//仅针对vector</span>
+</span><span class='line'><span class="n">Object</span> <span class="o">&amp;</span> <span class="n">operator</span><span class="p">[](</span><span class="kt">int</span> <span class="n">idx</span><span class="p">);</span><span class="c1">//不包含边界检测</span>
+</span><span class='line'><span class="n">Object</span> <span class="o">&amp;</span> <span class="n">at</span><span class="p">(</span><span class="kt">int</span> <span class="n">idx</span><span class="p">);</span><span class="c1">//包含边界检测</span>
+</span><span class='line'><span class="kt">int</span> <span class="n">capacity</span><span class="p">()</span> <span class="k">const</span><span class="p">;</span><span class="c1">//返回vector的内部容量</span>
+</span><span class='line'><span class="kt">void</span> <span class="n">reserve</span><span class="p">(</span><span class="kt">int</span> <span class="n">new</span> <span class="n">Capacity</span><span class="p">);</span><span class="c1">//设定vector的新容量</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<h4>迭代器iterator</h4>
+
+<p>通过内置类型iterator来标记位置，例如<code>list&lt;string&gt;::iterator</code>和<code>vector&lt;int&gt;::iterator</code></p>
+
+<p>相关方法：</p>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+</pre></td><td class='code'><pre><code class='c'><span class='line'><span class="n">iterator</span> <span class="n">begin</span><span class="p">();</span><span class="c1">//返回指向容器第一项的适当迭代器</span>
+</span><span class='line'><span class="n">iterator</span> <span class="n">end</span><span class="p">();</span><span class="c1">//指向容器的终止标志，容器中最后一项的后面的位置，边界之外</span>
+</span><span class='line'><span class="n">itr</span><span class="o">++</span><span class="p">;</span> <span class="o">++</span><span class="n">itr</span><span class="p">;</span>
+</span><span class='line'><span class="o">*</span><span class="n">itr</span><span class="p">;</span><span class="c1">//返回itr指定位置的对象的引用</span>
+</span><span class='line'><span class="n">itr1</span> <span class="o">==</span> <span class="n">itr2</span><span class="p">;</span> <span class="n">itr1</span> <span class="o">!=</span> <span class="n">itr2</span><span class="p">;</span><span class="c1">//是否指向同一个位置</span>
+</span><span class='line'><span class="n">iterator</span> <span class="n">insert</span><span class="p">(</span><span class="n">iterator</span> <span class="n">pos</span><span class="p">,</span> <span class="k">const</span> <span class="n">Object</span> <span class="o">&amp;</span> <span class="n">x</span><span class="p">);</span><span class="c1">//返回插入项位置。对list常量时间，对vector不是</span>
+</span><span class='line'><span class="n">iterator</span> <span class="n">erase</span><span class="p">(</span><span class="n">iterator</span> <span class="n">pos</span><span class="p">);</span><span class="c1">//返回pos下一个元素的位置，操作完成后pos失效</span>
+</span><span class='line'><span class="n">iterator</span> <span class="n">erase</span><span class="p">(</span><span class="n">iterator</span> <span class="n">start</span><span class="p">,</span> <span class="n">iterator</span> <span class="n">end</span><span class="p">);</span><span class="c1">//删除的元素直到但不包括end</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>【注意错误】我写的对表使用erase的代码</p>
+
+<figure class='code'><figcaption><span>WRONG!!!</span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+<span class='line-number'>9</span>
+<span class='line-number'>10</span>
+</pre></td><td class='code'><pre><code class='c'><span class='line'><span class="c1">//1.erase后itr失效，不能继续使用了</span>
+</span><span class='line'><span class="c1">//2.使用itr+2操作会超过lst.end()，越界</span>
+</span><span class='line'><span class="c1">//...是否还有其他错误？</span>
+</span><span class='line'>
+</span><span class='line'><span class="n">template</span> <span class="o">&lt;</span><span class="kr">typename</span> <span class="n">Container</span><span class="o">&gt;</span>
+</span><span class='line'><span class="kt">void</span> <span class="n">removeEveryOtherItem</span><span class="p">(</span><span class="n">Container</span> <span class="o">&amp;</span> <span class="n">lst</span><span class="p">)</span>
+</span><span class='line'><span class="p">{</span>
+</span><span class='line'>    <span class="k">for</span><span class="p">(</span><span class="n">Container</span><span class="o">::</span><span class="n">iterator</span> <span class="n">itr</span> <span class="o">=</span> <span class="n">lst</span><span class="p">.</span><span class="n">begin</span><span class="p">();</span> <span class="n">itr</span> <span class="o">!=</span> <span class="n">lst</span><span class="p">.</span><span class="n">end</span><span class="p">();</span> <span class="n">itr</span><span class="o">=</span><span class="n">itr</span><span class="o">+</span><span class="mi">2</span><span class="p">)</span>
+</span><span class='line'>        <span class="n">lst</span><span class="p">.</span><span class="n">erase</span><span class="p">(</span><span class="n">itr</span><span class="p">);</span>
+</span><span class='line'><span class="p">}</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>STL也包含const_iterator，*const_iterator会返回常量引用，不能成为左值</p>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+</pre></td><td class='code'><pre><code class='c'><span class='line'><span class="n">iterator</span> <span class="n">begin</span><span class="p">()</span>
+</span><span class='line'><span class="n">const_iterator</span> <span class="n">begin</span><span class="p">()</span> <span class="k">const</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>两个版本的begin可以在同一个类里，因为方法的定常性被认为是标号的一部分
+如果对非常量容器调用begin，返回iterator的版本被调用。如果对常量容器调用，返回const_iterator</p>
+</div>
+
+
+  <footer>
+    <p class="meta">
+      
+  
+
+<span class="byline author vcard">Posted by <span class="fn">Jean</span></span>
+
+      
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2013-03-14T23:58:00+08:00" pubdate data-updated="true">Mar 14<span>th</span>, 2013</time>
+      
+
+<span class="categories">
+  
+    <a class='category' href='/blog/categories/c-/'>c++</a>, <a class='category' href='/blog/categories/notes/'>notes</a>
+  
+</span>
+
+
+    </p>
+    
+      <div class="sharing">
+  
+  
+  
+  
+    <!-- JiaThis Button BEGIN -->
+<div class="jiathis_style">
+	<span class="jiathis_txt">分享到：</span>
+	<a class="jiathis_button_tools_1"></a>
+	<a class="jiathis_button_tools_2"></a>
+	<a class="jiathis_button_tools_3"></a>
+	<a class="jiathis_button_tools_4"></a>
+	<a href="http://www.jiathis.com/share?uid=1713528" class="jiathis jiathis_txt jiathis_separator jtico jtico_jiathis" target="_blank">更多</a>
+	<a class="jiathis_counter_style"></a>
+</div>
+<script type="text/javascript">
+var jiathis_config = {data_track_clickback:'true'};
+</script>
+<script type="text/javascript" src="http://v3.jiathis.com/code/jia.js?uid=1351176419875879" charset="utf-8"></script>
+<!-- JiaThis Button END -->
+
+<!-- UY BEGIN -->
+<div id="uyan_frame"></div>
+<script type="text/javascript" id="UYScript" src="http://v1.uyan.cc/js/iframe.js?UYUserId=1713528" async=""></script>
+<!-- UY END -->
+
+  
+</div>
+
+    
+    <p class="meta">
+      
+        <a class="basic-alignment left" href="/blog/2013/03/11/javascript-constructor-explanation/" title="Previous Post: 『转载整理』javascript constructor 详解">&laquo; 『转载整理』javascript constructor 详解</a>
+      
+      
+    </p>
+  </footer>
+</article>
+
+</div>
+
+<aside class="sidebar">
+  
+    <section>
+  <h1>Recent Posts</h1>
+  <ul id="recent_posts">
+    
+      <li class="post">
+        <a href="/blog/2013/03/14/data-structures-notes-3/">数据结构与算法分析 读书笔记 3</a>
+      </li>
+    
+      <li class="post">
+        <a href="/blog/2013/03/11/javascript-constructor-explanation/">『转载整理』javascript constructor 详解</a>
+      </li>
+    
+      <li class="post">
+        <a href="/blog/2013/03/10/data-structures-notes-2/">数据结构与算法分析 读书笔记 2</a>
+      </li>
+    
+      <li class="post">
+        <a href="/blog/2013/03/10/javascript-prototype-explanation/">『转载整理』javascript prototype 详解</a>
+      </li>
+    
+      <li class="post">
+        <a href="/blog/2013/02/09/data-structures-notes-1/">数据结构与算法分析 读书笔记 1</a>
+      </li>
+    
+  </ul>
+</section>
+<section>
+  <h1>Categories</h1>
+  <ul id="categories">
+    <li class='category'><a href='/blog/categories/android/'>android (2)</a></li>
+<li class='category'><a href='/blog/categories/c-/'>c++ (4)</a></li>
+<li class='category'><a href='/blog/categories/helloworld/'>helloworld (4)</a></li>
+<li class='category'><a href='/blog/categories/javascript/'>javascript (2)</a></li>
+<li class='category'><a href='/blog/categories/notes/'>notes (4)</a></li>
+<li class='category'><a href='/blog/categories/old/'>old (1)</a></li>
+<li class='category'><a href='/blog/categories/random-thoughts/'>random thoughts (1)</a></li>
+
+  </ul>
+</section>
+
+
+  
+</aside>
+
+
+    </div>
+  </div>
+  <footer role="contentinfo"><p>
+  Copyright &copy; 2013 - Jean -
+  <span class="credit">Powered by <a href="http://octopress.org">Octopress</a></span>
+</p>
+
+</footer>
+  
+
+
+
+
+
+
+
+
+
+
+
+</body>
+</html>
