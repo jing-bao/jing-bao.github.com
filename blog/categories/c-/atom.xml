@@ -4,7 +4,7 @@
   <title><![CDATA[Category: c++ | Jean's Blog]]></title>
   <link href="http://ziwu1216.github.com/blog/categories/c-/atom.xml" rel="self"/>
   <link href="http://ziwu1216.github.com/"/>
-  <updated>2013-03-15T00:24:59+08:00</updated>
+  <updated>2013-03-19T00:00:51+08:00</updated>
   <id>http://ziwu1216.github.com/</id>
   <author>
     <name><![CDATA[Jean]]></name>
@@ -12,6 +12,101 @@
   </author>
   <generator uri="http://octopress.org/">Octopress</generator>
 
+  
+  <entry>
+    <title type="html"><![CDATA[数据结构与算法分析 读书笔记 4]]></title>
+    <link href="http://ziwu1216.github.com/blog/2013/03/18/data-structures-notes-4/"/>
+    <updated>2013-03-18T23:53:00+08:00</updated>
+    <id>http://ziwu1216.github.com/blog/2013/03/18/data-structures-notes-4</id>
+    <content type="html"><![CDATA[<p>第三章剩下的部分</p>
+
+<!--more-->
+
+
+<h2>第三章 表、栈和队列</h2>
+
+<h3>3.4 向量的实现</h3>
+
+<p>vector是基本类类型，这意味着不同于基本数组，vector可以复制并且其占用的内存可以自动回收（通过析构函数）</p>
+
+<p>【？？？】程序第37行，为什么<code>reserve()</code>函数中判断的是<code>newCapacity &lt; theSize</code>而不是<code>newCapacity &lt; theCapacity</code>？</p>
+
+<h3>3.5 表的实现</h3>
+
+<p>在表的前端和末尾添加额外结点作为标志，称为哨兵结点。头部结点称为表头结点，末端的结点称为尾结点。使用好处是可以去掉很多特例，简化程序代码。</p>
+
+<p>List中的代码摘抄<br/>
+``` c
+class List
+{
+private:</p>
+
+<pre><code>struct Node{...};
+</code></pre>
+
+<p>public:</p>
+
+<pre><code>class const_iterator{...};
+class iterator: public const_iterator{...};
+...
+</code></pre>
+
+<p>private:</p>
+
+<pre><code>int theSize;
+Node *head;
+Node *tail;
+...
+</code></pre>
+
+<p>};
+```</p>
+
+<p>定义前缀和后缀<code>operator++</code>的区别方法：给前缀指定空参数表，给后缀指定一个匿名的int参数。实现指出在许多可以选择使用前缀或后缀的情况下，使用前缀形式要快于使用后缀形式<br/>
+``` c
+const_iterator operator++()
+{</p>
+
+<pre><code>current = current-&gt;next;
+return *this;
+</code></pre>
+
+<p>}</p>
+
+<p>const_iterator operator++(int)
+{</p>
+
+<pre><code>const_iterator old = *this;
+++(*this);
+return old;
+</code></pre>
+
+<p>}
+```</p>
+
+<h3>3.6 栈ADT</h3>
+
+<p>栈的操作基本只有<code>push(),pop(),top()</code>，只有栈顶元素是可访问的。</p>
+
+<p>栈是一个表，用数组和单向链表都可以实现，所以list和vector都支持栈，且操作为常量时间操作。</p>
+
+<h4>栈的应用</h4>
+
+<p>后缀或逆波兰记法：将<code>4.99*1.06 + 5.99 +6.99*1.06</code>（称为中缀式）记为<code>4.99 1.06 * 5.99 + 6.99 1.06 * +</code>。   当一个表达式以后缀记法给出时，没有必要知道任何优先规则。</p>
+
+<p>可以用栈实现中缀式到后缀式的转换，主要原则是入栈操作符，读取新操作符时，从栈顶弹出直到遇到优先级更低的元素为止【需复习】</p>
+
+<p>尾递归：在最后一行的递归调用，是极差的使用递归的例子。<br/>
+通过将代码放到一个while循环中并用每个函数的一个参数代替递归调用，可以机械地消除尾递归。【？？？】不明白尾递归和其他递归的本质区别<br/>
+递归总能够被彻底除去（编译器的工作），但提速的同时降低了程序的清晰性。</p>
+
+<h3>3.7 队列ADT</h3>
+
+<p>队列也是表。基本操作<code>enqueue(),dequeue()</code></p>
+
+<p>循环数组：处理front或back到达数组尾端，而数组前面有很多空位的情况。</p>
+]]></content>
+  </entry>
   
   <entry>
     <title type="html"><![CDATA[数据结构与算法分析 读书笔记 3]]></title>

@@ -1,0 +1,334 @@
+
+<!DOCTYPE html>
+<!--[if IEMobile 7 ]><html class="no-js iem7"><![endif]-->
+<!--[if lt IE 9]><html class="no-js lte-ie8"><![endif]-->
+<!--[if (gt IE 8)|(gt IEMobile 7)|!(IEMobile)|!(IE)]><!--><html class="no-js" lang="en"><!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  <title>数据结构与算法分析 读书笔记 4 - Jean's Blog</title>
+  <meta name="author" content="Jean">
+
+  
+  <meta name="description" content="第三章剩下的部分 第三章 表、栈和队列 3.4 向量的实现 vector是基本类类型，这意味着不同于基本数组，vector可以复制并且其占用的内存可以自动回收（通过析构函数） 【？？？】程序第37行，为什么reserve()函数中判断的是newCapacity &lt; &hellip;">
+  
+
+  <!-- http://t.co/dKP3o1e -->
+  <meta name="HandheldFriendly" content="True">
+  <meta name="MobileOptimized" content="320">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+
+  
+  <link rel="canonical" href="http://ziwu1216.github.com/blog/2013/03/18/data-structures-notes-4/">
+  <link href="/favicon.png" rel="icon">
+  <link href="/stylesheets/screen.css" media="screen, projection" rel="stylesheet" type="text/css">
+  <script src="/javascripts/modernizr-2.0.js"></script>
+  <script src="/javascripts/ender.js"></script>
+  <script src="/javascripts/octopress.js" type="text/javascript"></script>
+  <link href="/atom.xml" rel="alternate" title="Jean's Blog" type="application/atom+xml">
+  <!--Fonts from Google"s Web font directory at http://google.com/webfonts -->
+
+  
+
+</head>
+
+<body   >
+  <header role="banner"><hgroup>
+  <h1><a href="/">Jean's Blog</a></h1>
+  
+    <h2>Try and Enjoy</h2>
+  
+</hgroup>
+
+</header>
+  <nav role="navigation"><ul class="subscription" data-subscription="rss">
+  <li><a href="/atom.xml" rel="subscribe-rss" title="subscribe via RSS">RSS</a></li>
+  
+</ul>
+  
+<form action="http://google.com/search" method="get">
+  <fieldset role="search">
+    <input type="hidden" name="q" value="site:ziwu1216.github.com" />
+    <input class="search" type="text" name="q" results="0" placeholder="Search"/>
+  </fieldset>
+</form>
+  
+<ul class="main-navigation">
+  <li><a href="/">Blog</a></li>
+  <li><a href="/blog/archives">Archives</a></li>
+</ul>
+
+</nav>
+  <div id="main">
+    <div id="content">
+      <div>
+<article class="hentry" role="article">
+  
+  <header>
+    
+      <h1 class="entry-title">数据结构与算法分析 读书笔记 4</h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2013-03-18T23:53:00+08:00" pubdate data-updated="true">Mar 18<span>th</span>, 2013</time>
+        
+      </p>
+    
+  </header>
+
+
+<div class="entry-content"><p>第三章剩下的部分</p>
+
+<!--more-->
+
+
+<h2>第三章 表、栈和队列</h2>
+
+<h3>3.4 向量的实现</h3>
+
+<p>vector是基本类类型，这意味着不同于基本数组，vector可以复制并且其占用的内存可以自动回收（通过析构函数）</p>
+
+<p>【？？？】程序第37行，为什么<code>reserve()</code>函数中判断的是<code>newCapacity &lt; theSize</code>而不是<code>newCapacity &lt; theCapacity</code>？</p>
+
+<h3>3.5 表的实现</h3>
+
+<p>在表的前端和末尾添加额外结点作为标志，称为哨兵结点。头部结点称为表头结点，末端的结点称为尾结点。使用好处是可以去掉很多特例，简化程序代码。</p>
+
+<p>List中的代码摘抄</p>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+<span class='line-number'>9</span>
+<span class='line-number'>10</span>
+<span class='line-number'>11</span>
+<span class='line-number'>12</span>
+<span class='line-number'>13</span>
+<span class='line-number'>14</span>
+</pre></td><td class='code'><pre><code class='c'><span class='line'><span class="n">class</span> <span class="n">List</span>
+</span><span class='line'><span class="p">{</span>
+</span><span class='line'><span class="nl">private:</span>
+</span><span class='line'>    <span class="k">struct</span> <span class="n">Node</span><span class="p">{...};</span>
+</span><span class='line'><span class="nl">public:</span>
+</span><span class='line'>    <span class="n">class</span> <span class="n">const_iterator</span><span class="p">{...};</span>
+</span><span class='line'>    <span class="n">class</span> <span class="n">iterator</span><span class="o">:</span> <span class="n">public</span> <span class="n">const_iterator</span><span class="p">{...};</span>
+</span><span class='line'>    <span class="p">...</span>
+</span><span class='line'><span class="nl">private:</span>
+</span><span class='line'>    <span class="kt">int</span> <span class="n">theSize</span><span class="p">;</span>
+</span><span class='line'>    <span class="n">Node</span> <span class="o">*</span><span class="n">head</span><span class="p">;</span>
+</span><span class='line'>    <span class="n">Node</span> <span class="o">*</span><span class="n">tail</span><span class="p">;</span>
+</span><span class='line'>    <span class="p">...</span>
+</span><span class='line'><span class="p">};</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>定义前缀和后缀<code>operator++</code>的区别方法：给前缀指定空参数表，给后缀指定一个匿名的int参数。实现指出在许多可以选择使用前缀或后缀的情况下，使用前缀形式要快于使用后缀形式</p>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+<span class='line-number'>9</span>
+<span class='line-number'>10</span>
+<span class='line-number'>11</span>
+<span class='line-number'>12</span>
+</pre></td><td class='code'><pre><code class='c'><span class='line'><span class="n">const_iterator</span> <span class="n">operator</span><span class="o">++</span><span class="p">()</span>
+</span><span class='line'><span class="p">{</span>
+</span><span class='line'>    <span class="n">current</span> <span class="o">=</span> <span class="n">current</span><span class="o">-&gt;</span><span class="n">next</span><span class="p">;</span>
+</span><span class='line'>    <span class="k">return</span> <span class="o">*</span><span class="n">this</span><span class="p">;</span>
+</span><span class='line'><span class="p">}</span>
+</span><span class='line'>
+</span><span class='line'><span class="n">const_iterator</span> <span class="n">operator</span><span class="o">++</span><span class="p">(</span><span class="kt">int</span><span class="p">)</span>
+</span><span class='line'><span class="p">{</span>
+</span><span class='line'>    <span class="n">const_iterator</span> <span class="n">old</span> <span class="o">=</span> <span class="o">*</span><span class="n">this</span><span class="p">;</span>
+</span><span class='line'>    <span class="o">++</span><span class="p">(</span><span class="o">*</span><span class="n">this</span><span class="p">);</span>
+</span><span class='line'>    <span class="k">return</span> <span class="n">old</span><span class="p">;</span>
+</span><span class='line'><span class="p">}</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<h3>3.6 栈ADT</h3>
+
+<p>栈的操作基本只有<code>push(),pop(),top()</code>，只有栈顶元素是可访问的。</p>
+
+<p>栈是一个表，用数组和单向链表都可以实现，所以list和vector都支持栈，且操作为常量时间操作。</p>
+
+<h4>栈的应用</h4>
+
+<p>后缀或逆波兰记法：将<code>4.99*1.06 + 5.99 +6.99*1.06</code>（称为中缀式）记为<code>4.99 1.06 * 5.99 + 6.99 1.06 * +</code>。   当一个表达式以后缀记法给出时，没有必要知道任何优先规则。</p>
+
+<p>可以用栈实现中缀式到后缀式的转换，主要原则是入栈操作符，读取新操作符时，从栈顶弹出直到遇到优先级更低的元素为止【需复习】</p>
+
+<p>尾递归：在最后一行的递归调用，是极差的使用递归的例子。<br/>
+通过将代码放到一个while循环中并用每个函数的一个参数代替递归调用，可以机械地消除尾递归。【？？？】不明白尾递归和其他递归的本质区别<br/>
+递归总能够被彻底除去（编译器的工作），但提速的同时降低了程序的清晰性。</p>
+
+<h3>3.7 队列ADT</h3>
+
+<p>队列也是表。基本操作<code>enqueue(),dequeue()</code></p>
+
+<p>循环数组：处理front或back到达数组尾端，而数组前面有很多空位的情况。</p>
+</div>
+
+
+  <footer>
+    <p class="meta">
+      
+  
+
+<span class="byline author vcard">Posted by <span class="fn">Jean</span></span>
+
+      
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2013-03-18T23:53:00+08:00" pubdate data-updated="true">Mar 18<span>th</span>, 2013</time>
+      
+
+<span class="categories">
+  
+    <a class='category' href='/blog/categories/c-/'>c++</a>, <a class='category' href='/blog/categories/notes/'>notes</a>
+  
+</span>
+
+
+    </p>
+    
+      <div class="sharing">
+  
+  
+  
+  
+    <!-- JiaThis Button BEGIN -->
+<div class="jiathis_style">
+	<span class="jiathis_txt">分享到：</span>
+	<a class="jiathis_button_tools_1"></a>
+	<a class="jiathis_button_tools_2"></a>
+	<a class="jiathis_button_tools_3"></a>
+	<a class="jiathis_button_tools_4"></a>
+	<a href="http://www.jiathis.com/share?uid=1713528" class="jiathis jiathis_txt jiathis_separator jtico jtico_jiathis" target="_blank">更多</a>
+	<a class="jiathis_counter_style"></a>
+</div>
+<script type="text/javascript">
+var jiathis_config = {data_track_clickback:'true'};
+</script>
+<script type="text/javascript" src="http://v3.jiathis.com/code/jia.js?uid=1351176419875879" charset="utf-8"></script>
+<!-- JiaThis Button END -->
+
+<!-- UY BEGIN -->
+<div id="uyan_frame"></div>
+<script type="text/javascript" id="UYScript" src="http://v1.uyan.cc/js/iframe.js?UYUserId=1713528" async=""></script>
+<!-- UY END -->
+
+  
+</div>
+
+    
+    <p class="meta">
+      
+        <a class="basic-alignment left" href="/blog/2013/03/14/data-structures-notes-3/" title="Previous Post: 数据结构与算法分析 读书笔记 3">&laquo; 数据结构与算法分析 读书笔记 3</a>
+      
+      
+    </p>
+  </footer>
+</article>
+
+</div>
+
+<aside class="sidebar">
+  
+    <section>
+  <h1>Recent Posts</h1>
+  <ul id="recent_posts">
+    
+      <li class="post">
+        <a href="/blog/2013/03/18/data-structures-notes-4/">数据结构与算法分析 读书笔记 4</a>
+      </li>
+    
+      <li class="post">
+        <a href="/blog/2013/03/14/data-structures-notes-3/">数据结构与算法分析 读书笔记 3</a>
+      </li>
+    
+      <li class="post">
+        <a href="/blog/2013/03/11/javascript-constructor-explanation/">『转载整理』javascript constructor 详解</a>
+      </li>
+    
+      <li class="post">
+        <a href="/blog/2013/03/10/data-structures-notes-2/">数据结构与算法分析 读书笔记 2</a>
+      </li>
+    
+      <li class="post">
+        <a href="/blog/2013/03/10/javascript-prototype-explanation/">『转载整理』javascript prototype 详解</a>
+      </li>
+    
+  </ul>
+</section>
+<section>
+  <h1>Categories</h1>
+  <ul id="categories">
+    <li class='category'><a href='/blog/categories/android/'>android (2)</a></li>
+<li class='category'><a href='/blog/categories/c-/'>c++ (5)</a></li>
+<li class='category'><a href='/blog/categories/helloworld/'>helloworld (4)</a></li>
+<li class='category'><a href='/blog/categories/javascript/'>javascript (2)</a></li>
+<li class='category'><a href='/blog/categories/notes/'>notes (5)</a></li>
+<li class='category'><a href='/blog/categories/old/'>old (1)</a></li>
+<li class='category'><a href='/blog/categories/random-thoughts/'>random thoughts (1)</a></li>
+
+  </ul>
+</section>
+
+
+  
+</aside>
+
+
+    </div>
+  </div>
+  <footer role="contentinfo"><p>
+  Copyright &copy; 2013 - Jean -
+  <span class="credit">Powered by <a href="http://octopress.org">Octopress</a></span>
+</p>
+
+</footer>
+  
+
+
+
+
+
+
+
+
+
+
+
+</body>
+</html>
