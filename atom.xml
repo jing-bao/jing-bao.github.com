@@ -4,7 +4,7 @@
   <title><![CDATA[Jean's Blog]]></title>
   <link href="http://ziwu1216.github.com/atom.xml" rel="self"/>
   <link href="http://ziwu1216.github.com/"/>
-  <updated>2013-03-19T00:00:51+08:00</updated>
+  <updated>2013-04-11T12:01:00+08:00</updated>
   <id>http://ziwu1216.github.com/</id>
   <author>
     <name><![CDATA[Jean]]></name>
@@ -12,6 +12,57 @@
   </author>
   <generator uri="http://octopress.org/">Octopress</generator>
 
+  
+  <entry>
+    <title type="html"><![CDATA[英文版Win7中文软件显示乱码的解决]]></title>
+    <link href="http://ziwu1216.github.com/blog/2013/04/11/solve-win7-chinese-gibberish/"/>
+    <updated>2013-04-11T11:51:00+08:00</updated>
+    <id>http://ziwu1216.github.com/blog/2013/04/11/solve-win7-chinese-gibberish</id>
+    <content type="html"><![CDATA[<p>新电脑装了英文版win7，但是安装国内一些中文软件时，名称和内容都会显示乱码。网上搜到解决方法如下：</p>
+
+<!--more-->
+
+
+<ul>
+<li>打开控制面板 Control Panel</li>
+<li>点击Clock, Language, and Region</li>
+<li>点击Region and Language</li>
+<li>点击Administrative选项卡</li>
+<li>点击Change system locale按钮</li>
+<li>将Current system locale改为：Chinese(Simplified, PRC)</li>
+<li>重启计算机</li>
+<li>新安装的软件不会出现乱码（实践中我以前安装的软件仍然会显示乱码，建议卸载重装）</li>
+</ul>
+
+
+<p>参考<a href="http://zhidao.baidu.com/question/219346693.html">http://zhidao.baidu.com/question/219346693.html</a></p>
+]]></content>
+  </entry>
+  
+  <entry>
+    <title type="html"><![CDATA[Chrome修改书签时崩溃问题的解决]]></title>
+    <link href="http://ziwu1216.github.com/blog/2013/04/11/solve-chrome-crashing/"/>
+    <updated>2013-04-11T11:45:00+08:00</updated>
+    <id>http://ziwu1216.github.com/blog/2013/04/11/solve-chrome-crashing</id>
+    <content type="html"><![CDATA[<p>很长一段时间内，我在Chrome中添加书签时总是很容易导致整个浏览器崩溃，但是最近发现另一台新装的电脑却没有这个问题。
+在网上搜索后，找到了问题所在和解决方案。</p>
+
+<!--more-->
+
+
+<h2>具体问题</h2>
+
+<p>点击Chrome地址栏的星形按钮添加书签没问题，但是如果此时想修改书签名称就会崩溃。<br/>
+在书签栏上右键->修改，然后修改名称，也会崩溃。<br/>
+唯一的方法是打开书签管理器，在其中修改。</p>
+
+<h2>解决</h2>
+
+<p>有道词典的“屏幕取词”功能和Chrome有冲突，关闭就好了。网上有说关闭“划词翻译”的，但我试了一下应该不是它的问题。</p>
+
+<p>我平时本来就比较习惯用“划词翻译”，所以关闭“屏幕取词”影响不大。如果有这个习惯的话，Chrome扩展程序中有一个<code>Youdao Dictionary (by Gecko)</code>，支持双击查词和ctrl+鼠标查词，大概可以作为替代。不过我没有具体使用。</p>
+]]></content>
+  </entry>
   
   <entry>
     <title type="html"><![CDATA[数据结构与算法分析 读书笔记 4]]></title>

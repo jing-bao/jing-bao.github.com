@@ -5,13 +5,13 @@
 <!--[if (gt IE 8)|(gt IEMobile 7)|!(IEMobile)|!(IE)]><!--><html class="no-js" lang="en"><!--<![endif]-->
 <head>
   <meta charset="utf-8">
-  <title>hello octopress 2：流程记录 - Jean's Blog</title>
+  <title>Chrome修改书签时崩溃问题的解决 - Jean's Blog</title>
   <meta name="author" content="Jean">
 
   
-  <meta name="description" content="打了一段时间页游，好久不更新这里了，果然意志不坚啊。再写的时候生疏了很多，所以简单记录一下整个流程，方便以后参考。 进入octopress的目录 1
-cd /directory/to/octopress 使配置生效。这个应该可以改变写配置命令的地方使其自动生效吧，我懒得改了。 1
-source &hellip;">
+  <meta name="description" content="很长一段时间内，我在Chrome中添加书签时总是很容易导致整个浏览器崩溃，但是最近发现另一台新装的电脑却没有这个问题。
+在网上搜索后，找到了问题所在和解决方案。 具体问题 点击Chrome地址栏的星形按钮添加书签没问题，但是如果此时想修改书签名称就会崩溃。
+在书签栏上右键->修改，然后修改名称， &hellip;">
   
 
   <!-- http://t.co/dKP3o1e -->
@@ -20,7 +20,7 @@ source &hellip;">
   <meta name="viewport" content="width=device-width, initial-scale=1">
 
   
-  <link rel="canonical" href="http://ziwu1216.github.com/blog/2013/01/05/hello-octopress-2/">
+  <link rel="canonical" href="http://ziwu1216.github.com/blog/2013/04/11/solve-chrome-crashing/">
   <link href="/favicon.png" rel="icon">
   <link href="/stylesheets/screen.css" media="screen, projection" rel="stylesheet" type="text/css">
   <script src="/javascripts/modernizr-2.0.js"></script>
@@ -67,7 +67,7 @@ source &hellip;">
   
   <header>
     
-      <h1 class="entry-title">Hello Octopress 2：流程记录</h1>
+      <h1 class="entry-title">Chrome修改书签时崩溃问题的解决</h1>
     
     
       <p class="meta">
@@ -83,73 +83,30 @@ source &hellip;">
   
 
 
-<time datetime="2013-01-05T18:01:00+08:00" pubdate data-updated="true">Jan 5<span>th</span>, 2013</time>
+<time datetime="2013-04-11T11:45:00+08:00" pubdate data-updated="true">Apr 11<span>th</span>, 2013</time>
         
       </p>
     
   </header>
 
 
-<div class="entry-content"><p>打了一段时间页游，好久不更新这里了，果然意志不坚啊。再写的时候生疏了很多，所以简单记录一下整个流程，方便以后参考。</p>
+<div class="entry-content"><p>很长一段时间内，我在Chrome中添加书签时总是很容易导致整个浏览器崩溃，但是最近发现另一台新装的电脑却没有这个问题。
+在网上搜索后，找到了问题所在和解决方案。</p>
 
 <!--more-->
 
 
-<p>进入octopress的目录</p>
+<h2>具体问题</h2>
 
-<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-</pre></td><td class='code'><pre><code class=''><span class='line'>cd /directory/to/octopress</span></code></pre></td></tr></table></div></figure>
+<p>点击Chrome地址栏的星形按钮添加书签没问题，但是如果此时想修改书签名称就会崩溃。<br/>
+在书签栏上右键->修改，然后修改名称，也会崩溃。<br/>
+唯一的方法是打开书签管理器，在其中修改。</p>
 
+<h2>解决</h2>
 
-<p>使配置生效。这个应该可以改变写配置命令的地方使其自动生效吧，我懒得改了。</p>
+<p>有道词典的“屏幕取词”功能和Chrome有冲突，关闭就好了。网上有说关闭“划词翻译”的，但我试了一下应该不是它的问题。</p>
 
-<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-</pre></td><td class='code'><pre><code class=''><span class='line'>source ~/.bash_profile</span></code></pre></td></tr></table></div></figure>
-
-
-<p>生成新博客，注意方括号之前不要留空格</p>
-
-<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-</pre></td><td class='code'><pre><code class=''><span class='line'>rake new_post["title"]</span></code></pre></td></tr></table></div></figure>
-
-
-<p>修改生成的页面，其中category的写法是这样滴</p>
-
-<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-<span class='line-number'>2</span>
-</pre></td><td class='code'><pre><code class=''><span class='line'># Multiple categories example 1
-</span><span class='line'>categories: [CSS3, Sass, Media Queries]</span></code></pre></td></tr></table></div></figure>
-
-
-<p>写好后在本机4000端口实时预览</p>
-
-<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-</pre></td><td class='code'><pre><code class=''><span class='line'>rake preview</span></code></pre></td></tr></table></div></figure>
-
-
-<p>生成文件</p>
-
-<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-</pre></td><td class='code'><pre><code class=''><span class='line'>rake generate </span></code></pre></td></tr></table></div></figure>
-
-
-<p>发布文件到github</p>
-
-<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-</pre></td><td class='code'><pre><code class=''><span class='line'>rake deploy </span></code></pre></td></tr></table></div></figure>
-
-
-<p>搞定！</p>
-
-<p>可以不时备个份</p>
-
-<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-<span class='line-number'>2</span>
-<span class='line-number'>3</span>
-</pre></td><td class='code'><pre><code class=''><span class='line'>git add .
-</span><span class='line'>git commit -m "changes"
-</span><span class='line'>git push origin source</span></code></pre></td></tr></table></div></figure>
-
+<p>我平时本来就比较习惯用“划词翻译”，所以关闭“屏幕取词”影响不大。如果有这个习惯的话，Chrome扩展程序中有一个<code>Youdao Dictionary (by Gecko)</code>，支持双击查词和ctrl+鼠标查词，大概可以作为替代。不过我没有具体使用。</p>
 </div>
 
 
@@ -172,12 +129,12 @@ source &hellip;">
   
 
 
-<time datetime="2013-01-05T18:01:00+08:00" pubdate data-updated="true">Jan 5<span>th</span>, 2013</time>
+<time datetime="2013-04-11T11:45:00+08:00" pubdate data-updated="true">Apr 11<span>th</span>, 2013</time>
       
 
 <span class="categories">
   
-    <a class='category' href='/blog/categories/helloworld/'>helloworld</a>
+    <a class='category' href='/blog/categories/problem-solving/'>problem solving</a>
   
 </span>
 
@@ -216,10 +173,10 @@ var jiathis_config = {data_track_clickback:'true'};
     
     <p class="meta">
       
-        <a class="basic-alignment left" href="/blog/2013/01/05/c-plus-plus-primer-notes-1/" title="Previous Post: C++ Primer 读书笔记 1">&laquo; C++ Primer 读书笔记 1</a>
+        <a class="basic-alignment left" href="/blog/2013/03/18/data-structures-notes-4/" title="Previous Post: 数据结构与算法分析 读书笔记 4">&laquo; 数据结构与算法分析 读书笔记 4</a>
       
       
-        <a class="basic-alignment right" href="/blog/2013/01/11/about-graduation-project/" title="Next Post: 关于毕业设计">关于毕业设计 &raquo;</a>
+        <a class="basic-alignment right" href="/blog/2013/04/11/solve-win7-chinese-gibberish/" title="Next Post: 英文版Win7中文软件显示乱码的解决">英文版Win7中文软件显示乱码的解决 &raquo;</a>
       
     </p>
   </footer>
