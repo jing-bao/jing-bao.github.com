@@ -1,0 +1,461 @@
+
+<!DOCTYPE html>
+<!--[if IEMobile 7 ]><html class="no-js iem7"><![endif]-->
+<!--[if lt IE 9]><html class="no-js lte-ie8"><![endif]-->
+<!--[if (gt IE 8)|(gt IEMobile 7)|!(IEMobile)|!(IE)]><!--><html class="no-js" lang="en"><!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  <title>编程之美 读书笔记 1 - Jean's Blog</title>
+  <meta name="author" content="Jean">
+
+  
+  <meta name="description" content="书籍信息：编程之美——微软技术面试心得；《编程之美》小组著；电子工业出版社 从第二章开始看起的，毕竟是件很功利的事情。 2.1 用右移达到除2的效果，效率很高，可以多想想是否可以利用 求1的个数：var = var &amp; (var - 1) 用查表法，以空间换时间 我写的代码 1
+2
+3
+4 &hellip;">
+  
+
+  <!-- http://t.co/dKP3o1e -->
+  <meta name="HandheldFriendly" content="True">
+  <meta name="MobileOptimized" content="320">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+
+  
+  <link rel="canonical" href="http://ziwu1216.github.com/blog/2013/05/16/beauty-of-programming-1/">
+  <link href="/favicon.png" rel="icon">
+  <link href="/stylesheets/screen.css" media="screen, projection" rel="stylesheet" type="text/css">
+  <script src="/javascripts/modernizr-2.0.js"></script>
+  <script src="/javascripts/ender.js"></script>
+  <script src="/javascripts/octopress.js" type="text/javascript"></script>
+  <link href="/atom.xml" rel="alternate" title="Jean's Blog" type="application/atom+xml">
+  <!--Fonts from Google"s Web font directory at http://google.com/webfonts -->
+
+  
+
+</head>
+
+<body   >
+  <header role="banner"><hgroup>
+  <h1><a href="/">Jean's Blog</a></h1>
+  
+    <h2>Try and Enjoy</h2>
+  
+</hgroup>
+
+</header>
+  <nav role="navigation"><ul class="subscription" data-subscription="rss">
+  <li><a href="/atom.xml" rel="subscribe-rss" title="subscribe via RSS">RSS</a></li>
+  
+</ul>
+  
+<form action="http://google.com/search" method="get">
+  <fieldset role="search">
+    <input type="hidden" name="q" value="site:ziwu1216.github.com" />
+    <input class="search" type="text" name="q" results="0" placeholder="Search"/>
+  </fieldset>
+</form>
+  
+<ul class="main-navigation">
+  <li><a href="/">Blog</a></li>
+  <li><a href="/blog/archives">Archives</a></li>
+</ul>
+
+</nav>
+  <div id="main">
+    <div id="content">
+      <div>
+<article class="hentry" role="article">
+  
+  <header>
+    
+      <h1 class="entry-title">编程之美 读书笔记 1</h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2013-05-16T23:29:00+08:00" pubdate data-updated="true">May 16<span>th</span>, 2013</time>
+        
+      </p>
+    
+  </header>
+
+
+<div class="entry-content"><p>书籍信息：编程之美——微软技术面试心得；《编程之美》小组著；电子工业出版社</p>
+
+<p>从第二章开始看起的，毕竟是件很功利的事情。</p>
+
+<!--more-->
+
+
+<h3>2.1</h3>
+
+<p>用右移达到除2的效果，效率很高，可以多想想是否可以利用</p>
+
+<p>求1的个数：var = var &amp; (var - 1)</p>
+
+<p>用查表法，以空间换时间</p>
+
+<p>我写的代码</p>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+</pre></td><td class='code'><pre><code class='c'><span class='line'><span class="kt">int</span> <span class="nf">findOne</span><span class="p">(</span><span class="kt">unsigned</span> <span class="n">var</span><span class="p">)</span> <span class="p">{</span>
+</span><span class='line'>  <span class="kt">int</span> <span class="n">cnt</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span>
+</span><span class='line'>  <span class="k">while</span><span class="p">(</span><span class="n">var</span> <span class="o">!=</span> <span class="mi">0</span><span class="p">)</span> <span class="p">{</span>
+</span><span class='line'>      <span class="n">var</span> <span class="o">=</span> <span class="n">var</span> <span class="o">&amp;</span> <span class="p">(</span><span class="n">var</span> <span class="o">-</span> <span class="mi">1</span><span class="p">);</span>
+</span><span class='line'>      <span class="n">cnt</span><span class="o">++</span><span class="p">;</span>
+</span><span class='line'>  <span class="p">}</span>
+</span><span class='line'>  <span class="k">return</span> <span class="n">cnt</span><span class="p">;</span>
+</span><span class='line'><span class="p">}</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>代码修改-注意注释</p>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+<span class='line-number'>9</span>
+<span class='line-number'>10</span>
+<span class='line-number'>11</span>
+<span class='line-number'>12</span>
+<span class='line-number'>13</span>
+<span class='line-number'>14</span>
+<span class='line-number'>15</span>
+<span class='line-number'>16</span>
+<span class='line-number'>17</span>
+<span class='line-number'>18</span>
+<span class='line-number'>19</span>
+<span class='line-number'>20</span>
+<span class='line-number'>21</span>
+<span class='line-number'>22</span>
+<span class='line-number'>23</span>
+<span class='line-number'>24</span>
+<span class='line-number'>25</span>
+<span class='line-number'>26</span>
+<span class='line-number'>27</span>
+<span class='line-number'>28</span>
+<span class='line-number'>29</span>
+<span class='line-number'>30</span>
+</pre></td><td class='code'><pre><code class='c'><span class='line'><span class="cp">#include &lt;iostream&gt;</span>
+</span><span class='line'><span class="n">using</span> <span class="n">namespace</span> <span class="n">std</span><span class="p">;</span>
+</span><span class='line'>
+</span><span class='line'><span class="k">typedef</span> <span class="kt">unsigned</span> <span class="kt">char</span> <span class="n">BYTE</span><span class="p">;</span><span class="c1">//常用的宏定义，unsigned int范围不进行检查的话不符合题意</span>
+</span><span class='line'>
+</span><span class='line'><span class="kt">int</span> <span class="nf">findOne</span><span class="p">(</span><span class="n">BYTE</span> <span class="n">var</span><span class="p">)</span> <span class="p">{</span>
+</span><span class='line'>  <span class="kt">int</span> <span class="n">cnt</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span>
+</span><span class='line'>  <span class="k">while</span><span class="p">(</span><span class="n">var</span><span class="p">)</span> <span class="p">{</span><span class="c1">//var!=0冗余</span>
+</span><span class='line'>      <span class="n">var</span> <span class="o">&amp;=</span> <span class="p">(</span><span class="n">var</span> <span class="o">-</span> <span class="mi">1</span><span class="p">);</span><span class="c1">//复合赋值更高效简洁</span>
+</span><span class='line'>      <span class="n">cnt</span><span class="o">++</span><span class="p">;</span>
+</span><span class='line'>  <span class="p">}</span>
+</span><span class='line'>  <span class="k">return</span> <span class="n">cnt</span><span class="p">;</span>
+</span><span class='line'><span class="p">}</span>
+</span><span class='line'><span class="kt">int</span> <span class="nf">main</span><span class="p">()</span> <span class="p">{</span>
+</span><span class='line'>  <span class="kt">unsigned</span> <span class="n">a</span><span class="p">;</span><span class="c1">//直接输入给BYTE会得到ASCII码值</span>
+</span><span class='line'>  <span class="n">BYTE</span> <span class="n">b</span><span class="p">;</span>
+</span><span class='line'>  <span class="kt">int</span> <span class="n">c</span><span class="p">;</span>
+</span><span class='line'>  <span class="k">while</span><span class="p">(</span><span class="n">cin</span><span class="o">&gt;&gt;</span><span class="n">a</span><span class="p">)</span> <span class="p">{</span>
+</span><span class='line'>      <span class="k">if</span><span class="p">(</span><span class="n">a</span><span class="o">&gt;</span><span class="mh">0xff</span><span class="p">)</span> <span class="p">{</span>
+</span><span class='line'>    <span class="c1">//0x前缀表示16进制数，x不区分大小写。0前缀表示8进制数。没有提供直接写2进制数的方法.</span>
+</span><span class='line'>    <span class="c1">//8进制和16进制只能表达无符号的正整数</span>
+</span><span class='line'>          <span class="n">cout</span><span class="o">&lt;&lt;</span><span class="s">&quot;error&quot;</span><span class="o">&lt;&lt;</span><span class="n">endl</span><span class="p">;</span>
+</span><span class='line'>          <span class="k">continue</span><span class="p">;</span>
+</span><span class='line'>      <span class="p">}</span>
+</span><span class='line'>      <span class="n">b</span> <span class="o">=</span> <span class="p">(</span><span class="n">BYTE</span><span class="p">)</span><span class="n">a</span><span class="p">;</span><span class="c1">//【？？？】是否有更恰当的方法，将输入以数字的值读入BYTE？</span>
+</span><span class='line'>      <span class="n">c</span> <span class="o">=</span> <span class="n">findOne</span><span class="p">(</span><span class="n">a</span><span class="p">);</span>
+</span><span class='line'>      <span class="n">cout</span><span class="o">&lt;&lt;</span><span class="n">c</span><span class="o">&lt;&lt;</span><span class="n">endl</span><span class="p">;</span>
+</span><span class='line'>  <span class="p">}</span>
+</span><span class='line'>  <span class="k">return</span> <span class="mi">0</span><span class="p">;</span>
+</span><span class='line'><span class="p">}</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<h3>2.2</h3>
+
+<p>在比较运算符两边（如&lt;），有符号数和无符号数要匹配</p>
+
+<p>不小于N的数中出现能被5整除的个数：Z=[N/5]+[N/25]+[N/125]+&#8230;每5个一数，有一个数中含有因子5。而每25个一数，有一个数中含有因子25，即2个5，因为之前每5个一数时已经算过一次，所以再加一次</p>
+
+<p>二进制最低位1的位置决定于含有因子2的个数</p>
+
+<p>【？？？】问题2的解法二想不到</p>
+
+<h3>2.3</h3>
+
+<p>把问题转化为同等性质的更小规模的问题。如果某元素个数超过整个数组的一半，那么删除一对不同的元素后，此元素依然超过一半。</p>
+
+<p>【？？？】如何传递数组和指针作为实参，引用传递，const传递等</p>
+
+<h3>2.4</h3>
+
+<p>找规律的题目，我所不擅长的。这里是分别考虑个位、十位、百位&#8230;</p>
+
+<p>我写的代码</p>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+<span class='line-number'>9</span>
+<span class='line-number'>10</span>
+<span class='line-number'>11</span>
+<span class='line-number'>12</span>
+<span class='line-number'>13</span>
+<span class='line-number'>14</span>
+<span class='line-number'>15</span>
+<span class='line-number'>16</span>
+<span class='line-number'>17</span>
+<span class='line-number'>18</span>
+</pre></td><td class='code'><pre><code class='c'><span class='line'><span class="kt">unsigned</span> <span class="kt">long</span> <span class="kt">long</span> <span class="nf">calc</span><span class="p">(</span><span class="kt">unsigned</span> <span class="kt">long</span> <span class="kt">long</span> <span class="n">num</span><span class="p">)</span> <span class="p">{</span>
+</span><span class='line'>  <span class="kt">unsigned</span> <span class="kt">long</span> <span class="kt">long</span> <span class="n">less</span><span class="p">;</span>
+</span><span class='line'>  <span class="kt">unsigned</span> <span class="kt">long</span> <span class="kt">long</span> <span class="n">sum</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span>
+</span><span class='line'>  <span class="kt">unsigned</span> <span class="kt">long</span> <span class="kt">long</span> <span class="n">factor</span> <span class="o">=</span> <span class="mi">1</span><span class="p">;</span>
+</span><span class='line'>  <span class="kt">unsigned</span> <span class="kt">long</span> <span class="kt">long</span> <span class="n">temp</span> <span class="o">=</span> <span class="n">num</span><span class="p">;</span>
+</span><span class='line'>  <span class="k">while</span><span class="p">(</span><span class="n">temp</span> <span class="o">!=</span> <span class="mi">0</span><span class="p">)</span> <span class="p">{</span>
+</span><span class='line'>      <span class="n">less</span> <span class="o">=</span> <span class="n">temp</span> <span class="o">-</span> <span class="n">temp</span> <span class="o">/</span> <span class="mi">10</span> <span class="o">*</span> <span class="mi">10</span><span class="p">;</span>
+</span><span class='line'>      <span class="n">temp</span> <span class="o">=</span> <span class="n">temp</span><span class="o">/</span><span class="mi">10</span><span class="p">;</span>
+</span><span class='line'>      <span class="k">if</span><span class="p">(</span><span class="n">less</span> <span class="o">==</span> <span class="mi">0</span><span class="p">)</span>
+</span><span class='line'>          <span class="n">sum</span> <span class="o">+=</span> <span class="n">num</span> <span class="o">*</span> <span class="n">factor</span><span class="p">;</span>
+</span><span class='line'>      <span class="k">else</span> <span class="k">if</span><span class="p">(</span><span class="n">less</span> <span class="o">==</span> <span class="mi">1</span><span class="p">)</span>
+</span><span class='line'>          <span class="n">sum</span> <span class="o">+=</span> <span class="n">temp</span> <span class="o">*</span> <span class="n">factor</span> <span class="o">+</span> <span class="n">num</span> <span class="o">-</span> <span class="p">(</span><span class="n">num</span> <span class="o">/</span> <span class="n">factor</span> <span class="o">*</span> <span class="n">factor</span><span class="p">)</span> <span class="o">+</span> <span class="mi">1</span><span class="p">;</span>
+</span><span class='line'>      <span class="k">else</span>
+</span><span class='line'>          <span class="n">sum</span> <span class="o">+=</span> <span class="p">(</span><span class="n">temp</span> <span class="o">+</span> <span class="mi">1</span><span class="p">)</span> <span class="o">*</span> <span class="n">factor</span><span class="p">;</span>
+</span><span class='line'>      <span class="n">factor</span> <span class="o">*=</span> <span class="mi">10</span><span class="p">;</span>
+</span><span class='line'>  <span class="p">}</span>
+</span><span class='line'>  <span class="k">return</span> <span class="n">sum</span><span class="p">;</span>
+</span><span class='line'><span class="p">}</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>代码修改</p>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+<span class='line-number'>9</span>
+<span class='line-number'>10</span>
+<span class='line-number'>11</span>
+<span class='line-number'>12</span>
+<span class='line-number'>13</span>
+<span class='line-number'>14</span>
+<span class='line-number'>15</span>
+<span class='line-number'>16</span>
+<span class='line-number'>17</span>
+<span class='line-number'>18</span>
+<span class='line-number'>19</span>
+<span class='line-number'>20</span>
+<span class='line-number'>21</span>
+<span class='line-number'>22</span>
+<span class='line-number'>23</span>
+<span class='line-number'>24</span>
+<span class='line-number'>25</span>
+</pre></td><td class='code'><pre><code class='c'><span class='line'><span class="kt">unsigned</span> <span class="kt">long</span> <span class="kt">long</span> <span class="nf">calc</span><span class="p">(</span><span class="kt">unsigned</span> <span class="kt">long</span> <span class="kt">long</span> <span class="n">num</span><span class="p">)</span> <span class="p">{</span>
+</span><span class='line'>  <span class="kt">unsigned</span> <span class="kt">long</span> <span class="kt">long</span> <span class="n">sum</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span>
+</span><span class='line'>  <span class="kt">unsigned</span> <span class="kt">long</span> <span class="kt">long</span> <span class="n">factor</span> <span class="o">=</span> <span class="mi">1</span><span class="p">;</span>
+</span><span class='line'>  <span class="kt">unsigned</span> <span class="kt">long</span> <span class="kt">long</span> <span class="n">lowerNum</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span>
+</span><span class='line'>  <span class="kt">unsigned</span> <span class="kt">long</span> <span class="kt">long</span> <span class="n">currNum</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span>
+</span><span class='line'>  <span class="kt">unsigned</span> <span class="kt">long</span> <span class="kt">long</span> <span class="n">higherNum</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span>
+</span><span class='line'>  <span class="c1">//改用这些变量后程序可读性增强了很多</span>
+</span><span class='line'>  <span class="c1">//写程序时还是要抓住解决方案的本质，用简明的方法表达出来</span>
+</span><span class='line'>  <span class="c1">//如果写的时候觉得很难表达清楚，一定是还没有理清思路，不要急着开始写程序</span>
+</span><span class='line'>
+</span><span class='line'>  <span class="k">while</span><span class="p">(</span><span class="n">num</span> <span class="o">/</span> <span class="n">factor</span> <span class="o">!=</span> <span class="mi">0</span><span class="p">)</span> <span class="p">{</span>
+</span><span class='line'>      <span class="n">lowerNum</span> <span class="o">=</span> <span class="n">num</span> <span class="o">-</span> <span class="n">num</span> <span class="o">/</span> <span class="n">factor</span> <span class="o">*</span> <span class="n">factor</span><span class="p">;</span>
+</span><span class='line'>      <span class="n">currNum</span> <span class="o">=</span> <span class="p">(</span><span class="n">num</span> <span class="o">/</span> <span class="n">factor</span><span class="p">)</span> <span class="o">%</span> <span class="mi">10</span><span class="p">;</span>
+</span><span class='line'>      <span class="n">higherNum</span> <span class="o">=</span> <span class="n">num</span> <span class="o">/</span> <span class="n">factor</span> <span class="o">/</span> <span class="mi">10</span><span class="p">;</span>
+</span><span class='line'>
+</span><span class='line'>      <span class="k">if</span><span class="p">(</span><span class="n">currNum</span> <span class="o">==</span> <span class="mi">0</span><span class="p">)</span>
+</span><span class='line'>          <span class="n">sum</span> <span class="o">+=</span> <span class="n">higherNum</span> <span class="o">*</span> <span class="n">factor</span><span class="p">;</span>
+</span><span class='line'>      <span class="k">else</span> <span class="k">if</span><span class="p">(</span><span class="n">currNum</span> <span class="o">==</span> <span class="mi">1</span><span class="p">)</span>
+</span><span class='line'>          <span class="n">sum</span> <span class="o">+=</span> <span class="n">higherNum</span> <span class="o">*</span> <span class="n">factor</span> <span class="o">+</span> <span class="n">lowerNum</span> <span class="o">+</span> <span class="mi">1</span><span class="p">;</span>
+</span><span class='line'>      <span class="k">else</span>
+</span><span class='line'>          <span class="n">sum</span> <span class="o">+=</span> <span class="p">(</span><span class="n">higherNum</span> <span class="o">+</span> <span class="mi">1</span><span class="p">)</span> <span class="o">*</span> <span class="n">factor</span><span class="p">;</span>
+</span><span class='line'>      <span class="n">factor</span> <span class="o">*=</span> <span class="mi">10</span><span class="p">;</span>
+</span><span class='line'>  <span class="p">}</span>
+</span><span class='line'>  <span class="k">return</span> <span class="n">sum</span><span class="p">;</span>
+</span><span class='line'><span class="p">}</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>【？？？问题2实在是太绕了，没看明白】</p>
+</div>
+
+
+  <footer>
+    <p class="meta">
+      
+  
+
+<span class="byline author vcard">Posted by <span class="fn">Jean</span></span>
+
+      
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2013-05-16T23:29:00+08:00" pubdate data-updated="true">May 16<span>th</span>, 2013</time>
+      
+
+<span class="categories">
+  
+    <a class='category' href='/blog/categories/interview/'>interview</a>, <a class='category' href='/blog/categories/notes/'>notes</a>
+  
+</span>
+
+
+    </p>
+    
+      <div class="sharing">
+  
+  
+  
+  
+    <!-- JiaThis Button BEGIN -->
+<div class="jiathis_style">
+	<span class="jiathis_txt">分享到：</span>
+	<a class="jiathis_button_tools_1"></a>
+	<a class="jiathis_button_tools_2"></a>
+	<a class="jiathis_button_tools_3"></a>
+	<a class="jiathis_button_tools_4"></a>
+	<a href="http://www.jiathis.com/share?uid=1713528" class="jiathis jiathis_txt jiathis_separator jtico jtico_jiathis" target="_blank">更多</a>
+	<a class="jiathis_counter_style"></a>
+</div>
+<script type="text/javascript">
+var jiathis_config = {data_track_clickback:'true'};
+</script>
+<script type="text/javascript" src="http://v3.jiathis.com/code/jia.js?uid=1351176419875879" charset="utf-8"></script>
+<!-- JiaThis Button END -->
+
+<!-- UY BEGIN -->
+<div id="uyan_frame"></div>
+<script type="text/javascript" id="UYScript" src="http://v1.uyan.cc/js/iframe.js?UYUserId=1713528" async=""></script>
+<!-- UY END -->
+
+  
+</div>
+
+    
+    <p class="meta">
+      
+        <a class="basic-alignment left" href="/blog/2013/05/08/interview-summary/" title="Previous Post: 笔试面试总结">&laquo; 笔试面试总结</a>
+      
+      
+        <a class="basic-alignment right" href="/blog/2013/05/16/chromium-multi-process-architecture/" title="Next Post: 『整理翻译』Chromium多进程架构">『整理翻译』Chromium多进程架构 &raquo;</a>
+      
+    </p>
+  </footer>
+</article>
+
+</div>
+
+<aside class="sidebar">
+  
+    <section>
+  <h1>Recent Posts</h1>
+  <ul id="recent_posts">
+    
+      <li class="post">
+        <a href="/blog/2013/05/17/memory-in-c-and-c-plus-plus/">『转载整理』C/C++中内存机制</a>
+      </li>
+    
+      <li class="post">
+        <a href="/blog/2013/05/16/chromium-multi-process-architecture/">『整理翻译』Chromium多进程架构</a>
+      </li>
+    
+      <li class="post">
+        <a href="/blog/2013/05/16/beauty-of-programming-1/">编程之美 读书笔记 1</a>
+      </li>
+    
+      <li class="post">
+        <a href="/blog/2013/05/08/interview-summary/">笔试面试总结</a>
+      </li>
+    
+      <li class="post">
+        <a href="/blog/2013/04/11/solve-win7-chinese-gibberish/">英文版Win7中文软件显示乱码的解决</a>
+      </li>
+    
+  </ul>
+</section>
+<section>
+  <h1>Categories</h1>
+  <ul id="categories">
+    <li class='category'><a href='/blog/categories/c-/'>C++ (1)</a></li>
+<li class='category'><a href='/blog/categories/android/'>android (2)</a></li>
+<li class='category'><a href='/blog/categories/c-/'>c++ (5)</a></li>
+<li class='category'><a href='/blog/categories/chromium/'>chromium (1)</a></li>
+<li class='category'><a href='/blog/categories/helloworld/'>helloworld (4)</a></li>
+<li class='category'><a href='/blog/categories/interview/'>interview (3)</a></li>
+<li class='category'><a href='/blog/categories/javascript/'>javascript (2)</a></li>
+<li class='category'><a href='/blog/categories/notes/'>notes (6)</a></li>
+<li class='category'><a href='/blog/categories/old/'>old (1)</a></li>
+<li class='category'><a href='/blog/categories/problem-solving/'>problem solving (2)</a></li>
+<li class='category'><a href='/blog/categories/random-thoughts/'>random thoughts (1)</a></li>
+
+  </ul>
+</section>
+
+
+  
+</aside>
+
+
+    </div>
+  </div>
+  <footer role="contentinfo"><p>
+  Copyright &copy; 2013 - Jean -
+  <span class="credit">Powered by <a href="http://octopress.org">Octopress</a></span>
+</p>
+
+</footer>
+  
+
+
+
+
+
+
+
+
+
+
+
+</body>
+</html>

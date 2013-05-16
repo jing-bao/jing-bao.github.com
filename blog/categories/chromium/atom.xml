@@ -1,0 +1,88 @@
+<?xml version="1.0" encoding="utf-8"?>
+<feed xmlns="http://www.w3.org/2005/Atom">
+
+  <title><![CDATA[Category: chromium | Jean's Blog]]></title>
+  <link href="http://ziwu1216.github.com/blog/categories/chromium/atom.xml" rel="self"/>
+  <link href="http://ziwu1216.github.com/"/>
+  <updated>2013-05-17T00:36:04+08:00</updated>
+  <id>http://ziwu1216.github.com/</id>
+  <author>
+    <name><![CDATA[Jean]]></name>
+    
+  </author>
+  <generator uri="http://octopress.org/">Octopress</generator>
+
+  
+  <entry>
+    <title type="html"><![CDATA[『整理翻译』Chromium多进程架构]]></title>
+    <link href="http://ziwu1216.github.com/blog/2013/05/16/chromium-multi-process-architecture/"/>
+    <updated>2013-05-16T23:58:00+08:00</updated>
+    <id>http://ziwu1216.github.com/blog/2013/05/16/chromium-multi-process-architecture</id>
+    <content type="html"><![CDATA[<p>不是完全翻译，只是在理解的基础上摘录了大致意思，而且对我自己感兴趣的部分可能详细一点，对其他简略一点</p>
+
+<p>原网址<a href="http://www.chromium.org/developers/design-documents/multi-process-architecture">http://www.chromium.org/developers/design-documents/multi-process-architecture</a></p>
+
+<!--more-->
+
+
+<p>本文档描述了Chromium的上层架构。</p>
+
+<h2>问题</h2>
+
+<p>浏览器的渲染引擎容易崩溃，安全性也不完美，且单个网页的问题可能影响整个浏览器关闭。</p>
+
+<h2>架构概览</h2>
+
+<p>主要进程称作"browser process"或"browser"，运行UI和管理tab和plugin的进程。针对标签的进程称作"render processes"或者"renderers".
+<img src="/images/chromium-multi-process-architecture.png" title="Chromium架构" alt="图片加载失败 :("></p>
+
+<h3>管理render processes</h3>
+
+<p>每个render process有一个全局的<code>RenderProcess</code>对象。browser为每个render process维持一个相应的<code>RenderProcessHost</code>。browser和renderers通过IPC通信。</p>
+
+<h3>管理视图（view）</h3>
+
+<p>每个render process有一个或多个<code>RenderView</code>对象，被<code>RenderProcess</code>管理，对应于内容标签。相应的<code>RenderProcessHost</code>维持一个<code>RenderViewHost</code>。每个view有一个view ID，在一个renderer中是唯一的，但在一个browser中不唯一。</p>
+
+<h2>组件和接口</h2>
+
+<p>在render process:</p>
+
+<ul>
+<li><code>RenderProcess</code>处理IPC，每个render process有且只有一个<code>RenderProcess</code></li>
+<li><code>RenderView</code>与对应的<code>RenderViewHost</code>通信（通过<code>RenderProcess</code>），以及与我们的WebKit嵌入层通信。这个对象代表网页内容</li>
+</ul>
+
+
+<p>在browser process:</p>
+
+<ul>
+<li><code>Browser</code>对象代表顶层浏览器窗口</li>
+<li><code>RenderProcessHost</code>代表单个browser<->renderer IPC连接的browser端。每个render process有一个<code>RenderProcessHost</code>在browser中。</li>
+<li><code>RenderViewHost</code>封装和<code>RenderView</code>的通信，<code>RenderWidgetHost</code>为browser里的<code>RenderWidget</code>处理输入和绘制</li>
+</ul>
+
+
+<h2>共享render process</h2>
+
+<p>某些情况下会共享</p>
+
+<h2>检测崩溃或行为错误的renderers</h2>
+
+<p>每个IPC连接会监测process句柄。如果句柄接收到信号，说明render process崩溃。</p>
+
+<h2>沙箱</h2>
+
+<p>限制renderer对文件系统、网络、用户显示相关对象的访问</p>
+
+<h2>归还内存</h2>
+
+<p>当系统需要内存时，后台的标签的render process内存优先被释放，通过<code>working set</code>的大小</p>
+
+<h2>插件</h2>
+
+<p>NPAPI插件工作在单独进程</p>
+]]></content>
+  </entry>
+  
+</feed>

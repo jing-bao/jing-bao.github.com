@@ -4,7 +4,7 @@
   <title><![CDATA[Jean's Blog]]></title>
   <link href="http://ziwu1216.github.com/atom.xml" rel="self"/>
   <link href="http://ziwu1216.github.com/"/>
-  <updated>2013-05-08T21:46:12+08:00</updated>
+  <updated>2013-05-17T00:36:04+08:00</updated>
   <id>http://ziwu1216.github.com/</id>
   <author>
     <name><![CDATA[Jean]]></name>
@@ -12,6 +12,383 @@
   </author>
   <generator uri="http://octopress.org/">Octopress</generator>
 
+  
+  <entry>
+    <title type="html"><![CDATA[『转载整理』C/C++中内存机制]]></title>
+    <link href="http://ziwu1216.github.com/blog/2013/05/17/memory-in-c-and-c-plus-plus/"/>
+    <updated>2013-05-17T00:15:00+08:00</updated>
+    <id>http://ziwu1216.github.com/blog/2013/05/17/memory-in-c-and-c-plus-plus</id>
+    <content type="html"><![CDATA[<h2>概述</h2>
+
+<p>在多任务操作系统中的每一个进程都运行在一个属于它自己的内存沙盘中。这个沙盘就是虚拟地址空间（virtual address space），在32位模式下它总是一个<code>4GB</code>的内存地址块。这些虚拟地址通过页表（page table）映射到物理内存，页表由操作系统维护并被处理器引用。每一个进程拥有一套属于它自己的页表，只要虚拟地址被使能，那么它就会作用于这台机器上运行的所有软件，包括内核本身，因此一部分虚拟地址必须保留给内核使用</p>
+
+<!--more-->
+
+
+<p><img src="http://ziwu1216.github.com/images/memory-in-c-and-c-plus-plus-block.png" title="程序内存块" alt="图片加载失败 :("></p>
+
+<p>在Linux中，内核空间是持续存在的，并且在所有进程中都映射到同样的物理内存。内核代码和数据总是可寻址的，随时准备处理中断和系统调用。与此相反，用户模式地址空间的映射随进程切换的发生而不断变化</p>
+
+<p><img src="http://ziwu1216.github.com/images/memory-in-c-and-c-plus-plus-switch.png" title="程序切换" alt="图片加载失败 :("></p>
+
+<p>下面是一个Linux进程的标准的内存段布局</p>
+
+<p><img src="http://ziwu1216.github.com/images/memory-in-c-and-c-plus-plus-layout.png" title="内存布局" alt="图片加载失败 :("></p>
+
+<ul>
+<li>进程地址空间中最顶部的段是栈，大多数编程语言将之用于存储局部变量和函数参数。进程中的每一个线程都有属于自己的栈。</li>
+<li>在栈的下方是内存映射段。此处，内核将文件的内容直接映射到内存。任何应用程序都可以通过Linux的mmap()或Windows的CreateFileMapping() / MapViewOfFile()请求这种映射。内存映射是一种方便高效的文件I/O方式，所以它被用于加载动态库。</li>
+<li>堆用于运行时内存分配。但不同点是，堆用于存储那些生存期与函数调用无关的数据。在C语言中，堆分配的接口是malloc()系列函数，而在具有垃圾收集功能的语言（如C#）中，此接口是new关键字。</li>
+<li>BSS（未初始化数据区）保存的是未被初始化的静态变量内容</li>
+<li>数据段保存在源代码中已经初始化了的静态变量内容</li>
+<li>代码段是只读的，保存了你全部的代码外加零零碎碎的东西，比如字符串字面值。</li>
+</ul>
+
+
+<p>下图展示了这些段以及我们例子中的变量
+<img src="http://ziwu1216.github.com/images/memory-in-c-and-c-plus-plus-example.png" title="例子展示" alt="图片加载失败 :("></p>
+
+<h2>C语言中的内存机制</h2>
+
+<ul>
+<li><p>栈(Stack)<br/>
+位于函数内的局部变量（包括函数实参），由编译器负责分配释放，函数结束，栈变量失效。</p></li>
+<li><p>堆(Heap）<br/>
+由程序员用malloc/calloc/realloc分配，free释放。如果程序员忘记free了，则会造成内存泄露，程序结束时该片内存会由OS回收。</p></li>
+<li><p>全局区/静态区(Global Static Area)<br/>
+全局变量和静态变量存放区，程序一经编译好，该区域便存在。程序结束时释放。<br/>
+在C语言中，初始化的全局变量和静态变量和未初始化的放在相邻的两个区域。</p></li>
+<li><p>C风格字符串常量存储区<br/>
+专门存放字符串常量的地方，程序结束时释放。（字符串常量一般放在 .text段 或单独的 .rodata段）【？？？似乎跟C++的常量存储区类似。const常量是否也放在这里？】</p></li>
+<li><p>程序代码区</p></li>
+</ul>
+
+
+<h2>C++中的内存机制</h2>
+
+<p>与C相同部分不再描述</p>
+
+<ul>
+<li><p>栈(Stack)</p></li>
+<li><p>堆（Heap)<br/>
+由new申请的内存，由delete或delete[]负责释放。</p></li>
+<li><p>自由存储区(Free Storage)<br/>
+malloc/calloc/realloc分配的内存。对象的生存周期可以比内存被分配的时间短，即可以用void*访问这块内存，而没有具体对象。自由存储区和堆的本质区别有争议，具体可见<a href="http://hi.baidu.com/yangdgjy/item/23a3c28daa7f495c840fabb2">这里</a></p></li>
+<li><p>全局区/静态区(Global Static Area)<br/>
+在C++中，由于全局变量和静态变量编译器会给这些变量自动初始化赋值，所以没有区分了初始化变量和未初始化变量了</p></li>
+<li><p>常量存储区<br/>
+存储字符串常量和其他在编译时已知的数据。整个程序运行期间可见。只读。</p></li>
+<li><p>程序代码区</p></li>
+</ul>
+
+
+<hr />
+
+<p>参考链接:</p>
+
+<p><a href="http://blog.csdn.net/drshenlei/article/details/4339110">剖析程序的内存布局</a><br/>
+<a href="http://www.cnblogs.com/ComputerG/archive/2012/02/01/2334898.html">c/c++内存机制（一）（原）</a><br/>
+<a href="http://www.gotw.ca/gotw/009.htm">Memory Management - Part I</a></p>
+]]></content>
+  </entry>
+  
+  <entry>
+    <title type="html"><![CDATA[『整理翻译』Chromium多进程架构]]></title>
+    <link href="http://ziwu1216.github.com/blog/2013/05/16/chromium-multi-process-architecture/"/>
+    <updated>2013-05-16T23:58:00+08:00</updated>
+    <id>http://ziwu1216.github.com/blog/2013/05/16/chromium-multi-process-architecture</id>
+    <content type="html"><![CDATA[<p>不是完全翻译，只是在理解的基础上摘录了大致意思，而且对我自己感兴趣的部分可能详细一点，对其他简略一点</p>
+
+<p>原网址<a href="http://www.chromium.org/developers/design-documents/multi-process-architecture">http://www.chromium.org/developers/design-documents/multi-process-architecture</a></p>
+
+<!--more-->
+
+
+<p>本文档描述了Chromium的上层架构。</p>
+
+<h2>问题</h2>
+
+<p>浏览器的渲染引擎容易崩溃，安全性也不完美，且单个网页的问题可能影响整个浏览器关闭。</p>
+
+<h2>架构概览</h2>
+
+<p>主要进程称作&#8221;browser process&#8221;或&#8221;browser&#8221;，运行UI和管理tab和plugin的进程。针对标签的进程称作&#8221;render processes&#8221;或者&#8221;renderers&#8221;.
+<img src="http://ziwu1216.github.com/images/chromium-multi-process-architecture.png" title="Chromium架构" alt="图片加载失败 :("></p>
+
+<h3>管理render processes</h3>
+
+<p>每个render process有一个全局的<code>RenderProcess</code>对象。browser为每个render process维持一个相应的<code>RenderProcessHost</code>。browser和renderers通过IPC通信。</p>
+
+<h3>管理视图（view）</h3>
+
+<p>每个render process有一个或多个<code>RenderView</code>对象，被<code>RenderProcess</code>管理，对应于内容标签。相应的<code>RenderProcessHost</code>维持一个<code>RenderViewHost</code>。每个view有一个view ID，在一个renderer中是唯一的，但在一个browser中不唯一。</p>
+
+<h2>组件和接口</h2>
+
+<p>在render process:</p>
+
+<ul>
+<li><code>RenderProcess</code>处理IPC，每个render process有且只有一个<code>RenderProcess</code></li>
+<li><code>RenderView</code>与对应的<code>RenderViewHost</code>通信（通过<code>RenderProcess</code>），以及与我们的WebKit嵌入层通信。这个对象代表网页内容</li>
+</ul>
+
+
+<p>在browser process:</p>
+
+<ul>
+<li><code>Browser</code>对象代表顶层浏览器窗口</li>
+<li><code>RenderProcessHost</code>代表单个browser<->renderer IPC连接的browser端。每个render process有一个<code>RenderProcessHost</code>在browser中。</li>
+<li><code>RenderViewHost</code>封装和<code>RenderView</code>的通信，<code>RenderWidgetHost</code>为browser里的<code>RenderWidget</code>处理输入和绘制</li>
+</ul>
+
+
+<h2>共享render process</h2>
+
+<p>某些情况下会共享</p>
+
+<h2>检测崩溃或行为错误的renderers</h2>
+
+<p>每个IPC连接会监测process句柄。如果句柄接收到信号，说明render process崩溃。</p>
+
+<h2>沙箱</h2>
+
+<p>限制renderer对文件系统、网络、用户显示相关对象的访问</p>
+
+<h2>归还内存</h2>
+
+<p>当系统需要内存时，后台的标签的render process内存优先被释放，通过<code>working set</code>的大小</p>
+
+<h2>插件</h2>
+
+<p>NPAPI插件工作在单独进程</p>
+]]></content>
+  </entry>
+  
+  <entry>
+    <title type="html"><![CDATA[编程之美 读书笔记 1]]></title>
+    <link href="http://ziwu1216.github.com/blog/2013/05/16/beauty-of-programming-1/"/>
+    <updated>2013-05-16T23:29:00+08:00</updated>
+    <id>http://ziwu1216.github.com/blog/2013/05/16/beauty-of-programming-1</id>
+    <content type="html"><![CDATA[<p>书籍信息：编程之美——微软技术面试心得；《编程之美》小组著；电子工业出版社</p>
+
+<p>从第二章开始看起的，毕竟是件很功利的事情。</p>
+
+<!--more-->
+
+
+<h3>2.1</h3>
+
+<p>用右移达到除2的效果，效率很高，可以多想想是否可以利用</p>
+
+<p>求1的个数：var = var &amp; (var - 1)</p>
+
+<p>用查表法，以空间换时间</p>
+
+<p>我写的代码</p>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+</pre></td><td class='code'><pre><code class='c'><span class='line'><span class="kt">int</span> <span class="nf">findOne</span><span class="p">(</span><span class="kt">unsigned</span> <span class="n">var</span><span class="p">)</span> <span class="p">{</span>
+</span><span class='line'>  <span class="kt">int</span> <span class="n">cnt</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span>
+</span><span class='line'>  <span class="k">while</span><span class="p">(</span><span class="n">var</span> <span class="o">!=</span> <span class="mi">0</span><span class="p">)</span> <span class="p">{</span>
+</span><span class='line'>      <span class="n">var</span> <span class="o">=</span> <span class="n">var</span> <span class="o">&amp;</span> <span class="p">(</span><span class="n">var</span> <span class="o">-</span> <span class="mi">1</span><span class="p">);</span>
+</span><span class='line'>      <span class="n">cnt</span><span class="o">++</span><span class="p">;</span>
+</span><span class='line'>  <span class="p">}</span>
+</span><span class='line'>  <span class="k">return</span> <span class="n">cnt</span><span class="p">;</span>
+</span><span class='line'><span class="p">}</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>代码修改-注意注释</p>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+<span class='line-number'>9</span>
+<span class='line-number'>10</span>
+<span class='line-number'>11</span>
+<span class='line-number'>12</span>
+<span class='line-number'>13</span>
+<span class='line-number'>14</span>
+<span class='line-number'>15</span>
+<span class='line-number'>16</span>
+<span class='line-number'>17</span>
+<span class='line-number'>18</span>
+<span class='line-number'>19</span>
+<span class='line-number'>20</span>
+<span class='line-number'>21</span>
+<span class='line-number'>22</span>
+<span class='line-number'>23</span>
+<span class='line-number'>24</span>
+<span class='line-number'>25</span>
+<span class='line-number'>26</span>
+<span class='line-number'>27</span>
+<span class='line-number'>28</span>
+<span class='line-number'>29</span>
+<span class='line-number'>30</span>
+</pre></td><td class='code'><pre><code class='c'><span class='line'><span class="cp">#include &lt;iostream&gt;</span>
+</span><span class='line'><span class="n">using</span> <span class="n">namespace</span> <span class="n">std</span><span class="p">;</span>
+</span><span class='line'>
+</span><span class='line'><span class="k">typedef</span> <span class="kt">unsigned</span> <span class="kt">char</span> <span class="n">BYTE</span><span class="p">;</span><span class="c1">//常用的宏定义，unsigned int范围不进行检查的话不符合题意</span>
+</span><span class='line'>
+</span><span class='line'><span class="kt">int</span> <span class="nf">findOne</span><span class="p">(</span><span class="n">BYTE</span> <span class="n">var</span><span class="p">)</span> <span class="p">{</span>
+</span><span class='line'>  <span class="kt">int</span> <span class="n">cnt</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span>
+</span><span class='line'>  <span class="k">while</span><span class="p">(</span><span class="n">var</span><span class="p">)</span> <span class="p">{</span><span class="c1">//var!=0冗余</span>
+</span><span class='line'>      <span class="n">var</span> <span class="o">&amp;=</span> <span class="p">(</span><span class="n">var</span> <span class="o">-</span> <span class="mi">1</span><span class="p">);</span><span class="c1">//复合赋值更高效简洁</span>
+</span><span class='line'>      <span class="n">cnt</span><span class="o">++</span><span class="p">;</span>
+</span><span class='line'>  <span class="p">}</span>
+</span><span class='line'>  <span class="k">return</span> <span class="n">cnt</span><span class="p">;</span>
+</span><span class='line'><span class="p">}</span>
+</span><span class='line'><span class="kt">int</span> <span class="nf">main</span><span class="p">()</span> <span class="p">{</span>
+</span><span class='line'>  <span class="kt">unsigned</span> <span class="n">a</span><span class="p">;</span><span class="c1">//直接输入给BYTE会得到ASCII码值</span>
+</span><span class='line'>  <span class="n">BYTE</span> <span class="n">b</span><span class="p">;</span>
+</span><span class='line'>  <span class="kt">int</span> <span class="n">c</span><span class="p">;</span>
+</span><span class='line'>  <span class="k">while</span><span class="p">(</span><span class="n">cin</span><span class="o">&gt;&gt;</span><span class="n">a</span><span class="p">)</span> <span class="p">{</span>
+</span><span class='line'>      <span class="k">if</span><span class="p">(</span><span class="n">a</span><span class="o">&gt;</span><span class="mh">0xff</span><span class="p">)</span> <span class="p">{</span>
+</span><span class='line'>    <span class="c1">//0x前缀表示16进制数，x不区分大小写。0前缀表示8进制数。没有提供直接写2进制数的方法.</span>
+</span><span class='line'>    <span class="c1">//8进制和16进制只能表达无符号的正整数</span>
+</span><span class='line'>          <span class="n">cout</span><span class="o">&lt;&lt;</span><span class="s">&quot;error&quot;</span><span class="o">&lt;&lt;</span><span class="n">endl</span><span class="p">;</span>
+</span><span class='line'>          <span class="k">continue</span><span class="p">;</span>
+</span><span class='line'>      <span class="p">}</span>
+</span><span class='line'>      <span class="n">b</span> <span class="o">=</span> <span class="p">(</span><span class="n">BYTE</span><span class="p">)</span><span class="n">a</span><span class="p">;</span><span class="c1">//【？？？】是否有更恰当的方法，将输入以数字的值读入BYTE？</span>
+</span><span class='line'>      <span class="n">c</span> <span class="o">=</span> <span class="n">findOne</span><span class="p">(</span><span class="n">a</span><span class="p">);</span>
+</span><span class='line'>      <span class="n">cout</span><span class="o">&lt;&lt;</span><span class="n">c</span><span class="o">&lt;&lt;</span><span class="n">endl</span><span class="p">;</span>
+</span><span class='line'>  <span class="p">}</span>
+</span><span class='line'>  <span class="k">return</span> <span class="mi">0</span><span class="p">;</span>
+</span><span class='line'><span class="p">}</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<h3>2.2</h3>
+
+<p>在比较运算符两边（如&lt;），有符号数和无符号数要匹配</p>
+
+<p>不小于N的数中出现能被5整除的个数：Z=[N/5]+[N/25]+[N/125]+&#8230;每5个一数，有一个数中含有因子5。而每25个一数，有一个数中含有因子25，即2个5，因为之前每5个一数时已经算过一次，所以再加一次</p>
+
+<p>二进制最低位1的位置决定于含有因子2的个数</p>
+
+<p>【？？？】问题2的解法二想不到</p>
+
+<h3>2.3</h3>
+
+<p>把问题转化为同等性质的更小规模的问题。如果某元素个数超过整个数组的一半，那么删除一对不同的元素后，此元素依然超过一半。</p>
+
+<p>【？？？】如何传递数组和指针作为实参，引用传递，const传递等</p>
+
+<h3>2.4</h3>
+
+<p>找规律的题目，我所不擅长的。这里是分别考虑个位、十位、百位&#8230;</p>
+
+<p>我写的代码</p>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+<span class='line-number'>9</span>
+<span class='line-number'>10</span>
+<span class='line-number'>11</span>
+<span class='line-number'>12</span>
+<span class='line-number'>13</span>
+<span class='line-number'>14</span>
+<span class='line-number'>15</span>
+<span class='line-number'>16</span>
+<span class='line-number'>17</span>
+<span class='line-number'>18</span>
+</pre></td><td class='code'><pre><code class='c'><span class='line'><span class="kt">unsigned</span> <span class="kt">long</span> <span class="kt">long</span> <span class="nf">calc</span><span class="p">(</span><span class="kt">unsigned</span> <span class="kt">long</span> <span class="kt">long</span> <span class="n">num</span><span class="p">)</span> <span class="p">{</span>
+</span><span class='line'>  <span class="kt">unsigned</span> <span class="kt">long</span> <span class="kt">long</span> <span class="n">less</span><span class="p">;</span>
+</span><span class='line'>  <span class="kt">unsigned</span> <span class="kt">long</span> <span class="kt">long</span> <span class="n">sum</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span>
+</span><span class='line'>  <span class="kt">unsigned</span> <span class="kt">long</span> <span class="kt">long</span> <span class="n">factor</span> <span class="o">=</span> <span class="mi">1</span><span class="p">;</span>
+</span><span class='line'>  <span class="kt">unsigned</span> <span class="kt">long</span> <span class="kt">long</span> <span class="n">temp</span> <span class="o">=</span> <span class="n">num</span><span class="p">;</span>
+</span><span class='line'>  <span class="k">while</span><span class="p">(</span><span class="n">temp</span> <span class="o">!=</span> <span class="mi">0</span><span class="p">)</span> <span class="p">{</span>
+</span><span class='line'>      <span class="n">less</span> <span class="o">=</span> <span class="n">temp</span> <span class="o">-</span> <span class="n">temp</span> <span class="o">/</span> <span class="mi">10</span> <span class="o">*</span> <span class="mi">10</span><span class="p">;</span>
+</span><span class='line'>      <span class="n">temp</span> <span class="o">=</span> <span class="n">temp</span><span class="o">/</span><span class="mi">10</span><span class="p">;</span>
+</span><span class='line'>      <span class="k">if</span><span class="p">(</span><span class="n">less</span> <span class="o">==</span> <span class="mi">0</span><span class="p">)</span>
+</span><span class='line'>          <span class="n">sum</span> <span class="o">+=</span> <span class="n">num</span> <span class="o">*</span> <span class="n">factor</span><span class="p">;</span>
+</span><span class='line'>      <span class="k">else</span> <span class="k">if</span><span class="p">(</span><span class="n">less</span> <span class="o">==</span> <span class="mi">1</span><span class="p">)</span>
+</span><span class='line'>          <span class="n">sum</span> <span class="o">+=</span> <span class="n">temp</span> <span class="o">*</span> <span class="n">factor</span> <span class="o">+</span> <span class="n">num</span> <span class="o">-</span> <span class="p">(</span><span class="n">num</span> <span class="o">/</span> <span class="n">factor</span> <span class="o">*</span> <span class="n">factor</span><span class="p">)</span> <span class="o">+</span> <span class="mi">1</span><span class="p">;</span>
+</span><span class='line'>      <span class="k">else</span>
+</span><span class='line'>          <span class="n">sum</span> <span class="o">+=</span> <span class="p">(</span><span class="n">temp</span> <span class="o">+</span> <span class="mi">1</span><span class="p">)</span> <span class="o">*</span> <span class="n">factor</span><span class="p">;</span>
+</span><span class='line'>      <span class="n">factor</span> <span class="o">*=</span> <span class="mi">10</span><span class="p">;</span>
+</span><span class='line'>  <span class="p">}</span>
+</span><span class='line'>  <span class="k">return</span> <span class="n">sum</span><span class="p">;</span>
+</span><span class='line'><span class="p">}</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>代码修改</p>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+<span class='line-number'>9</span>
+<span class='line-number'>10</span>
+<span class='line-number'>11</span>
+<span class='line-number'>12</span>
+<span class='line-number'>13</span>
+<span class='line-number'>14</span>
+<span class='line-number'>15</span>
+<span class='line-number'>16</span>
+<span class='line-number'>17</span>
+<span class='line-number'>18</span>
+<span class='line-number'>19</span>
+<span class='line-number'>20</span>
+<span class='line-number'>21</span>
+<span class='line-number'>22</span>
+<span class='line-number'>23</span>
+<span class='line-number'>24</span>
+<span class='line-number'>25</span>
+</pre></td><td class='code'><pre><code class='c'><span class='line'><span class="kt">unsigned</span> <span class="kt">long</span> <span class="kt">long</span> <span class="nf">calc</span><span class="p">(</span><span class="kt">unsigned</span> <span class="kt">long</span> <span class="kt">long</span> <span class="n">num</span><span class="p">)</span> <span class="p">{</span>
+</span><span class='line'>  <span class="kt">unsigned</span> <span class="kt">long</span> <span class="kt">long</span> <span class="n">sum</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span>
+</span><span class='line'>  <span class="kt">unsigned</span> <span class="kt">long</span> <span class="kt">long</span> <span class="n">factor</span> <span class="o">=</span> <span class="mi">1</span><span class="p">;</span>
+</span><span class='line'>  <span class="kt">unsigned</span> <span class="kt">long</span> <span class="kt">long</span> <span class="n">lowerNum</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span>
+</span><span class='line'>  <span class="kt">unsigned</span> <span class="kt">long</span> <span class="kt">long</span> <span class="n">currNum</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span>
+</span><span class='line'>  <span class="kt">unsigned</span> <span class="kt">long</span> <span class="kt">long</span> <span class="n">higherNum</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span>
+</span><span class='line'>  <span class="c1">//改用这些变量后程序可读性增强了很多</span>
+</span><span class='line'>  <span class="c1">//写程序时还是要抓住解决方案的本质，用简明的方法表达出来</span>
+</span><span class='line'>  <span class="c1">//如果写的时候觉得很难表达清楚，一定是还没有理清思路，不要急着开始写程序</span>
+</span><span class='line'>
+</span><span class='line'>  <span class="k">while</span><span class="p">(</span><span class="n">num</span> <span class="o">/</span> <span class="n">factor</span> <span class="o">!=</span> <span class="mi">0</span><span class="p">)</span> <span class="p">{</span>
+</span><span class='line'>      <span class="n">lowerNum</span> <span class="o">=</span> <span class="n">num</span> <span class="o">-</span> <span class="n">num</span> <span class="o">/</span> <span class="n">factor</span> <span class="o">*</span> <span class="n">factor</span><span class="p">;</span>
+</span><span class='line'>      <span class="n">currNum</span> <span class="o">=</span> <span class="p">(</span><span class="n">num</span> <span class="o">/</span> <span class="n">factor</span><span class="p">)</span> <span class="o">%</span> <span class="mi">10</span><span class="p">;</span>
+</span><span class='line'>      <span class="n">higherNum</span> <span class="o">=</span> <span class="n">num</span> <span class="o">/</span> <span class="n">factor</span> <span class="o">/</span> <span class="mi">10</span><span class="p">;</span>
+</span><span class='line'>
+</span><span class='line'>      <span class="k">if</span><span class="p">(</span><span class="n">currNum</span> <span class="o">==</span> <span class="mi">0</span><span class="p">)</span>
+</span><span class='line'>          <span class="n">sum</span> <span class="o">+=</span> <span class="n">higherNum</span> <span class="o">*</span> <span class="n">factor</span><span class="p">;</span>
+</span><span class='line'>      <span class="k">else</span> <span class="k">if</span><span class="p">(</span><span class="n">currNum</span> <span class="o">==</span> <span class="mi">1</span><span class="p">)</span>
+</span><span class='line'>          <span class="n">sum</span> <span class="o">+=</span> <span class="n">higherNum</span> <span class="o">*</span> <span class="n">factor</span> <span class="o">+</span> <span class="n">lowerNum</span> <span class="o">+</span> <span class="mi">1</span><span class="p">;</span>
+</span><span class='line'>      <span class="k">else</span>
+</span><span class='line'>          <span class="n">sum</span> <span class="o">+=</span> <span class="p">(</span><span class="n">higherNum</span> <span class="o">+</span> <span class="mi">1</span><span class="p">)</span> <span class="o">*</span> <span class="n">factor</span><span class="p">;</span>
+</span><span class='line'>      <span class="n">factor</span> <span class="o">*=</span> <span class="mi">10</span><span class="p">;</span>
+</span><span class='line'>  <span class="p">}</span>
+</span><span class='line'>  <span class="k">return</span> <span class="n">sum</span><span class="p">;</span>
+</span><span class='line'><span class="p">}</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>【？？？问题2实在是太绕了，没看明白】</p>
+]]></content>
+  </entry>
   
   <entry>
     <title type="html"><![CDATA[笔试面试总结]]></title>
@@ -25,7 +402,7 @@
 <!--more-->
 
 
-<h2>企业开放日，工程师们对各个职业求职的描述</h2>
+<h2>企业开放日，工程师们对各个职业求职的描述(M-shz)</h2>
 
 <h3>测试</h3>
 
@@ -100,9 +477,10 @@ int->正 负 零，比如传长度，不要理所当然是个非零的数，要�
 提前准备下怎么说</li>
 <li>有什么问题要提问<br/>
 要准备些题目，不然冷场</li>
-<li>白板编程</li>
+<li>白板编程<br/>
+有意识的选择数据类型，例如longlong等平时不常用的类型很多时候需要用来表示可能很大的数据</li>
 <li>上机编程<br/>
-我编程太慢了，来不及，要多练习。<br/>
+我编程太慢了，来不及，要多练习，尽量能一次成型，不要太多次调试。<br/>
 上机编程以能运行和可读性为首要要求，不要太追求算法高效。</li>
 </ul>
 
@@ -115,6 +493,7 @@ int->正 负 零，比如传长度，不要理所当然是个非零的数，要�
 <li>各种关键字修饰的变量存储在堆？栈？其他？数据类型字节数</li>
 <li>扑克牌的表示和洗牌函数</li>
 <li>三角形向下相邻路径最大和</li>
+<li>文件读写的程序</li>
 </ul>
 
 ]]></content>

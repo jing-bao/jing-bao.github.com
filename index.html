@@ -9,7 +9,7 @@
   <meta name="author" content="Jean">
 
   
-  <meta name="description" content="最近开始参加笔试面试了，主要还是软件技术类的。这是一篇不断更新中的记录总纲，其实主要还是给自己看的&#8230;如果遇到要回来学习的题目什么的我会再加日志。 有总结才有提高。 ">
+  <meta name="description" content="概述 在多任务操作系统中的每一个进程都运行在一个属于它自己的内存沙盘中。这个沙盘就是虚拟地址空间（virtual address space），在32位模式下它总是一个4GB的内存地址块。这些虚拟地址通过页表（page table）映射到物理内存，页表由操作系统维护并被处理器引用。 &hellip;">
   
 
   <!-- http://t.co/dKP3o1e -->
@@ -62,6 +62,135 @@
     <div id="content">
       <div class="blog-index">
   
+  
+  
+    <article>
+      
+  <header>
+    
+      <h1 class="entry-title"><a href="/blog/2013/05/17/memory-in-c-and-c-plus-plus/">『转载整理』C/C++中内存机制</a></h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2013-05-17T00:15:00+08:00" pubdate data-updated="true">May 17<span>th</span>, 2013</time>
+        
+      </p>
+    
+  </header>
+
+
+  <div class="entry-content"><h2>概述</h2>
+
+<p>在多任务操作系统中的每一个进程都运行在一个属于它自己的内存沙盘中。这个沙盘就是虚拟地址空间（virtual address space），在32位模式下它总是一个<code>4GB</code>的内存地址块。这些虚拟地址通过页表（page table）映射到物理内存，页表由操作系统维护并被处理器引用。每一个进程拥有一套属于它自己的页表，只要虚拟地址被使能，那么它就会作用于这台机器上运行的所有软件，包括内核本身，因此一部分虚拟地址必须保留给内核使用</p>
+
+</div>
+  
+  
+    <footer>
+      <a rel="full-article" href="/blog/2013/05/17/memory-in-c-and-c-plus-plus/">Read on &rarr;</a>
+    </footer>
+  
+
+
+    </article>
+  
+  
+    <article>
+      
+  <header>
+    
+      <h1 class="entry-title"><a href="/blog/2013/05/16/chromium-multi-process-architecture/">『整理翻译』Chromium多进程架构</a></h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2013-05-16T23:58:00+08:00" pubdate data-updated="true">May 16<span>th</span>, 2013</time>
+        
+      </p>
+    
+  </header>
+
+
+  <div class="entry-content"><p>不是完全翻译，只是在理解的基础上摘录了大致意思，而且对我自己感兴趣的部分可能详细一点，对其他简略一点</p>
+
+<p>原网址<a href="http://www.chromium.org/developers/design-documents/multi-process-architecture">http://www.chromium.org/developers/design-documents/multi-process-architecture</a></p>
+
+</div>
+  
+  
+    <footer>
+      <a rel="full-article" href="/blog/2013/05/16/chromium-multi-process-architecture/">Read on &rarr;</a>
+    </footer>
+  
+
+
+    </article>
+  
+  
+    <article>
+      
+  <header>
+    
+      <h1 class="entry-title"><a href="/blog/2013/05/16/beauty-of-programming-1/">编程之美 读书笔记 1</a></h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2013-05-16T23:29:00+08:00" pubdate data-updated="true">May 16<span>th</span>, 2013</time>
+        
+      </p>
+    
+  </header>
+
+
+  <div class="entry-content"><p>书籍信息：编程之美——微软技术面试心得；《编程之美》小组著；电子工业出版社</p>
+
+<p>从第二章开始看起的，毕竟是件很功利的事情。</p>
+
+</div>
+  
+  
+    <footer>
+      <a rel="full-article" href="/blog/2013/05/16/beauty-of-programming-1/">Read on &rarr;</a>
+    </footer>
+  
+
+
+    </article>
   
   
     <article>
@@ -359,133 +488,6 @@
 
     </article>
   
-  
-    <article>
-      
-  <header>
-    
-      <h1 class="entry-title"><a href="/blog/2013/03/10/javascript-prototype-explanation/">『转载整理』javascript Prototype 详解</a></h1>
-    
-    
-      <p class="meta">
-        
-
-
-
-
-
-
-
-
-  
-
-
-<time datetime="2013-03-10T00:05:00+08:00" pubdate data-updated="true">Mar 10<span>th</span>, 2013</time>
-        
-      </p>
-    
-  </header>
-
-
-  <div class="entry-content"><p>没有系统学过JavaScript语言，就要开始对JavaScript引擎做些改动，因此不可避免地撞上了JavaScript的一些独特的特性，例如prototype。</p>
-
-<p>只是最基本的概念理清，不包含复杂的编程模式之类。</p>
-
-</div>
-  
-  
-    <footer>
-      <a rel="full-article" href="/blog/2013/03/10/javascript-prototype-explanation/">Read on &rarr;</a>
-    </footer>
-  
-
-
-    </article>
-  
-  
-    <article>
-      
-  <header>
-    
-      <h1 class="entry-title"><a href="/blog/2013/02/09/data-structures-notes-1/">数据结构与算法分析 读书笔记 1</a></h1>
-    
-    
-      <p class="meta">
-        
-
-
-
-
-
-
-
-
-  
-
-
-<time datetime="2013-02-09T13:16:00+08:00" pubdate data-updated="true">Feb 9<span>th</span>, 2013</time>
-        
-      </p>
-    
-  </header>
-
-
-  <div class="entry-content"><p>看扫描pdf真心累啊，可是家里没有纸质书。。。</p>
-
-<p>书籍信息：数据结构与算法分析 C++描述（第3版）Mark Allen Weiss 著；张怀勇等译；人民邮电出版社</p>
-
-</div>
-  
-  
-    <footer>
-      <a rel="full-article" href="/blog/2013/02/09/data-structures-notes-1/">Read on &rarr;</a>
-    </footer>
-  
-
-
-    </article>
-  
-  
-    <article>
-      
-  <header>
-    
-      <h1 class="entry-title"><a href="/blog/2013/01/11/about-graduation-project/">关于毕业设计</a></h1>
-    
-    
-      <p class="meta">
-        
-
-
-
-
-
-
-
-
-  
-
-
-<time datetime="2013-01-11T23:02:00+08:00" pubdate data-updated="true">Jan 11<span>th</span>, 2013</time>
-        
-      </p>
-    
-  </header>
-
-
-  <div class="entry-content"><p>这周听了师兄师姐们的毕业设计答辩，老师给的一些意见都很中肯也很有意义。</p>
-
-</div>
-  
-  
-    <footer>
-      <a rel="full-article" href="/blog/2013/01/11/about-graduation-project/">Read on &rarr;</a>
-    </footer>
-  
-
-
-    </article>
-  
   <div class="pagination">
     
       <a class="prev" href="/blog/page/2/">&larr; Older</a>
@@ -501,6 +503,18 @@
   <ul id="recent_posts">
     
       <li class="post">
+        <a href="/blog/2013/05/17/memory-in-c-and-c-plus-plus/">『转载整理』C/C++中内存机制</a>
+      </li>
+    
+      <li class="post">
+        <a href="/blog/2013/05/16/chromium-multi-process-architecture/">『整理翻译』Chromium多进程架构</a>
+      </li>
+    
+      <li class="post">
+        <a href="/blog/2013/05/16/beauty-of-programming-1/">编程之美 读书笔记 1</a>
+      </li>
+    
+      <li class="post">
         <a href="/blog/2013/05/08/interview-summary/">笔试面试总结</a>
       </li>
     
@@ -508,29 +522,19 @@
         <a href="/blog/2013/04/11/solve-win7-chinese-gibberish/">英文版Win7中文软件显示乱码的解决</a>
       </li>
     
-      <li class="post">
-        <a href="/blog/2013/04/11/solve-chrome-crashing/">Chrome修改书签时崩溃问题的解决</a>
-      </li>
-    
-      <li class="post">
-        <a href="/blog/2013/03/18/data-structures-notes-4/">数据结构与算法分析 读书笔记 4</a>
-      </li>
-    
-      <li class="post">
-        <a href="/blog/2013/03/14/data-structures-notes-3/">数据结构与算法分析 读书笔记 3</a>
-      </li>
-    
   </ul>
 </section>
 <section>
   <h1>Categories</h1>
   <ul id="categories">
-    <li class='category'><a href='/blog/categories/android/'>android (2)</a></li>
+    <li class='category'><a href='/blog/categories/c-/'>C++ (1)</a></li>
+<li class='category'><a href='/blog/categories/android/'>android (2)</a></li>
 <li class='category'><a href='/blog/categories/c-/'>c++ (5)</a></li>
+<li class='category'><a href='/blog/categories/chromium/'>chromium (1)</a></li>
 <li class='category'><a href='/blog/categories/helloworld/'>helloworld (4)</a></li>
-<li class='category'><a href='/blog/categories/interview/'>interview (1)</a></li>
+<li class='category'><a href='/blog/categories/interview/'>interview (3)</a></li>
 <li class='category'><a href='/blog/categories/javascript/'>javascript (2)</a></li>
-<li class='category'><a href='/blog/categories/notes/'>notes (5)</a></li>
+<li class='category'><a href='/blog/categories/notes/'>notes (6)</a></li>
 <li class='category'><a href='/blog/categories/old/'>old (1)</a></li>
 <li class='category'><a href='/blog/categories/problem-solving/'>problem solving (2)</a></li>
 <li class='category'><a href='/blog/categories/random-thoughts/'>random thoughts (1)</a></li>
