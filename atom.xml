@@ -4,7 +4,7 @@
   <title><![CDATA[Jean's Blog]]></title>
   <link href="http://ziwu1216.github.com/atom.xml" rel="self"/>
   <link href="http://ziwu1216.github.com/"/>
-  <updated>2013-05-17T00:36:04+08:00</updated>
+  <updated>2013-05-24T00:29:01+08:00</updated>
   <id>http://ziwu1216.github.com/</id>
   <author>
     <name><![CDATA[Jean]]></name>
@@ -12,6 +12,283 @@
   </author>
   <generator uri="http://octopress.org/">Octopress</generator>
 
+  
+  <entry>
+    <title type="html"><![CDATA[C++ Primer 读书笔记 2]]></title>
+    <link href="http://ziwu1216.github.com/blog/2013/05/24/c-plus-plus-primer-notes-2/"/>
+    <updated>2013-05-24T00:01:00+08:00</updated>
+    <id>http://ziwu1216.github.com/blog/2013/05/24/c-plus-plus-primer-notes-2</id>
+    <content type="html"><![CDATA[<p>有些细节的地方综合网络作了补充</p>
+
+<!--more-->
+
+
+<h2>第二章</h2>
+
+<h3>2.1</h3>
+
+<p>8bits - byte，4bytes - word</p>
+
+<p>基本内置类型</p>
+
+<table class="table table-bordered table-striped table-condensed">
+    <tr>
+        <td>char:</td>
+        <td>1byte</td>
+        <td>基本字符集<br>char/unsigned char/signed char<br>(使用unsigned或signed来表示char，由编译器决定)</td>
+    </tr>
+    <tr>
+        <td>wchar_t：</td>
+        <td>2 or 4bytes</td>
+        <td>扩展字符集（汉字和日文）</td>
+    </tr>
+    <tr>
+        <td>bool：</td>
+        <td>1byte</td>
+    </tr>
+    <tr>
+        <td></td>
+    </tr>
+    <tr>
+        <td>short int (short)：</td>
+        <td>2bytes</td>
+        <td>半个word，short/unsigned short</td>
+    </tr>
+    <tr>
+        <td>int:</td>
+        <td>4bytes</td>
+        <td>一个word，int/unsigned</td>
+    </tr>
+    <tr>
+        <td>long int (long)：</td>
+        <td>4bytes</td>
+        <td>long/unsigned long</td>
+    </tr>
+    <tr>
+        <td>long long int: </td>
+        <td>8bytes</td>
+    </tr>
+    <tr>
+        <td></td>
+    </tr>
+    <tr>
+        <td>float：</td>
+        <td>4bytes</td>
+        <td> ~7 digits</td>
+    </tr>
+    <tr>
+        <td>double：</td>
+        <td>8bytes </td>
+        <td>~15 digits</td>
+    </tr>
+    <tr>
+        <td>long double：</td>
+        <td>8bytes</td>
+        <td>~15 digits</td>
+    </tr>
+</table>
+
+
+<ul>
+<li>无符号，最高位和其它位一样，用来表示该数的大小。</li>
+<li>有符号，最高位为符号位，1表示负值。</li>
+</ul>
+
+
+<p>正数按原码存放，负数按补码存放。补码就是符号位不变，其余位数取反加1（从最低位开始至找到的第一个1均不变，符号位不变）。-1，原码是10000001，补码应该是11111111</p>
+
+<p>很多时候，把超过取值范围的值赋给unsigned和signed类型，编译器会取模后存储。</p>
+
+<h3>2.2</h3>
+
+<p>字面值常量literal constant。只有内置类型存在字面值。</p>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+<span class='line-number'>9</span>
+<span class='line-number'>10</span>
+<span class='line-number'>11</span>
+<span class='line-number'>12</span>
+<span class='line-number'>13</span>
+</pre></td><td class='code'><pre><code class='c'><span class='line'><span class="mi">20</span><span class="p">;</span><span class="c1">//十进制 </span>
+</span><span class='line'><span class="mo">024</span><span class="p">;</span><span class="c1">//八进制以0开头 </span>
+</span><span class='line'><span class="mh">0x14</span><span class="p">;</span><span class="c1">//十六进制以0X或0x开头</span>
+</span><span class='line'><span class="mi">128u</span><span class="p">;</span><span class="c1">//unsigned</span>
+</span><span class='line'><span class="mi">1024UL</span> <span class="n">or</span> <span class="mi">1024Lu</span><span class="p">;</span><span class="c1">//unsigned long</span>
+</span><span class='line'><span class="mi">1L</span><span class="p">;</span><span class="c1">//long</span>
+</span><span class='line'><span class="mf">3.14159f</span><span class="p">;</span>
+</span><span class='line'><span class="mf">.001f</span><span class="p">;</span>
+</span><span class='line'><span class="mf">0.</span><span class="p">;</span>
+</span><span class='line'><span class="mf">1E-3</span><span class="n">F</span><span class="p">;</span>
+</span><span class='line'><span class="sc">L&#39;a&#39;</span><span class="p">;</span><span class="c1">//wchar_t</span>
+</span><span class='line'><span class="err">\</span><span class="mi">0</span><span class="p">;</span><span class="c1">//转义字符\可以将ASCII码转为字面值常量</span>
+</span><span class='line'><span class="s">L&quot;a wide string literal&quot;</span><span class="p">;</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<h3>2.3</h3>
+
+<p>变量初始化：</p>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+</pre></td><td class='code'><pre><code class='c'><span class='line'><span class="kt">int</span> <span class="n">ival</span><span class="p">(</span><span class="mi">1024</span><span class="p">);</span><span class="c1">//直接初始化</span>
+</span><span class='line'><span class="kt">int</span> <span class="n">ival</span> <span class="o">=</span> <span class="mi">1024</span><span class="p">;</span><span class="c1">//复制初始化</span>
+</span><span class='line'><span class="kt">double</span> <span class="n">salary</span> <span class="o">=</span> <span class="mf">9.9</span><span class="p">,</span> <span class="n">wage</span><span class="p">(</span><span class="n">salary</span> <span class="o">+</span> <span class="mf">0.01</span><span class="p">);</span><span class="c1">//用前一个变量初始化后一个变量</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>定义未初始化的变量时：</p>
+
+<ul>
+<li>内置类型：函数体外定义的自动初始化为0，函数体内定义的不自动初始化</li>
+<li>类类型：必须有默认构造函数才能自动初始化，否则无法定义没有初始值的变量</li>
+</ul>
+
+
+<p>变量的定义用于为变量分配存储空间，可以指定初始值。变量有且仅有一个定义。<br/>
+变量的声明用于向程序表明变量的类型和名字，可以声明多次。定义也是声明。</p>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+</pre></td><td class='code'><pre><code class='c'><span class='line'><span class="k">extern</span> <span class="kt">int</span> <span class="n">i</span><span class="p">;</span><span class="c1">//声明不定义，在file2，可以使用file1里的变量i(外部存储类型)</span>
+</span><span class='line'><span class="kt">int</span> <span class="n">i</span><span class="p">;</span><span class="c1">//定义，在file1</span>
+</span><span class='line'>
+</span><span class='line'><span class="k">extern</span> <span class="kt">double</span> <span class="n">pi</span> <span class="o">=</span> <span class="mf">3.1416</span><span class="p">;</span><span class="c1">//定义，因为有初始化，要分配空间</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>变量的作用域</p>
+
+<ul>
+<li>全局作用域：所有函数外部，在程序的任何地方访问</li>
+<li>局部作用域：<code>{}</code>括起来的代码范围，例如函数内部</li>
+<li>语句作用域：for等语句内，从它定义的位置开始，一直到for所带语句的作用域结束</li>
+<li>类作用域：每个类的成员不同于任何其他类(任何其他作用域)的成员</li>
+<li>命名空间作用域：namespace</li>
+</ul>
+
+
+<h3>2.4</h3>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+</pre></td><td class='code'><pre><code class='c'><span class='line'><span class="k">const</span> <span class="kt">int</span> <span class="n">bufSize</span> <span class="o">=</span> <span class="mi">512</span><span class="p">;</span><span class="c1">//常量在定义时必须初始化</span>
+</span><span class='line'>
+</span><span class='line'><span class="k">extern</span> <span class="k">const</span> <span class="kt">int</span> <span class="n">bufSize</span> <span class="o">=</span> <span class="n">fcn</span><span class="p">();</span><span class="c1">//定义，在file1</span>
+</span><span class='line'><span class="c1">//在全局作用域声明的const变量是定义该对象的文件的局部变量，不能被其他文件访问</span>
+</span><span class='line'><span class="c1">//需要加extern，才能被其他文件访问</span>
+</span><span class='line'><span class="k">extern</span> <span class="k">const</span> <span class="kt">int</span> <span class="n">bufSize</span><span class="p">;</span><span class="c1">//声明，在file2，可以使用file1里的变量</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<h3>2.5</h3>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+<span class='line-number'>9</span>
+<span class='line-number'>10</span>
+<span class='line-number'>11</span>
+<span class='line-number'>12</span>
+<span class='line-number'>13</span>
+<span class='line-number'>14</span>
+</pre></td><td class='code'><pre><code class='c'><span class='line'><span class="kt">int</span> <span class="n">ival</span> <span class="o">=</span> <span class="mi">1024</span><span class="p">;</span>
+</span><span class='line'><span class="kt">int</span> <span class="o">&amp;</span><span class="n">refval</span> <span class="o">=</span> <span class="n">ival</span><span class="p">;</span><span class="c1">//引用只是别名，引用不可能在初始化后绑定到其他对象</span>
+</span><span class='line'><span class="kt">int</span> <span class="o">&amp;</span><span class="n">refVal2</span><span class="p">;</span><span class="c1">//错误，引用必须初始化</span>
+</span><span class='line'><span class="kt">int</span> <span class="o">&amp;</span><span class="n">refVal3</span> <span class="o">=</span> <span class="mi">10</span><span class="p">;</span><span class="c1">//错误，引用必需使用同类型的对象初始化</span>
+</span><span class='line'>
+</span><span class='line'><span class="k">const</span> <span class="kt">int</span> <span class="n">i</span> <span class="o">=</span> <span class="mi">1024</span><span class="p">;</span>
+</span><span class='line'><span class="k">const</span> <span class="kt">int</span> <span class="o">&amp;</span><span class="n">ref</span> <span class="o">=</span> <span class="n">i</span><span class="p">;</span><span class="c1">//指向const对象的引用</span>
+</span><span class='line'><span class="k">const</span> <span class="kt">int</span> <span class="o">&amp;</span><span class="n">r</span> <span class="o">=</span> <span class="mi">42</span><span class="p">;</span><span class="c1">//正确，const引用可以绑定到右值</span>
+</span><span class='line'>
+</span><span class='line'><span class="kt">double</span> <span class="n">dval</span> <span class="o">=</span> <span class="mf">3.14</span><span class="p">;</span>
+</span><span class='line'><span class="k">const</span> <span class="kt">int</span> <span class="o">&amp;</span><span class="n">ri</span> <span class="o">=</span> <span class="n">dval</span><span class="p">;</span><span class="c1">//正确，const引用可以绑定到不同但相关的类型</span>
+</span><span class='line'><span class="c1">//编译器会做如下转换，如果允许非const引用，则对ri的修改只能修改temp，不能修改dval</span>
+</span><span class='line'><span class="c1">//int temp = dval;</span>
+</span><span class='line'><span class="c1">//const int &amp;ri = temp;</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<h3>2.6</h3>
+
+<p>typedef可以用来定义类型的同义词</p>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class='c'><span class='line'><span class="k">typedef</span> <span class="kt">int</span> <span class="n">exam_socre</span><span class="p">;</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<h3>2.7</h3>
+
+<p>枚举变量，默认第一个枚举成员赋值为0，后面比前面一个加1</p>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+</pre></td><td class='code'><pre><code class='c'><span class='line'><span class="k">enum</span> <span class="n">Points</span><span class="p">{</span><span class="n">point2d</span> <span class="o">=</span> <span class="mi">2</span><span class="p">,</span> <span class="n">point2w</span><span class="p">,</span> <span class="n">point3d</span> <span class="o">=</span> <span class="mi">3</span><span class="p">,</span> <span class="n">point3w</span><span class="p">};</span>
+</span><span class='line'><span class="c1">//point2d = 2, point2w = 3比前一个大1</span>
+</span><span class='line'><span class="c1">//point3d = 3, 和point2w值重复了，是可以的</span>
+</span><span class='line'><span class="c1">//point3w = 4</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<h3>2.8</h3>
+
+<p><code>class</code>在第一个访问标号前的任何成员都隐式指定为<code>private</code>，<code>struct</code>则指定为<code>public</code></p>
+
+<h3>2.9</h3>
+
+<p>编译和链接多个源文件</p>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class='c'><span class='line'><span class="n">CC</span> <span class="o">-</span><span class="n">c</span> <span class="n">main</span><span class="p">.</span><span class="n">cc</span> <span class="n">Sales_item</span><span class="p">.</span><span class="n">cc</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>或者</p>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+</pre></td><td class='code'><pre><code class='c'><span class='line'><span class="n">CC</span> <span class="o">-</span><span class="n">c</span> <span class="n">main</span><span class="p">.</span><span class="n">cc</span>
+</span><span class='line'><span class="n">CC</span> <span class="o">-</span><span class="n">c</span> <span class="n">Sales_item</span><span class="p">.</span><span class="n">cc</span>
+</span><span class='line'><span class="n">CC</span> <span class="n">main</span><span class="p">.</span><span class="n">o</span> <span class="n">Sales_item</span><span class="p">.</span><span class="n">o</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>头文件中只能有声明，不能有定义。例外：</p>
+
+<ul>
+<li>定义类</li>
+<li>定义值在编译时就已知的const对象<br/>
+上文“const变量是定义该对象的文件的局部变量”就是为了允许这么做<br/>
+实践中，大部分编译器会用相应的常量表达式来替换对这些const变量的使用，所以不会有存储空间存储这类const变量<br/>
+不是编译时已知值的const对象不应该放在头文件</li>
+<li>定义inline函数</li>
+</ul>
+
+]]></content>
+  </entry>
   
   <entry>
     <title type="html"><![CDATA[『转载整理』C/C++中内存机制]]></title>
