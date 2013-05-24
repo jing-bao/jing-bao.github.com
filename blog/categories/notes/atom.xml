@@ -4,7 +4,7 @@
   <title><![CDATA[Category: notes | Jean's Blog]]></title>
   <link href="http://ziwu1216.github.com/blog/categories/notes/atom.xml" rel="self"/>
   <link href="http://ziwu1216.github.com/"/>
-  <updated>2013-05-24T00:29:01+08:00</updated>
+  <updated>2013-05-24T13:54:04+08:00</updated>
   <id>http://ziwu1216.github.com/</id>
   <author>
     <name><![CDATA[Jean]]></name>
@@ -29,63 +29,76 @@
 
 <p>8bits - byte，4bytes - word</p>
 
-<p>基本内置类型</p>
-
-<table class="table table-bordered table-striped table-condensed">
-    <tr>
-        <td>char:</td>
-        <td>1byte</td>
-        <td>基本字符集<br>char/unsigned char/signed char<br>(使用unsigned或signed来表示char，由编译器决定)</td>
-    </tr>
-    <tr>
-        <td>wchar_t：</td>
-        <td>2 or 4bytes</td>
-        <td>扩展字符集（汉字和日文）</td>
-    </tr>
-    <tr>
-        <td>bool：</td>
-        <td>1byte</td>
-    </tr>
-    <tr>
-        <td></td>
-    </tr>
-    <tr>
-        <td>short int (short)：</td>
-        <td>2bytes</td>
-        <td>半个word，short/unsigned short</td>
-    </tr>
-    <tr>
-        <td>int:</td>
-        <td>4bytes</td>
-        <td>一个word，int/unsigned</td>
-    </tr>
-    <tr>
-        <td>long int (long)：</td>
-        <td>4bytes</td>
-        <td>long/unsigned long</td>
-    </tr>
-    <tr>
-        <td>long long int: </td>
-        <td>8bytes</td>
-    </tr>
-    <tr>
-        <td></td>
-    </tr>
-    <tr>
-        <td>float：</td>
-        <td>4bytes</td>
-        <td> ~7 digits</td>
-    </tr>
-    <tr>
-        <td>double：</td>
-        <td>8bytes </td>
-        <td>~15 digits</td>
-    </tr>
-    <tr>
-        <td>long double：</td>
-        <td>8bytes</td>
-        <td>~15 digits</td>
-    </tr>
+<table>
+<thead>
+<tr>
+<th align="left"> </th>
+<th align="center"> 基本内置类型 </th>
+<th align="left"> </th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td align="left">char: </td>
+<td align="center"> 1byte   </td>
+<td align="left"> 基本字符集<br>char/unsigned char/signed char<br>(使用unsigned或signed来表示char，由编译器决定)</td>
+</tr>
+<tr>
+<td align="left">wchar_t：</td>
+<td align="center"> 2 or 4bytes </td>
+<td align="left"> 扩展字符集（汉字和日文）</td>
+</tr>
+<tr>
+<td align="left">bool： </td>
+<td align="center">   1byte</td>
+<td></td>
+</tr>
+<tr>
+<td align="left">   </td>
+<td align="center">    </td>
+<td align="left">    </td>
+</tr>
+<tr>
+<td align="left">short int (short)： </td>
+<td align="center">  2bytes </td>
+<td align="left"> 半个word，short/unsigned short</td>
+</tr>
+<tr>
+<td align="left">int: </td>
+<td align="center">  4bytes </td>
+<td align="left">    一个word，int/unsigned</td>
+</tr>
+<tr>
+<td align="left">long int (long)： </td>
+<td align="center">    4bytes </td>
+<td align="left">    long/unsigned long</td>
+</tr>
+<tr>
+<td align="left">long long int:  </td>
+<td align="center"> 8bytes</td>
+<td></td>
+</tr>
+<tr>
+<td align="left">   </td>
+<td align="center">    </td>
+<td align="left">    </td>
+</tr>
+<tr>
+<td align="left">float： </td>
+<td align="center">  4bytes </td>
+<td align="left">    ~7 digits</td>
+</tr>
+<tr>
+<td align="left">double： </td>
+<td align="center"> 8bytes </td>
+<td align="left">    ~15 digits</td>
+</tr>
+<tr>
+<td align="left">long double： </td>
+<td align="center">    8bytes </td>
+<td align="left">    ~15 digits</td>
+</tr>
+</tbody>
 </table>
 
 
