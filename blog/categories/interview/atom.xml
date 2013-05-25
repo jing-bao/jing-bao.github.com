@@ -4,7 +4,7 @@
   <title><![CDATA[Category: interview | Jean's Blog]]></title>
   <link href="http://ziwu1216.github.com/blog/categories/interview/atom.xml" rel="self"/>
   <link href="http://ziwu1216.github.com/"/>
-  <updated>2013-05-24T14:35:12+08:00</updated>
+  <updated>2013-05-25T17:38:11+08:00</updated>
   <id>http://ziwu1216.github.com/</id>
   <author>
     <name><![CDATA[Jean]]></name>
@@ -12,6 +12,63 @@
   </author>
   <generator uri="http://octopress.org/">Octopress</generator>
 
+  
+  <entry>
+    <title type="html"><![CDATA[『转载整理』new和malloc的区别]]></title>
+    <link href="http://ziwu1216.github.com/blog/2013/05/25/new-vs-malloc/"/>
+    <updated>2013-05-25T17:25:00+08:00</updated>
+    <id>http://ziwu1216.github.com/blog/2013/05/25/new-vs-malloc</id>
+    <content type="html"><![CDATA[<p>new可以认为是malloc加构造函数的执行</p>
+
+<!--more-->
+
+
+<p>主要区别列表如下：</p>
+
+<table>
+<thead>
+<tr>
+<th>new     </th>
+<th>   malloc</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>建立对象    </td>
+<td>   分配内存</td>
+</tr>
+<tr>
+<td>c或c++     </td>
+<td>   c</td>
+</tr>
+<tr>
+<td>运算符       </td>
+<td>   标准库函数</td>
+</tr>
+<tr>
+<td>保留字,不需要头文件支持      </td>
+<td>   需要头文件库函数支持</td>
+</tr>
+<tr>
+<td>分配内存+调用类的构造函数   </td>
+<td>   只分配内存，不会进行初始化</td>
+</tr>
+<tr>
+<td>自动计算需要分配的空间       </td>
+<td>   手动传递字节数</td>
+</tr>
+<tr>
+<td>返回某种数据类型指针      </td>
+<td>   返回void指针</td>
+</tr>
+</tbody>
+</table>
+
+
+<p>参考链接：<br/>
+<a href="http://wmnmtm.blog.163.com/blog/static/38245714201203313587/">new与malloc</a></p>
+]]></content>
+  </entry>
   
   <entry>
     <title type="html"><![CDATA[『转载整理』C/C++中内存机制]]></title>

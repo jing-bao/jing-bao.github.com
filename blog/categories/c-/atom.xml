@@ -4,7 +4,7 @@
   <title><![CDATA[Category: c++ | Jean's Blog]]></title>
   <link href="http://ziwu1216.github.com/blog/categories/c-/atom.xml" rel="self"/>
   <link href="http://ziwu1216.github.com/"/>
-  <updated>2013-05-24T14:35:12+08:00</updated>
+  <updated>2013-05-25T17:38:11+08:00</updated>
   <id>http://ziwu1216.github.com/</id>
   <author>
     <name><![CDATA[Jean]]></name>
@@ -12,6 +12,63 @@
   </author>
   <generator uri="http://octopress.org/">Octopress</generator>
 
+  
+  <entry>
+    <title type="html"><![CDATA[『转载整理』new和malloc的区别]]></title>
+    <link href="http://ziwu1216.github.com/blog/2013/05/25/new-vs-malloc/"/>
+    <updated>2013-05-25T17:25:00+08:00</updated>
+    <id>http://ziwu1216.github.com/blog/2013/05/25/new-vs-malloc</id>
+    <content type="html"><![CDATA[<p>new可以认为是malloc加构造函数的执行</p>
+
+<!--more-->
+
+
+<p>主要区别列表如下：</p>
+
+<table>
+<thead>
+<tr>
+<th>new     </th>
+<th>   malloc</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>建立对象    </td>
+<td>   分配内存</td>
+</tr>
+<tr>
+<td>c或c++     </td>
+<td>   c</td>
+</tr>
+<tr>
+<td>运算符       </td>
+<td>   标准库函数</td>
+</tr>
+<tr>
+<td>保留字,不需要头文件支持      </td>
+<td>   需要头文件库函数支持</td>
+</tr>
+<tr>
+<td>分配内存+调用类的构造函数   </td>
+<td>   只分配内存，不会进行初始化</td>
+</tr>
+<tr>
+<td>自动计算需要分配的空间       </td>
+<td>   手动传递字节数</td>
+</tr>
+<tr>
+<td>返回某种数据类型指针      </td>
+<td>   返回void指针</td>
+</tr>
+</tbody>
+</table>
+
+
+<p>参考链接：<br/>
+<a href="http://wmnmtm.blog.163.com/blog/static/38245714201203313587/">new与malloc</a></p>
+]]></content>
+  </entry>
   
   <entry>
     <title type="html"><![CDATA[C++ Primer 读书笔记 2]]></title>
@@ -524,90 +581,6 @@ const_iterator begin() const
 
 <p>两个版本的begin可以在同一个类里，因为方法的定常性被认为是标号的一部分
 如果对非常量容器调用begin，返回iterator的版本被调用。如果对常量容器调用，返回const_iterator</p>
-]]></content>
-  </entry>
-  
-  <entry>
-    <title type="html"><![CDATA[数据结构与算法分析 读书笔记 2]]></title>
-    <link href="http://ziwu1216.github.com/blog/2013/03/10/data-structures-notes-2/"/>
-    <updated>2013-03-10T22:39:00+08:00</updated>
-    <id>http://ziwu1216.github.com/blog/2013/03/10/data-structures-notes-2</id>
-    <content type="html"><![CDATA[<p>半个多月前就记了，一直都没整理……第二章</p>
-
-<!--more-->
-
-
-<h2>第二章 算法分析</h2>
-
-<p>算法是为求解一个问题需要遵循的、被清楚地指定的简单指令的集合。</p>
-
-<h3>2.1 数学基础</h3>
-
-<p><img src="/images/data-structures-notes-2-def.PNG" title="定义" alt="图片加载失败 :(">
-这些定义是相对增长率的比较。</p>
-
-<ul>
-<li>大O，f是T的上界</li>
-<li>omega，g是T的下界</li>
-<li>theta，表示严格的增长率相等。<br/>
-【？？？】【为什么定义四是对所有常数？】</li>
-</ul>
-
-
-<p>重要法则：<img src="/images/data-structures-notes-2-rule.PNG" title="法则" alt="图片加载失败 :("><br/>
-典型增长率：<img src="/images/data-structures-notes-2-rate.PNG" title="典型增长率" alt="图片加载失败 :("></p>
-
-<p>不要将常数或低阶项放进大O</p>
-
-<p>可以通过计算lim（N→+∞）f(N)/g(N)来比较函数的相对增长率（洛必达法则，分子分母求导）</p>
-
-<h3>2.3 要分析的问题</h3>
-
-<p>分析程序的运行时间，一般需要最坏情况而非平均情况，一是因为对所有输入提供界限，二是因为平均计算起来困难。</p>
-
-<p>高效算法中，数据读入常常成为瓶颈。</p>
-
-<h3>2.4 运行时间计算</h3>
-
-<p>一般法则</p>
-
-<ul>
-<li>法则1： for循环，时间至多是该循环内语句（包括测试）的运行时间乘以迭代的次数</li>
-<li>法则2： 嵌套循环，从里向外分析【也是分析运行时间的基本策略】，一组嵌套循环内部的一条语句总的运行时间，为该语句时间乘以该组所有循环的大小的乘积</li>
-<li>法则3： 顺序语句，将各个语句的运行时间求和</li>
-<li>法则4： if/else语句，不超过判断语句时间加分支中运行较长的时间之和</li>
-</ul>
-
-
-<p>递归和调用的运行时间分析举例【！！！需复习】<br/>
-令T(N)为求解大小为N的问题所花费时间，基准条件得到T(0)，T(1)等，迭代得到关系式如T(N) = 2T(N/2) + O(N),求解。【？？？】【如何求解】</p>
-
-<h4>最大子序列和问题的求解</h4>
-
-<p>多重求和公式计算算法复杂度【！！！需复习】</p>
-
-<p>递归算法，“分治”策略，把整组数据分为左右两个子序列，考虑可能出现在左边，右边，或横跨左右。【！！！需编码】  <br/>
-递归函数调用的一般形式是传递输入数组以及左边界和右边界，它们界定了数组要被处理的部分。<br/>
-【在递归中，设计传递参数很重要，书中的例子避免了子序列的拷贝，比我开始设计的参数好很多】</p>
-
-<p>联机算法：在任意时刻，算法都能对它已经读入的数据给出问题的正确答案。仅需要常量空间并以线性时间运行的算法几乎是完美的算法。</p>
-
-<h4>O(logN)</h4>
-
-<p>如果一个算法用常数时间将问题的大小削减为其一部分（通常是1/2），那么该算法就是O(logN)的。</p>
-
-<ul>
-<li>二分搜索</li>
-<li>欧几里得算法</li>
-<li>幂运算</li>
-</ul>
-
-
-<h4>检验分析</h4>
-
-<p>方法一是编程并比较N扩大一倍后实际运行时间与分析是否匹配。很多时候很困难。</p>
-
-<p>方法二：验证是否O(f(N))，对N的某个范围计算T(N)/f(n)，T(N)是观察到的运行时间。（收敛于正常数，收敛于0，发散）【？？？】【什么是“用2的倍数隔开”】</p>
 ]]></content>
   </entry>
   
