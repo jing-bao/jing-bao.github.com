@@ -4,7 +4,7 @@
   <title><![CDATA[Category: c++ | Jean's Blog]]></title>
   <link href="http://ziwu1216.github.com/blog/categories/c-/atom.xml" rel="self"/>
   <link href="http://ziwu1216.github.com/"/>
-  <updated>2013-05-25T20:47:24+08:00</updated>
+  <updated>2013-07-18T00:30:23+08:00</updated>
   <id>http://ziwu1216.github.com/</id>
   <author>
     <name><![CDATA[Jean]]></name>
@@ -12,6 +12,595 @@
   </author>
   <generator uri="http://octopress.org/">Octopress</generator>
 
+  
+  <entry>
+    <title type="html"><![CDATA[C++ Primer 读书笔记 6]]></title>
+    <link href="http://ziwu1216.github.com/blog/2013/07/17/c-plus-plus-primer-notes-6/"/>
+    <updated>2013-07-17T23:43:00+08:00</updated>
+    <id>http://ziwu1216.github.com/blog/2013/07/17/c-plus-plus-primer-notes-6</id>
+    <content type="html"><![CDATA[<h2>第六章</h2>
+
+<!--more-->
+
+
+<h3>6.3</h3>
+
+<p>复合语句，通常称为块，是用一对花括号括起来的语句序列，标识了一个作用域。</p>
+
+<h3>6.4</h3>
+
+<p>变量的作用域
+```c
+for(int i = 0; i &lt;10; i++)
+{//新的作用域，包含在for语句作用域内</p>
+
+<pre><code>sum += i;
+</code></pre>
+
+<p>}
+//外部不能访问i
+```</p>
+
+<h3>6.6</h3>
+
+<p><code>break</code>语句中，<code>case</code>标号必须是整型常量表达式</p>
+
+<p>程序从匹配的<code>case</code>标号开始执行，并跨越<code>case</code>边界继续执行其他语句直到结束，所以不要忘记<code>break</code>
+```c
+switch(ch) {</p>
+
+<pre><code>case 'a':
+    ++aCnt;
+case 'e':
+    ++eCnt;
+case‘i’:
+    ++iCnt;
+</code></pre>
+
+<p>}
+//如果ch是'e',eCnt和iCnt都会加1</p>
+
+<p>switch(ch) {</p>
+
+<pre><code>case 'a':
+case 'e':
+++Cnt;
+break;
+</code></pre>
+
+<p>}
+//对两个case执行同样操作</p>
+
+<p>switch(flag) {</p>
+
+<pre><code>case true:
+    string file_name = "a.txt";//错误！
+    break;
+case false:
+    ...
+</code></pre>
+
+<p>}
+//只能在最后一个case标号或default标号后面定义变量，此规则是为了避免代码跳过变量的定义和初始化
+switch(flag) {</p>
+
+<pre><code>case true:
+    {
+        string file_name = "a.txt";//在块语句内定义，可以
+        //...
+    }
+    break;
+case false:
+    ...
+</code></pre>
+
+<p>}</p>
+
+<p>```</p>
+
+<h3>6.8</h3>
+
+<p><code>for</code>语句
+```c
+for (initializer; condition; expression)</p>
+
+<pre><code>statement
+</code></pre>
+
+<p>//循环开始时执行一次initializer，如果第一次求解condition就得false，则expression和statement都不会执行</p>
+
+<p>//可以在initializer定义多个对象，但必须具有相同的一般类型
+for (int ival = 0, *pi = ia, &amp;ri = val; ival != 5; ++ival, ++pi, ++ri)
+```</p>
+
+<h3>6.9</h3>
+
+<p><code>do while</code> 保证循环体至少执行1次</p>
+
+<h3>6.11</h3>
+
+<p><code>continue</code>语句导致最近的循环语句的档次迭代提前结束，对于<code>while</code>和<code>do while</code>，继续求解循环条件，对于<code>for</code>，求解<code>expression</code></p>
+
+<h3>6.12</h3>
+
+<p><code>goto</code>语句
+```c
+goto end;
+{</p>
+
+<pre><code>int ix =10;//goto语句不能跨越变量的定义语句向前跳转，必须放在块语句内
+</code></pre>
+
+<p>}
+end: return;</p>
+
+<p>begin:</p>
+
+<pre><code>int sz = get_size();
+if(sz &lt;= 0) {
+    goto begin;//向后跳过是合法的，会使系统撤销这个变量，然后再重新创建
+}
+</code></pre>
+
+<p>```</p>
+
+<h3>6.13</h3>
+
+<p><code>try catch</code>语句
+```c
+try{</p>
+
+<pre><code>...
+throw runtime_err("Data must be intergers");
+</code></pre>
+
+<p>} catch （runtime_error err) {</p>
+
+<pre><code>cout &lt;&lt; err.what();//每个标准库异常类都有what函数，返回C风格字符串
+</code></pre>
+
+<p>}
+<code>``
+抛出异常时，按执行路径回退，寻找匹配的</code>catch<code>，如果不存在，则转到名为</code>terminate<code>的标准库函数。在程序中出现的异常如果没有</code>try<code>块定义，也将调用</code>terminate`。</p>
+
+<p>标准异常类在<code>stdexpect</code>头文件中，见下表<br/>
+<img src="/images/c-plus-plus-primer-notes-6-exception.jpg" title="标准异常类" alt="图片加载失败 :("></p>
+
+<p><code>exception</code>, <code>bad_alloc</code>, <code>bad_cast</code>只定义了默认构造函数，无法提供初值。其他异常类使用string参数初始化，这个string被<code>what</code>函数返回</p>
+
+<h3>6.14</h3>
+
+<p><code>assert</code>语句
+```c
+int main()
+{</p>
+
+<pre><code>#ifndef NDEBUG
+cerr &lt;&lt; "starting main" &lt;&lt; endl;
+#endif
+</code></pre>
+
+<p>}</p>
+
+<p>CC -DNDEBUG main.C
+//大多数编译器都提供定义NDEBUG的命令行选项，这样的命令行等效于在main.c开头#define NDEBUG</p>
+
+<p><strong>FILE</strong>
+<strong>LINE</strong>
+<strong>TIME</strong>
+<strong>DATE</strong>
+//预处理器还提供了这些常量，方便调试</p>
+
+<h1>include <cassert></h1>
+
+<p>assert(expr);
+//如果expr为false，则输出信息且终止程序。若为非0值，则不做操作
+```
+如果NDEBUG定义，则assert语句不运行。</p>
+
+<ul>
+<li><a href="http://book.51cto.com/art/201306/400313.htm">具体1</a></li>
+<li><a href="http://www.cnblogs.com/valuel/archive/2009/11/15/1603362.html">具体2</a></li>
+</ul>
+
+]]></content>
+  </entry>
+  
+  <entry>
+    <title type="html"><![CDATA[C++ Primer 读书笔记 5]]></title>
+    <link href="http://ziwu1216.github.com/blog/2013/07/17/c-plus-plus-primer-notes-5/"/>
+    <updated>2013-07-17T23:43:00+08:00</updated>
+    <id>http://ziwu1216.github.com/blog/2013/07/17/c-plus-plus-primer-notes-5</id>
+    <content type="html"><![CDATA[<h2>第五章</h2>
+
+<!--more-->
+
+
+<h3>5.1</h3>
+
+<p><code>%</code>求余符号，只支持整型操作数，<code>bool</code> <code>char</code> <code>short</code> <code>int</code> <code>long</code></p>
+
+<h3>5.2</h3>
+
+<p>短路求值：<code>expr1 &amp;&amp; expr2</code> 逻辑与，只有expr1为true时，才会计算expr2。逻辑或类似</p>
+
+<h3>5.3</h3>
+
+<p>位操作符将整型操作数视为二进制位的集合，为每一位提供检验和设置的功能，也可用于bitset类型的操作数</p>
+
+<table>
+<thead>
+<tr>
+<th align="center">操作符   </th>
+<th align="center">  功能</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td align="center">~       </td>
+<td align="center">  位求反</td>
+</tr>
+<tr>
+<td align="center">&lt;&lt;      </td>
+<td align="center">  左移，填入0</td>
+</tr>
+<tr>
+<td align="center">>>      </td>
+<td align="center">  右移，无符号数填入0，有符号数填入符号位副本或者0值</td>
+</tr>
+<tr>
+<td align="center">&amp;       </td>
+<td align="center">  位与</td>
+</tr>
+<tr>
+<td align="center">^       </td>
+<td align="center">  位异或</td>
+</tr>
+<tr>
+<td align="center">“竖”打不出来 </td>
+<td align="center"> 位或</td>
+</tr>
+</tbody>
+</table>
+
+
+<p>大多数二元操作符都是左结合：<code>( cout&lt;&lt; "hi" ) &lt;&lt; "there";</code></p>
+
+<h3>5.4</h3>
+
+<p>赋值操作符具有右结合性<br/>
+复合赋值操作符：<code>+=</code> (减 / 乘 / 除) <code>&lt;&lt;=</code> <code>&gt;&gt;=</code> <code>&amp;=</code> (位异或 / 位或)。<br/>
+使用复合赋值操作符时，左操作数只计算了一次</p>
+
+<h3>5.5</h3>
+
+<p>前自增返回修改后的值作为表达式结果，所以返回对象本身，是左值。后自增返回未修改的值，是右值</p>
+
+<h3>5.7</h3>
+
+<p><code>cond ? expr1 : expr2</code>cond总是要计算的，true则计算expr1,false则计算expr2</p>
+
+<h3>5.8</h3>
+
+<p>sizeof返回size_t类型
+```c
+sizeof(type name);
+sizeof(expr);
+sizeof expr;</p>
+
+<p>sizeof（char) //保证得1 （推断：单位为byte）
+sizeof(引用）//返回存放此引用类型对象所需的内存空间的大小
+sizeof(指针）//返回存放指针所需的内存大小
+sizeof(数组）//等效于sizeof（元素类型）* 元素个数
+```</p>
+
+<h3>5.9</h3>
+
+<p>逗号操作符的表达式从左向右计算，结果是最右边表达式的值</p>
+
+<h3>5.10</h3>
+
+<p><code>if (ia[index++] &lt; ia[index])</code>此表达式行为未定义，因为&lt;不保证先求解左操作数还是右操作数</p>
+
+<h3>5.11</h3>
+
+<p><code>c
+string *ps = new string(10, '9'); //初始化为999999999
+string *ps2 = new string();       //值初始化为空string
+int x();//声明了函数。值初始化的()必须放在类型名后面，而非变量后
+</code></p>
+
+<h3>5.12</h3>
+
+<p><a href="http://mwtx.blog.163.com/blog/static/3893912920117246365145/">整型提升</a><br/>
+两个操作数都不是三种浮点类型之一，它们一定是某种整值类型。在确定共同的目标提升类型之前，编译器将在所有小于int的整值类型上施加一个被称为整型提升(integral promotion)的过程。整型提升就是char、short int和位段类型（无论signed或unsigned）以及枚举类型将被提升为int， 前提是int 能够完整地容纳原先的数据，否则将被转换为unsigned int。wchar_t和枚举类型被提升为能够表示其底层类型(underlying type)所有值的最小整数类型。 <br/>
+一旦整型提升执行完毕，类型比较就又一次开始。如果一个操作数是unsigned long型，则第二个也被转换成unsigned long型。<br/>
+如果该类型所有可能值都包容在int内（取决于机器），则被提升为int。否则被提升为unsigned int。<br/>
+如果涉及到int提升为unsigned int且int恰好为负数，则结果是该负数对该类型的取值个数求模后的值.</p>
+
+<p><code>while(cin&gt;&gt;s)</code>将istream类型转换为bool类型，意味着要检验流的状态，如果最后一次尝试成功，则true；否则false</p>
+
+<h4><a href="http://blog.csdn.net/geeeeeeee/article/details/3427920">强制类型转换</a></h4>
+
+<p>```c
+static_cast<int>(a)
+dynamic_cast&lt;>()      //支持运行时识别指针或引用所指向的对象
+const_cast&lt;>()        //转换掉const性质
+reinterpret_cast&lt;>()  //为操作数的位模式提供较低层次的重新解释</p>
+
+<p>(char*)a
+int(a)
+//旧式强制类型转换
+//在合法使用static_cast或const_cast的地方，提供相应功能，如果两者皆不合法，执行reinterpret_cast
+```</p>
+]]></content>
+  </entry>
+  
+  <entry>
+    <title type="html"><![CDATA[C++ Primer 读书笔记 4]]></title>
+    <link href="http://ziwu1216.github.com/blog/2013/07/17/c-plus-plus-primer-notes-4/"/>
+    <updated>2013-07-17T23:42:00+08:00</updated>
+    <id>http://ziwu1216.github.com/blog/2013/07/17/c-plus-plus-primer-notes-4</id>
+    <content type="html"><![CDATA[<h2>第四章</h2>
+
+<!--more-->
+
+
+<h3>4.1</h3>
+
+<p>关于数组定义
+```c
+int size = 100;
+int vals[size];//错，因为size不是const，所以只有运行时才能确定值，不能用于指定数组维数</p>
+
+<p>int ia[] = {0, 1, 2};
+//显示初始化的数组不需要指定维数。如果指定维数，大于提供元素个数，其余默认初始化（0或默认构造）。
+//若没有显式初始化
+//内置类型的数组，在函数体外元素均初始化为0，函数体内无初始化
+//类类型的数组，无论在哪里定义，都调用该类的默认构造函数进行初始化。若没有默认构造函数，必须显示初始化</p>
+
+<p>char ca1[] = {'C', '+', '+, '\0'};
+char ca2[] = "C++";//同样有结束字符
+```</p>
+
+<p>数组下标的正确类型是<code>size_t</code></p>
+
+<h3>4.2</h3>
+
+<p>取地址符<code>&amp;</code>只能用于左值</p>
+
+<p>建议指针定义时初始化，如果还没有对象，初始化为0</p>
+
+<p>指针和引用的区别：</p>
+
+<ul>
+<li>定义引用时必须初始化，以后始终指向同一个特定对象</li>
+<li>给引用赋值，修改的是该引用所关联的对象的值，而不是使引用关联另一个对象</li>
+</ul>
+
+
+<p>在表达式中使用数组名时，该名字会自动转换为指向数组第一个元素的指针
+```c
+int ia[] = {0, 2, 4, 6, 8};
+int <em>ip = ia; //ip指向ia[0]
+int </em>ip2 = ia +4; //指向ia[4]
+ptrdiff_t n = ip2 - ip;// 4</p>
+
+<p>int *p = &amp;ia[2];
+int k = p[-2]; //ia[0]
+```</p>
+
+<p>只要定义的多个变量具有相同的类型，就可以在for循环的初始化语句中同时定义它们
+```c
+for (int <em>pbegin = int_arr, </em>pend = int_arr + arr_sz; pbegin != pend; ++pbegin)</p>
+
+<pre><code>dosomething;
+</code></pre>
+
+<p>```</p>
+
+<p>关于const
+```c
+const double *cptr;//指向const对象的指针</p>
+
+<p>const double pi = 3.14;
+double *ptr = &pi; //错误！不能把const对象的地址赋给指向非const对象的指针
+//但允许把非const对象的地址赋给指向const对象的指针，常见于函数形参</p>
+
+<p>int *const curErr = &errNum;//const指针，定义时初始化</p>
+
+<p>typedef string <em>pstring;
+const pstring cstr; //等价于string </em>const cstr;</p>
+
+<p>string const s1; //等价于const string s1;
+```</p>
+
+<h3>4.3</h3>
+
+<p>字符串字面值是const char类型的数组，是C风格字符串（以null结束的字符数组）的实例。
+```c
+const char *cp = "C++"; //指向第一个元素的指针</p>
+
+<p>while(*cp)              //null字符为false
+{</p>
+
+<pre><code>do something;
+cp++;
+</code></pre>
+
+<p>}
+```</p>
+
+<p>关于char指针的输出
+```c
+const char <em>cp = "C++";
+cout&lt;&lt;</em>cp&lt;&lt;endl;       //C
+cout&lt;&lt;cp&lt;&lt;endl;        //C++
+cout&lt;&lt;(void*)cp&lt;&lt;endl; //0x804e739</p>
+
+<p>char ch = 'c';
+char <em>p = &ch;
+cout&lt;&lt;</em>p&lt;&lt;endl;        //c
+cout&lt;&lt;p&lt;&lt;endl;         //c
+cout&lt;&lt;(void*)p&lt;&lt;endl;  //0xbf7481fb
+```</p>
+
+<p>标准库函数
+```c</p>
+
+<h1>include <cstring></h1>
+
+<p>strlen(s)   //不包括null的长度
+strcmp(s1, s2)
+strncpy(s1, s2, n)
+strncat(s1, s2, n)</p>
+
+<p>char largeStr[16+18+2];      //记住预留存放null的空间
+strncpy(largeStr, cp1, 17);  //比使用相应简化版本strcpy(largeStr, cp1)安全
+strncat(largeStr, " ", 2);   //包括null的大小
+strncat(largeStr, cp2, 19);</p>
+
+<p>//对应C++标准库类型string，增强安全性，且提高效率
+string largeStr = cp1;
+largeStr += " ";
+largeStr += cp2;
+```</p>
+
+<p>动态数组
+<code>c
+int *pia = new int[10];  //内置类型无初始化。类类型使用默认构造函数初始化
+int *pia2 = new int[10]; //所有元素初始化为0。不能像数组变量一样提供非默认值的初始化
+const int *pci_bad = new const int[10];//错误！const必须初始化
+char *p = new char[0];   //合法
+char arr[0];             //错误！
+</code></p>
+
+<ul>
+<li>可以把C风格字符串用在任何可以使用字符串字面值的地方，例如对string对象进行初始化或赋值</li>
+<li>不可直接使用string对象在要求C风格字符串的地方，但可以使用<code>const char *str = st2.c_str();</code></li>
+<li>可以使用数组初始化vector。<code>vector&lt;int&gt; ivec(int_arr, int_arr + arr_size);</code></li>
+</ul>
+
+
+<h3>4.4</h3>
+
+<p>严格的说，C++没有多维数组，只是数组的数组
+```c
+int ia[3][4] = {</p>
+
+<pre><code>{0, 1, 2, 3},
+{4, 5, 6, 7},
+{8, 9, 10, 11};   //大小为3的数组，其中每个元素是一个大小为4的数组,3行，4列
+</code></pre>
+
+<p>int ia[3][4] = {0,1,2,3,4,5,6,7,8,9,10,11};//等价</p>
+
+<p>int（*ip）[4] = ia;//多维数组名其实是指向第一个内层数组的指针.从内向外理解，指向含有4个元素的数组的指针</p>
+
+<p>typedef int int_array[4];//更易理解
+int_array *ip = ia;
+```</p>
+]]></content>
+  </entry>
+  
+  <entry>
+    <title type="html"><![CDATA[C++ Primer 读书笔记 3]]></title>
+    <link href="http://ziwu1216.github.com/blog/2013/07/17/c-plus-plus-primer-notes-3/"/>
+    <updated>2013-07-17T23:42:00+08:00</updated>
+    <id>http://ziwu1216.github.com/blog/2013/07/17/c-plus-plus-primer-notes-3</id>
+    <content type="html"><![CDATA[<p>之前一直在看，但好久没更博客了，所以这次会一次性有很多笔记</p>
+
+<!--more-->
+
+
+<h2>第三章</h2>
+
+<h3>3.1</h3>
+
+<p>在头文件中，不要放置<code>using</code>声明，否则相当于在每个包含该头文件的程序中都放置了同一<code>using</code>声明，不管程序是否需要。</p>
+
+<h3>3.2 string类型</h3>
+
+<p>```c</p>
+
+<h1>include <string></h1>
+
+<p>using std::string
+```</p>
+
+<h4>构造函数</h4>
+
+<p><code>c
+string s1;
+string s2(s1);
+string s3("value");
+string s4(n,'c');//n个c
+</code></p>
+
+<h4>读写</h4>
+
+<p><code>cin&gt;&gt;s</code>会读取并忽略开头所有空白字符（空格、换行、制表），读取字符直到再次遇到空白字符</p>
+
+<p><code>getline(cin, line)</code>从输入流的下一行读取，并保存读取的内容到string对象中，但不包括换行符，与<code>&gt;&gt;</code>的区别是不忽略开头的换行符，假设输入的第一个是换行符，则<code>line</code>为空string</p>
+
+<h4>string相关操作</h4>
+
+<p><code>string.size()</code>返回<code>string::size_type</code>类型，属于配套类型，可以使string类的使用与机器无关。不要将<code>size()</code>返回值赋给int，因为容易溢出。<br/>
+string类的关系比较符区分大小写，通常大写字母小于任意小写字母。<br/>
+<code>string s3 = s1 + s2;</code>或<code>s1 += s2;</code>可以连接字符串。当进行string和字符串字面值混合连接时，必须保证至少有一个操作数时string的，否则非法。</p>
+
+<h4>字符的处理</h4>
+
+<p><code>c
+isalnum(c)//是否是字母或数字
+isalpha(c)//是否是字母
+iscntrl(c)//是否是控制字符
+isdigit(c)//是否是数字
+ispunct(c)//是否是标点符号
+islower(c)//是否是小写字母
+toupper(c)//如果是小写字母，返回其大写字母形式，否则直接返回c
+</code></p>
+
+<p>name.h是C标准库头文件，而相应的cname则是对应得c++版本，cname中定义的名字都在std空间内，而name.h中不是</p>
+
+<h3>3.3 vector类型</h3>
+
+<p>vector之前也有过<a href="/blog/2013/03/14/data-structures-notes-3/">一些笔记</a></p>
+
+<p>vector以及其他标准库容器对象的重要属性就在于可以在运行时高效地添加元素。虽然可以对给定元素个数的vector对象预先分配内存，但更有效的方法是先初始化一个空vector对象，再动态增加元素。</p>
+
+<h3>3.4 迭代器</h3>
+
+<p>除了使用下标<code>vec[n]</code>来访问元素外，还可以用迭代器<code>vector&lt;int&gt;::iterator</code>。所有容器都支持迭代器，但只有少数容器支持下标。<br/>
+<code>iter1 - iter2</code>得到的类型是<code>difference_type</code>，可正可负<br/>
+<code>vi.begin() + vi.size()/2</code>可以直接指向正中间的元素</p>
+
+<h3>3.5 bitset类型</h3>
+
+<p>```c</p>
+
+<h1>include <bitset></h1>
+
+<p>bitset<32> b;//尖括号内是bitset的长度，必需参数
+bitset<128> bitvec1(Oxffff);//不足的位被置为0
+//string对象下标最大的字符用来初始化bitset下标为0的位。具体见后图
+string str = "1101";
+bitset<32> bitvec4(str);//第2和第3位置为1，其余为0
+bitset<32>bitvec5(str, 5, 4);//使用从str[5]开始的4个字符的子串来初始化，子串也是从右向左</p>
+
+<p>b.any()//是否存在1
+b.none()//是否不存在1
+b.count()//1的个数
+b[pos]
+b.test(pos)//pos处是否为1
+b.set(pos)//若没有pos参数，所有位都置1
+b.reset(pos)
+b.flip(pos)//取反
+b[pos].flip()//也可以
+b.to_ulong()//返回unsigned long,bitvec4转化为13
+```</p>
+]]></content>
+  </entry>
   
   <entry>
     <title type="html"><![CDATA[『转载整理』C++关键字]]></title>
@@ -190,472 +779,6 @@ const char *pc2; //到const char的指针（后两个声明是等同的）</p>
 <a href="http://blog.csdn.net/citysheep/article/details/3923073">C++中extern “C”含义深层探索</a> <br/>
 <a href="http://hi.baidu.com/laodun/item/8dcebde3d4710fadcf2d4fc7">关于const,static,extern,volatile的用法</a><br/>
 <a href="http://www.cnblogs.com/fxjwind/archive/2011/07/05/2098631.html">C语言易混淆关键词详解-const, static, extern, typedef, 声明</a></p>
-]]></content>
-  </entry>
-  
-  <entry>
-    <title type="html"><![CDATA[『转载整理』new和malloc的区别]]></title>
-    <link href="http://ziwu1216.github.com/blog/2013/05/25/new-vs-malloc/"/>
-    <updated>2013-05-25T17:25:00+08:00</updated>
-    <id>http://ziwu1216.github.com/blog/2013/05/25/new-vs-malloc</id>
-    <content type="html"><![CDATA[<p>new可以认为是malloc加构造函数的执行</p>
-
-<!--more-->
-
-
-<p>主要区别列表如下：</p>
-
-<table>
-<thead>
-<tr>
-<th>new     </th>
-<th>   malloc</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td>建立对象    </td>
-<td>   分配内存</td>
-</tr>
-<tr>
-<td>c或c++     </td>
-<td>   c</td>
-</tr>
-<tr>
-<td>运算符       </td>
-<td>   标准库函数</td>
-</tr>
-<tr>
-<td>保留字,不需要头文件支持      </td>
-<td>   需要头文件库函数支持</td>
-</tr>
-<tr>
-<td>分配内存+调用类的构造函数   </td>
-<td>   只分配内存，不会进行初始化</td>
-</tr>
-<tr>
-<td>自动计算需要分配的空间       </td>
-<td>   手动传递字节数</td>
-</tr>
-<tr>
-<td>返回某种数据类型指针      </td>
-<td>   返回void指针</td>
-</tr>
-</tbody>
-</table>
-
-
-<p>参考链接：<br/>
-<a href="http://wmnmtm.blog.163.com/blog/static/38245714201203313587/">new与malloc</a></p>
-]]></content>
-  </entry>
-  
-  <entry>
-    <title type="html"><![CDATA[C++ Primer 读书笔记 2]]></title>
-    <link href="http://ziwu1216.github.com/blog/2013/05/24/c-plus-plus-primer-notes-2/"/>
-    <updated>2013-05-24T00:01:00+08:00</updated>
-    <id>http://ziwu1216.github.com/blog/2013/05/24/c-plus-plus-primer-notes-2</id>
-    <content type="html"><![CDATA[<p>有些细节的地方综合网络作了补充</p>
-
-<!--more-->
-
-
-<h2>第二章</h2>
-
-<h3>2.1</h3>
-
-<p>8bits - byte，4bytes - word</p>
-
-<table>
-<thead>
-<tr>
-<th align="left"> </th>
-<th align="center"> 基本内置类型 </th>
-<th align="left"> </th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td align="left">char: </td>
-<td align="center"> 1byte   </td>
-<td align="left"> 基本字符集<br>char/unsigned char/signed char<br>(使用unsigned或signed来表示char，由编译器决定)</td>
-</tr>
-<tr>
-<td align="left">wchar_t：</td>
-<td align="center"> 2 or 4bytes </td>
-<td align="left"> 扩展字符集（汉字和日文）</td>
-</tr>
-<tr>
-<td align="left">bool： </td>
-<td align="center">   1byte</td>
-<td></td>
-</tr>
-<tr>
-<td align="left">   </td>
-<td align="center">    </td>
-<td align="left">    </td>
-</tr>
-<tr>
-<td align="left">short int (short)： </td>
-<td align="center">  2bytes </td>
-<td align="left"> 半个word，short/unsigned short</td>
-</tr>
-<tr>
-<td align="left">int: </td>
-<td align="center">  4bytes </td>
-<td align="left">    一个word，int/unsigned</td>
-</tr>
-<tr>
-<td align="left">long int (long)： </td>
-<td align="center">    4bytes </td>
-<td align="left">    long/unsigned long</td>
-</tr>
-<tr>
-<td align="left">long long int:  </td>
-<td align="center"> 8bytes</td>
-<td></td>
-</tr>
-<tr>
-<td align="left">   </td>
-<td align="center">    </td>
-<td align="left">    </td>
-</tr>
-<tr>
-<td align="left">float： </td>
-<td align="center">  4bytes </td>
-<td align="left">    ~7 digits</td>
-</tr>
-<tr>
-<td align="left">double： </td>
-<td align="center"> 8bytes </td>
-<td align="left">    ~15 digits</td>
-</tr>
-<tr>
-<td align="left">long double： </td>
-<td align="center">    8bytes </td>
-<td align="left">    ~15 digits</td>
-</tr>
-</tbody>
-</table>
-
-
-<ul>
-<li>无符号，最高位和其它位一样，用来表示该数的大小。</li>
-<li>有符号，最高位为符号位，1表示负值。</li>
-</ul>
-
-
-<p>正数按原码存放，负数按补码存放。补码就是符号位不变，其余位数取反加1（从最低位开始至找到的第一个1均不变，符号位不变）。-1，原码是10000001，补码应该是11111111</p>
-
-<p>很多时候，把超过取值范围的值赋给unsigned和signed类型，编译器会取模后存储。</p>
-
-<h3>2.2</h3>
-
-<p>字面值常量literal constant。只有内置类型存在字面值。
-<code>c
-20;//十进制
-024;//八进制以0开头
-0x14;//十六进制以0X或0x开头
-128u;//unsigned
-1024UL or 1024Lu;//unsigned long
-1L;//long
-3.14159f;
-.001f;
-0.;
-1E-3F;
-L'a';//wchar_t
-\0;//转义字符\可以将ASCII码转为字面值常量
-L"a wide string literal";
-</code></p>
-
-<h3>2.3</h3>
-
-<p>变量初始化：</p>
-
-<p><code>c
-int ival(1024);//直接初始化
-int ival = 1024;//复制初始化
-double salary = 9.9, wage(salary + 0.01);//用前一个变量初始化后一个变量
-</code></p>
-
-<p>定义未初始化的变量时：</p>
-
-<ul>
-<li>内置类型：函数体外定义的自动初始化为0，函数体内定义的不自动初始化</li>
-<li>类类型：必须有默认构造函数才能自动初始化，否则无法定义没有初始值的变量</li>
-</ul>
-
-
-<p>变量的定义用于为变量分配存储空间，可以指定初始值。变量有且仅有一个定义。<br/>
-变量的声明用于向程序表明变量的类型和名字，可以声明多次。定义也是声明。</p>
-
-<p>```c
-extern int i;//声明不定义，在file2，可以使用file1里的变量i(外部存储类型)
-int i;//定义，在file1</p>
-
-<p>extern double pi = 3.1416;//定义，因为有初始化，要分配空间
-```</p>
-
-<p>变量的作用域</p>
-
-<ul>
-<li>全局作用域：所有函数外部，在程序的任何地方访问</li>
-<li>局部作用域：<code>{}</code>括起来的代码范围，例如函数内部</li>
-<li>语句作用域：for等语句内，从它定义的位置开始，一直到for所带语句的作用域结束</li>
-<li>类作用域：每个类的成员不同于任何其他类(任何其他作用域)的成员</li>
-<li>命名空间作用域：namespace</li>
-</ul>
-
-
-<h3>2.4</h3>
-
-<p>```c
-const int bufSize = 512;//常量在定义时必须初始化</p>
-
-<p>extern const int bufSize = fcn();//定义，在file1
-//在全局作用域声明的const变量是定义该对象的文件的局部变量，不能被其他文件访问
-//需要加extern，才能被其他文件访问
-extern const int bufSize;//声明，在file2，可以使用file1里的变量
-```</p>
-
-<h3>2.5</h3>
-
-<p>```c
-int ival = 1024;
-int &amp;refval = ival;//引用只是别名，引用不可能在初始化后绑定到其他对象
-int &refVal2;//错误，引用必须初始化
-int &amp;refVal3 = 10;//错误，引用必需使用同类型的对象初始化</p>
-
-<p>const int i = 1024;
-const int &amp;ref = i;//指向const对象的引用
-const int &amp;r = 42;//正确，const引用可以绑定到右值</p>
-
-<p>double dval = 3.14;
-const int &amp;ri = dval;//正确，const引用可以绑定到不同但相关的类型
-//编译器会做如下转换，如果允许非const引用，则对ri的修改只能修改temp，不能修改dval
-//int temp = dval;
-//const int &amp;ri = temp;
-```</p>
-
-<h3>2.6</h3>
-
-<p>typedef可以用来定义类型的同义词
-<code>c
-typedef int exam_socre;
-</code></p>
-
-<h3>2.7</h3>
-
-<p>枚举变量，默认第一个枚举成员赋值为0，后面比前面一个加1
-<code>c
-enum Points{point2d = 2, point2w, point3d = 3, point3w};
-//point2d = 2, point2w = 3比前一个大1
-//point3d = 3, 和point2w值重复了，是可以的
-//point3w = 4
-</code></p>
-
-<h3>2.8</h3>
-
-<p><code>class</code>在第一个访问标号前的任何成员都隐式指定为<code>private</code>，<code>struct</code>则指定为<code>public</code></p>
-
-<h3>2.9</h3>
-
-<p>编译和链接多个源文件
-<code>
-CC -c main.cc Sales_item.cc
-</code>
-或者
-<code>
-CC -c main.cc
-CC -c Sales_item.cc
-CC main.o Sales_item.o
-</code></p>
-
-<p>头文件中只能有声明，不能有定义。例外：</p>
-
-<ul>
-<li>定义类</li>
-<li>定义值在编译时就已知的const对象<br/>
-上文“const变量是定义该对象的文件的局部变量”就是为了允许这么做<br/>
-实践中，大部分编译器会用相应的常量表达式来替换对这些const变量的使用，所以不会有存储空间存储这类const变量<br/>
-不是编译时已知值的const对象不应该放在头文件</li>
-<li>定义inline函数</li>
-</ul>
-
-]]></content>
-  </entry>
-  
-  <entry>
-    <title type="html"><![CDATA[『转载整理』C/C++中内存机制]]></title>
-    <link href="http://ziwu1216.github.com/blog/2013/05/17/memory-in-c-and-c-plus-plus/"/>
-    <updated>2013-05-17T00:15:00+08:00</updated>
-    <id>http://ziwu1216.github.com/blog/2013/05/17/memory-in-c-and-c-plus-plus</id>
-    <content type="html"><![CDATA[<h2>概述</h2>
-
-<p>在多任务操作系统中的每一个进程都运行在一个属于它自己的内存沙盘中。这个沙盘就是虚拟地址空间（virtual address space），在32位模式下它总是一个<code>4GB</code>的内存地址块。这些虚拟地址通过页表（page table）映射到物理内存，页表由操作系统维护并被处理器引用。每一个进程拥有一套属于它自己的页表，只要虚拟地址被使能，那么它就会作用于这台机器上运行的所有软件，包括内核本身，因此一部分虚拟地址必须保留给内核使用</p>
-
-<!--more-->
-
-
-<p><img src="/images/memory-in-c-and-c-plus-plus-block.png" title="程序内存块" alt="图片加载失败 :("></p>
-
-<p>在Linux中，内核空间是持续存在的，并且在所有进程中都映射到同样的物理内存。内核代码和数据总是可寻址的，随时准备处理中断和系统调用。与此相反，用户模式地址空间的映射随进程切换的发生而不断变化</p>
-
-<p><img src="/images/memory-in-c-and-c-plus-plus-switch.png" title="程序切换" alt="图片加载失败 :("></p>
-
-<p>下面是一个Linux进程的标准的内存段布局</p>
-
-<p><img src="/images/memory-in-c-and-c-plus-plus-layout.png" title="内存布局" alt="图片加载失败 :("></p>
-
-<ul>
-<li>进程地址空间中最顶部的段是栈，大多数编程语言将之用于存储局部变量和函数参数。进程中的每一个线程都有属于自己的栈。</li>
-<li>在栈的下方是内存映射段。此处，内核将文件的内容直接映射到内存。任何应用程序都可以通过Linux的mmap()或Windows的CreateFileMapping() / MapViewOfFile()请求这种映射。内存映射是一种方便高效的文件I/O方式，所以它被用于加载动态库。</li>
-<li>堆用于运行时内存分配。但不同点是，堆用于存储那些生存期与函数调用无关的数据。在C语言中，堆分配的接口是malloc()系列函数，而在具有垃圾收集功能的语言（如C#）中，此接口是new关键字。</li>
-<li>BSS（未初始化数据区）保存的是未被初始化的静态变量内容</li>
-<li>数据段保存在源代码中已经初始化了的静态变量内容</li>
-<li>代码段是只读的，保存了你全部的代码外加零零碎碎的东西，比如字符串字面值。</li>
-</ul>
-
-
-<p>下图展示了这些段以及我们例子中的变量
-<img src="/images/memory-in-c-and-c-plus-plus-example.png" title="例子展示" alt="图片加载失败 :("></p>
-
-<h2>C语言中的内存机制</h2>
-
-<ul>
-<li><p>栈(Stack)<br/>
-位于函数内的局部变量（包括函数实参），由编译器负责分配释放，函数结束，栈变量失效。</p></li>
-<li><p>堆(Heap）<br/>
-由程序员用malloc/calloc/realloc分配，free释放。如果程序员忘记free了，则会造成内存泄露，程序结束时该片内存会由OS回收。</p></li>
-<li><p>全局区/静态区(Global Static Area)<br/>
-全局变量和静态变量存放区，程序一经编译好，该区域便存在。程序结束时释放。<br/>
-在C语言中，初始化的全局变量和静态变量和未初始化的放在相邻的两个区域。</p></li>
-<li><p>C风格字符串常量存储区<br/>
-专门存放字符串常量的地方，程序结束时释放。（字符串常量一般放在 .text段 或单独的 .rodata段）【？？？似乎跟C++的常量存储区类似。const常量是否也放在这里？】</p></li>
-<li><p>程序代码区</p></li>
-</ul>
-
-
-<h2>C++中的内存机制</h2>
-
-<p>与C相同部分不再描述</p>
-
-<ul>
-<li><p>栈(Stack)</p></li>
-<li><p>堆（Heap)<br/>
-由new申请的内存，由delete或delete[]负责释放。</p></li>
-<li><p>自由存储区(Free Storage)<br/>
-malloc/calloc/realloc分配的内存。对象的生存周期可以比内存被分配的时间短，即可以用void*访问这块内存，而没有具体对象。自由存储区和堆的本质区别有争议，具体可见<a href="http://hi.baidu.com/yangdgjy/item/23a3c28daa7f495c840fabb2">这里</a></p></li>
-<li><p>全局区/静态区(Global Static Area)<br/>
-在C++中，由于全局变量和静态变量编译器会给这些变量自动初始化赋值，所以没有区分了初始化变量和未初始化变量了</p></li>
-<li><p>常量存储区<br/>
-存储字符串常量和其他在编译时已知的数据。整个程序运行期间可见。只读。</p></li>
-<li><p>程序代码区</p></li>
-</ul>
-
-
-<hr />
-
-<p>参考链接:</p>
-
-<p><a href="http://blog.csdn.net/drshenlei/article/details/4339110">剖析程序的内存布局</a><br/>
-<a href="http://www.cnblogs.com/ComputerG/archive/2012/02/01/2334898.html">c/c++内存机制（一）（原）</a><br/>
-<a href="http://www.gotw.ca/gotw/009.htm">Memory Management - Part I</a></p>
-]]></content>
-  </entry>
-  
-  <entry>
-    <title type="html"><![CDATA[数据结构与算法分析 读书笔记 4]]></title>
-    <link href="http://ziwu1216.github.com/blog/2013/03/18/data-structures-notes-4/"/>
-    <updated>2013-03-18T23:53:00+08:00</updated>
-    <id>http://ziwu1216.github.com/blog/2013/03/18/data-structures-notes-4</id>
-    <content type="html"><![CDATA[<p>第三章剩下的部分</p>
-
-<!--more-->
-
-
-<h2>第三章 表、栈和队列</h2>
-
-<h3>3.4 向量的实现</h3>
-
-<p>vector是基本类类型，这意味着不同于基本数组，vector可以复制并且其占用的内存可以自动回收（通过析构函数）</p>
-
-<p>【？？？】程序第37行，为什么<code>reserve()</code>函数中判断的是<code>newCapacity &lt; theSize</code>而不是<code>newCapacity &lt; theCapacity</code>？</p>
-
-<h3>3.5 表的实现</h3>
-
-<p>在表的前端和末尾添加额外结点作为标志，称为哨兵结点。头部结点称为表头结点，末端的结点称为尾结点。使用好处是可以去掉很多特例，简化程序代码。</p>
-
-<p>List中的代码摘抄<br/>
-``` c
-class List
-{
-private:</p>
-
-<pre><code>struct Node{...};
-</code></pre>
-
-<p>public:</p>
-
-<pre><code>class const_iterator{...};
-class iterator: public const_iterator{...};
-...
-</code></pre>
-
-<p>private:</p>
-
-<pre><code>int theSize;
-Node *head;
-Node *tail;
-...
-</code></pre>
-
-<p>};
-```</p>
-
-<p>定义前缀和后缀<code>operator++</code>的区别方法：给前缀指定空参数表，给后缀指定一个匿名的int参数。实现指出在许多可以选择使用前缀或后缀的情况下，使用前缀形式要快于使用后缀形式<br/>
-``` c
-const_iterator operator++()
-{</p>
-
-<pre><code>current = current-&gt;next;
-return *this;
-</code></pre>
-
-<p>}</p>
-
-<p>const_iterator operator++(int)
-{</p>
-
-<pre><code>const_iterator old = *this;
-++(*this);
-return old;
-</code></pre>
-
-<p>}
-```</p>
-
-<h3>3.6 栈ADT</h3>
-
-<p>栈的操作基本只有<code>push(),pop(),top()</code>，只有栈顶元素是可访问的。</p>
-
-<p>栈是一个表，用数组和单向链表都可以实现，所以list和vector都支持栈，且操作为常量时间操作。</p>
-
-<h4>栈的应用</h4>
-
-<p>后缀或逆波兰记法：将<code>4.99*1.06 + 5.99 +6.99*1.06</code>（称为中缀式）记为<code>4.99 1.06 * 5.99 + 6.99 1.06 * +</code>。   当一个表达式以后缀记法给出时，没有必要知道任何优先规则。</p>
-
-<p>可以用栈实现中缀式到后缀式的转换，主要原则是入栈操作符，读取新操作符时，从栈顶弹出直到遇到优先级更低的元素为止【需复习】</p>
-
-<p>尾递归：在最后一行的递归调用，是极差的使用递归的例子。<br/>
-通过将代码放到一个while循环中并用每个函数的一个参数代替递归调用，可以机械地消除尾递归。【？？？】不明白尾递归和其他递归的本质区别<br/>
-递归总能够被彻底除去（编译器的工作），但提速的同时降低了程序的清晰性。</p>
-
-<h3>3.7 队列ADT</h3>
-
-<p>队列也是表。基本操作<code>enqueue(),dequeue()</code></p>
-
-<p>循环数组：处理front或back到达数组尾端，而数组前面有很多空位的情况。</p>
 ]]></content>
   </entry>
   

@@ -4,7 +4,7 @@
   <title><![CDATA[Jean's Blog]]></title>
   <link href="http://ziwu1216.github.com/atom.xml" rel="self"/>
   <link href="http://ziwu1216.github.com/"/>
-  <updated>2013-05-25T20:47:24+08:00</updated>
+  <updated>2013-07-18T00:30:23+08:00</updated>
   <id>http://ziwu1216.github.com/</id>
   <author>
     <name><![CDATA[Jean]]></name>
@@ -12,6 +12,780 @@
   </author>
   <generator uri="http://octopress.org/">Octopress</generator>
 
+  
+  <entry>
+    <title type="html"><![CDATA[C++ Primer 读书笔记 6]]></title>
+    <link href="http://ziwu1216.github.com/blog/2013/07/17/c-plus-plus-primer-notes-6/"/>
+    <updated>2013-07-17T23:43:00+08:00</updated>
+    <id>http://ziwu1216.github.com/blog/2013/07/17/c-plus-plus-primer-notes-6</id>
+    <content type="html"><![CDATA[<h2>第六章</h2>
+
+<!--more-->
+
+
+<h3>6.3</h3>
+
+<p>复合语句，通常称为块，是用一对花括号括起来的语句序列，标识了一个作用域。</p>
+
+<h3>6.4</h3>
+
+<p>变量的作用域</p>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+</pre></td><td class='code'><pre><code class='c'><span class='line'><span class="k">for</span><span class="p">(</span><span class="kt">int</span> <span class="n">i</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span> <span class="n">i</span> <span class="o">&lt;</span><span class="mi">10</span><span class="p">;</span> <span class="n">i</span><span class="o">++</span><span class="p">)</span>
+</span><span class='line'><span class="p">{</span><span class="c1">//新的作用域，包含在for语句作用域内</span>
+</span><span class='line'>  <span class="n">sum</span> <span class="o">+=</span> <span class="n">i</span><span class="p">;</span>
+</span><span class='line'><span class="p">}</span>
+</span><span class='line'><span class="c1">//外部不能访问i</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<h3>6.6</h3>
+
+<p><code>break</code>语句中，<code>case</code>标号必须是整型常量表达式</p>
+
+<p>程序从匹配的<code>case</code>标号开始执行，并跨越<code>case</code>边界继续执行其他语句直到结束，所以不要忘记<code>break</code></p>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+<span class='line-number'>9</span>
+<span class='line-number'>10</span>
+<span class='line-number'>11</span>
+<span class='line-number'>12</span>
+<span class='line-number'>13</span>
+<span class='line-number'>14</span>
+<span class='line-number'>15</span>
+<span class='line-number'>16</span>
+<span class='line-number'>17</span>
+<span class='line-number'>18</span>
+<span class='line-number'>19</span>
+<span class='line-number'>20</span>
+<span class='line-number'>21</span>
+<span class='line-number'>22</span>
+<span class='line-number'>23</span>
+<span class='line-number'>24</span>
+<span class='line-number'>25</span>
+<span class='line-number'>26</span>
+<span class='line-number'>27</span>
+<span class='line-number'>28</span>
+<span class='line-number'>29</span>
+<span class='line-number'>30</span>
+<span class='line-number'>31</span>
+<span class='line-number'>32</span>
+<span class='line-number'>33</span>
+<span class='line-number'>34</span>
+<span class='line-number'>35</span>
+<span class='line-number'>36</span>
+</pre></td><td class='code'><pre><code class='c'><span class='line'><span class="k">switch</span><span class="p">(</span><span class="n">ch</span><span class="p">)</span> <span class="p">{</span>
+</span><span class='line'>  <span class="k">case</span> <span class="sc">&#39;a&#39;</span>:
+</span><span class='line'>      <span class="o">++</span><span class="n">aCnt</span><span class="p">;</span>
+</span><span class='line'>  <span class="k">case</span> <span class="sc">&#39;e&#39;</span>:
+</span><span class='line'>      <span class="o">++</span><span class="n">eCnt</span><span class="p">;</span>
+</span><span class='line'>  <span class="k">case</span><span class="err">‘</span><span class="n">i</span><span class="err">’</span>:
+</span><span class='line'>      <span class="o">++</span><span class="n">iCnt</span><span class="p">;</span>
+</span><span class='line'><span class="p">}</span>
+</span><span class='line'><span class="c1">//如果ch是&#39;e&#39;,eCnt和iCnt都会加1</span>
+</span><span class='line'>
+</span><span class='line'><span class="k">switch</span><span class="p">(</span><span class="n">ch</span><span class="p">)</span> <span class="p">{</span>
+</span><span class='line'>  <span class="k">case</span> <span class="sc">&#39;a&#39;</span>:
+</span><span class='line'>  <span class="k">case</span> <span class="sc">&#39;e&#39;</span>:
+</span><span class='line'>  <span class="o">++</span><span class="n">Cnt</span><span class="p">;</span>
+</span><span class='line'>  <span class="k">break</span><span class="p">;</span>
+</span><span class='line'><span class="p">}</span>
+</span><span class='line'><span class="c1">//对两个case执行同样操作</span>
+</span><span class='line'>
+</span><span class='line'><span class="k">switch</span><span class="p">(</span><span class="n">flag</span><span class="p">)</span> <span class="p">{</span>
+</span><span class='line'>  <span class="k">case</span> <span class="nb">true</span>:
+</span><span class='line'>      <span class="n">string</span> <span class="n">file_name</span> <span class="o">=</span> <span class="s">&quot;a.txt&quot;</span><span class="p">;</span><span class="c1">//错误！</span>
+</span><span class='line'>      <span class="k">break</span><span class="p">;</span>
+</span><span class='line'>  <span class="k">case</span> <span class="nb">false</span>:
+</span><span class='line'>      <span class="p">...</span>
+</span><span class='line'><span class="p">}</span>
+</span><span class='line'><span class="c1">//只能在最后一个case标号或default标号后面定义变量，此规则是为了避免代码跳过变量的定义和初始化</span>
+</span><span class='line'><span class="k">switch</span><span class="p">(</span><span class="n">flag</span><span class="p">)</span> <span class="p">{</span>
+</span><span class='line'>  <span class="k">case</span> <span class="nb">true</span>:
+</span><span class='line'>      <span class="p">{</span>
+</span><span class='line'>          <span class="n">string</span> <span class="n">file_name</span> <span class="o">=</span> <span class="s">&quot;a.txt&quot;</span><span class="p">;</span><span class="c1">//在块语句内定义，可以</span>
+</span><span class='line'>          <span class="c1">//...</span>
+</span><span class='line'>      <span class="p">}</span>
+</span><span class='line'>      <span class="k">break</span><span class="p">;</span>
+</span><span class='line'>  <span class="k">case</span> <span class="nb">false</span>:
+</span><span class='line'>      <span class="p">...</span>
+</span><span class='line'><span class="p">}</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<h3>6.8</h3>
+
+<p><code>for</code>语句</p>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+</pre></td><td class='code'><pre><code class='c'><span class='line'><span class="k">for</span> <span class="p">(</span><span class="n">initializer</span><span class="p">;</span> <span class="n">condition</span><span class="p">;</span> <span class="n">expression</span><span class="p">)</span>
+</span><span class='line'>  <span class="n">statement</span>
+</span><span class='line'><span class="c1">//循环开始时执行一次initializer，如果第一次求解condition就得false，则expression和statement都不会执行</span>
+</span><span class='line'>
+</span><span class='line'><span class="c1">//可以在initializer定义多个对象，但必须具有相同的一般类型</span>
+</span><span class='line'><span class="k">for</span> <span class="p">(</span><span class="kt">int</span> <span class="n">ival</span> <span class="o">=</span> <span class="mi">0</span><span class="p">,</span> <span class="o">*</span><span class="n">pi</span> <span class="o">=</span> <span class="n">ia</span><span class="p">,</span> <span class="o">&amp;</span><span class="n">ri</span> <span class="o">=</span> <span class="n">val</span><span class="p">;</span> <span class="n">ival</span> <span class="o">!=</span> <span class="mi">5</span><span class="p">;</span> <span class="o">++</span><span class="n">ival</span><span class="p">,</span> <span class="o">++</span><span class="n">pi</span><span class="p">,</span> <span class="o">++</span><span class="n">ri</span><span class="p">)</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<h3>6.9</h3>
+
+<p><code>do while</code> 保证循环体至少执行1次</p>
+
+<h3>6.11</h3>
+
+<p><code>continue</code>语句导致最近的循环语句的档次迭代提前结束，对于<code>while</code>和<code>do while</code>，继续求解循环条件，对于<code>for</code>，求解<code>expression</code></p>
+
+<h3>6.12</h3>
+
+<p><code>goto</code>语句</p>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+<span class='line-number'>9</span>
+<span class='line-number'>10</span>
+<span class='line-number'>11</span>
+</pre></td><td class='code'><pre><code class='c'><span class='line'><span class="k">goto</span> <span class="n">end</span><span class="p">;</span>
+</span><span class='line'><span class="p">{</span>
+</span><span class='line'>  <span class="kt">int</span> <span class="n">ix</span> <span class="o">=</span><span class="mi">10</span><span class="p">;</span><span class="c1">//goto语句不能跨越变量的定义语句向前跳转，必须放在块语句内</span>
+</span><span class='line'><span class="p">}</span>
+</span><span class='line'><span class="nl">end:</span> <span class="k">return</span><span class="p">;</span>
+</span><span class='line'>
+</span><span class='line'><span class="nl">begin:</span>
+</span><span class='line'>  <span class="kt">int</span> <span class="n">sz</span> <span class="o">=</span> <span class="n">get_size</span><span class="p">();</span>
+</span><span class='line'>  <span class="k">if</span><span class="p">(</span><span class="n">sz</span> <span class="o">&lt;=</span> <span class="mi">0</span><span class="p">)</span> <span class="p">{</span>
+</span><span class='line'>      <span class="k">goto</span> <span class="n">begin</span><span class="p">;</span><span class="c1">//向后跳过是合法的，会使系统撤销这个变量，然后再重新创建</span>
+</span><span class='line'>  <span class="p">}</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<h3>6.13</h3>
+
+<p><code>try catch</code>语句</p>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+</pre></td><td class='code'><pre><code class='c'><span class='line'><span class="n">try</span><span class="p">{</span>
+</span><span class='line'>  <span class="p">...</span>
+</span><span class='line'>  <span class="n">throw</span> <span class="n">runtime_err</span><span class="p">(</span><span class="s">&quot;Data must be intergers&quot;</span><span class="p">);</span>
+</span><span class='line'><span class="p">}</span> <span class="n">catch</span> <span class="err">（</span><span class="n">runtime_error</span> <span class="n">err</span><span class="p">)</span> <span class="p">{</span>
+</span><span class='line'>  <span class="n">cout</span> <span class="o">&lt;&lt;</span> <span class="n">err</span><span class="p">.</span><span class="n">what</span><span class="p">();</span><span class="c1">//每个标准库异常类都有what函数，返回C风格字符串</span>
+</span><span class='line'><span class="p">}</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>抛出异常时，按执行路径回退，寻找匹配的<code>catch</code>，如果不存在，则转到名为<code>terminate</code>的标准库函数。在程序中出现的异常如果没有<code>try</code>块定义，也将调用<code>terminate</code>。</p>
+
+<p>标准异常类在<code>stdexpect</code>头文件中，见下表<br/>
+<img src="http://ziwu1216.github.com/images/c-plus-plus-primer-notes-6-exception.jpg" title="标准异常类" alt="图片加载失败 :("></p>
+
+<p><code>exception</code>, <code>bad_alloc</code>, <code>bad_cast</code>只定义了默认构造函数，无法提供初值。其他异常类使用string参数初始化，这个string被<code>what</code>函数返回</p>
+
+<h3>6.14</h3>
+
+<p><code>assert</code>语句</p>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+<span class='line-number'>9</span>
+<span class='line-number'>10</span>
+<span class='line-number'>11</span>
+<span class='line-number'>12</span>
+<span class='line-number'>13</span>
+<span class='line-number'>14</span>
+<span class='line-number'>15</span>
+<span class='line-number'>16</span>
+<span class='line-number'>17</span>
+<span class='line-number'>18</span>
+<span class='line-number'>19</span>
+</pre></td><td class='code'><pre><code class='c'><span class='line'><span class="kt">int</span> <span class="nf">main</span><span class="p">()</span>
+</span><span class='line'><span class="p">{</span>
+</span><span class='line'>  <span class="cp">#ifndef NDEBUG</span>
+</span><span class='line'>  <span class="n">cerr</span> <span class="o">&lt;&lt;</span> <span class="s">&quot;starting main&quot;</span> <span class="o">&lt;&lt;</span> <span class="n">endl</span><span class="p">;</span>
+</span><span class='line'>  <span class="cp">#endif</span>
+</span><span class='line'><span class="p">}</span>
+</span><span class='line'>
+</span><span class='line'><span class="n">CC</span> <span class="o">-</span><span class="n">DNDEBUG</span> <span class="n">main</span><span class="p">.</span><span class="n">C</span>
+</span><span class='line'><span class="c1">//大多数编译器都提供定义NDEBUG的命令行选项，这样的命令行等效于在main.c开头#define NDEBUG</span>
+</span><span class='line'>
+</span><span class='line'><span class="n">__FILE__</span>
+</span><span class='line'><span class="n">__LINE__</span>
+</span><span class='line'><span class="n">__TIME__</span>
+</span><span class='line'><span class="n">__DATE__</span>
+</span><span class='line'><span class="c1">//预处理器还提供了这些常量，方便调试</span>
+</span><span class='line'>
+</span><span class='line'><span class="cp">#include &lt;cassert&gt;</span>
+</span><span class='line'><span class="n">assert</span><span class="p">(</span><span class="n">expr</span><span class="p">);</span>
+</span><span class='line'><span class="c1">//如果expr为false，则输出信息且终止程序。若为非0值，则不做操作</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>如果NDEBUG定义，则assert语句不运行。</p>
+
+<ul>
+<li><a href="http://book.51cto.com/art/201306/400313.htm">具体1</a></li>
+<li><a href="http://www.cnblogs.com/valuel/archive/2009/11/15/1603362.html">具体2</a></li>
+</ul>
+
+]]></content>
+  </entry>
+  
+  <entry>
+    <title type="html"><![CDATA[C++ Primer 读书笔记 5]]></title>
+    <link href="http://ziwu1216.github.com/blog/2013/07/17/c-plus-plus-primer-notes-5/"/>
+    <updated>2013-07-17T23:43:00+08:00</updated>
+    <id>http://ziwu1216.github.com/blog/2013/07/17/c-plus-plus-primer-notes-5</id>
+    <content type="html"><![CDATA[<h2>第五章</h2>
+
+<!--more-->
+
+
+<h3>5.1</h3>
+
+<p><code>%</code>求余符号，只支持整型操作数，<code>bool</code> <code>char</code> <code>short</code> <code>int</code> <code>long</code></p>
+
+<h3>5.2</h3>
+
+<p>短路求值：<code>expr1 &amp;&amp; expr2</code> 逻辑与，只有expr1为true时，才会计算expr2。逻辑或类似</p>
+
+<h3>5.3</h3>
+
+<p>位操作符将整型操作数视为二进制位的集合，为每一位提供检验和设置的功能，也可用于bitset类型的操作数</p>
+
+<table>
+<thead>
+<tr>
+<th align="center">操作符   </th>
+<th align="center">  功能</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td align="center">~       </td>
+<td align="center">  位求反</td>
+</tr>
+<tr>
+<td align="center">&lt;&lt;      </td>
+<td align="center">  左移，填入0</td>
+</tr>
+<tr>
+<td align="center">>>      </td>
+<td align="center">  右移，无符号数填入0，有符号数填入符号位副本或者0值</td>
+</tr>
+<tr>
+<td align="center">&amp;       </td>
+<td align="center">  位与</td>
+</tr>
+<tr>
+<td align="center">^       </td>
+<td align="center">  位异或</td>
+</tr>
+<tr>
+<td align="center">“竖”打不出来 </td>
+<td align="center"> 位或</td>
+</tr>
+</tbody>
+</table>
+
+
+<p>大多数二元操作符都是左结合：<code>( cout&lt;&lt; "hi" ) &lt;&lt; "there";</code></p>
+
+<h3>5.4</h3>
+
+<p>赋值操作符具有右结合性<br/>
+复合赋值操作符：<code>+=</code> (减 / 乘 / 除) <code>&lt;&lt;=</code> <code>&gt;&gt;=</code> <code>&amp;=</code> (位异或 / 位或)。<br/>
+使用复合赋值操作符时，左操作数只计算了一次</p>
+
+<h3>5.5</h3>
+
+<p>前自增返回修改后的值作为表达式结果，所以返回对象本身，是左值。后自增返回未修改的值，是右值</p>
+
+<h3>5.7</h3>
+
+<p><code>cond ? expr1 : expr2</code>cond总是要计算的，true则计算expr1,false则计算expr2</p>
+
+<h3>5.8</h3>
+
+<p>sizeof返回size_t类型</p>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+</pre></td><td class='code'><pre><code class='c'><span class='line'><span class="k">sizeof</span><span class="p">(</span><span class="n">type</span> <span class="n">name</span><span class="p">);</span>
+</span><span class='line'><span class="k">sizeof</span><span class="p">(</span><span class="n">expr</span><span class="p">);</span>
+</span><span class='line'><span class="k">sizeof</span> <span class="n">expr</span><span class="p">;</span>
+</span><span class='line'>
+</span><span class='line'><span class="k">sizeof</span><span class="err">（</span><span class="kt">char</span><span class="p">)</span> <span class="c1">//保证得1 （推断：单位为byte）</span>
+</span><span class='line'><span class="k">sizeof</span><span class="p">(</span><span class="err">引用）</span><span class="c1">//返回存放此引用类型对象所需的内存空间的大小</span>
+</span><span class='line'><span class="k">sizeof</span><span class="p">(</span><span class="err">指针）</span><span class="c1">//返回存放指针所需的内存大小</span>
+</span><span class='line'><span class="k">sizeof</span><span class="p">(</span><span class="err">数组）</span><span class="c1">//等效于sizeof（元素类型）* 元素个数</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<h3>5.9</h3>
+
+<p>逗号操作符的表达式从左向右计算，结果是最右边表达式的值</p>
+
+<h3>5.10</h3>
+
+<p><code>if (ia[index++] &lt; ia[index])</code>此表达式行为未定义，因为&lt;不保证先求解左操作数还是右操作数</p>
+
+<h3>5.11</h3>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+</pre></td><td class='code'><pre><code class='c'><span class='line'><span class="n">string</span> <span class="o">*</span><span class="n">ps</span> <span class="o">=</span> <span class="n">new</span> <span class="n">string</span><span class="p">(</span><span class="mi">10</span><span class="p">,</span> <span class="sc">&#39;9&#39;</span><span class="p">);</span> <span class="c1">//初始化为999999999</span>
+</span><span class='line'><span class="n">string</span> <span class="o">*</span><span class="n">ps2</span> <span class="o">=</span> <span class="n">new</span> <span class="n">string</span><span class="p">();</span>       <span class="c1">//值初始化为空string</span>
+</span><span class='line'><span class="kt">int</span> <span class="n">x</span><span class="p">();</span><span class="c1">//声明了函数。值初始化的()必须放在类型名后面，而非变量后</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<h3>5.12</h3>
+
+<p><a href="http://mwtx.blog.163.com/blog/static/3893912920117246365145/">整型提升</a><br/>
+两个操作数都不是三种浮点类型之一，它们一定是某种整值类型。在确定共同的目标提升类型之前，编译器将在所有小于int的整值类型上施加一个被称为整型提升(integral promotion)的过程。整型提升就是char、short int和位段类型（无论signed或unsigned）以及枚举类型将被提升为int， 前提是int 能够完整地容纳原先的数据，否则将被转换为unsigned int。wchar_t和枚举类型被提升为能够表示其底层类型(underlying type)所有值的最小整数类型。 <br/>
+一旦整型提升执行完毕，类型比较就又一次开始。如果一个操作数是unsigned long型，则第二个也被转换成unsigned long型。<br/>
+如果该类型所有可能值都包容在int内（取决于机器），则被提升为int。否则被提升为unsigned int。<br/>
+如果涉及到int提升为unsigned int且int恰好为负数，则结果是该负数对该类型的取值个数求模后的值.</p>
+
+<p><code>while(cin&gt;&gt;s)</code>将istream类型转换为bool类型，意味着要检验流的状态，如果最后一次尝试成功，则true；否则false</p>
+
+<h4><a href="http://blog.csdn.net/geeeeeeee/article/details/3427920">强制类型转换</a></h4>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+<span class='line-number'>9</span>
+</pre></td><td class='code'><pre><code class='c'><span class='line'><span class="n">static_cast</span><span class="o">&lt;</span><span class="kt">int</span><span class="o">&gt;</span><span class="p">(</span><span class="n">a</span><span class="p">)</span>
+</span><span class='line'><span class="n">dynamic_cast</span><span class="o">&lt;&gt;</span><span class="p">()</span>      <span class="c1">//支持运行时识别指针或引用所指向的对象</span>
+</span><span class='line'><span class="n">const_cast</span><span class="o">&lt;&gt;</span><span class="p">()</span>        <span class="c1">//转换掉const性质</span>
+</span><span class='line'><span class="n">reinterpret_cast</span><span class="o">&lt;&gt;</span><span class="p">()</span>  <span class="c1">//为操作数的位模式提供较低层次的重新解释</span>
+</span><span class='line'>
+</span><span class='line'><span class="p">(</span><span class="kt">char</span><span class="o">*</span><span class="p">)</span><span class="n">a</span>
+</span><span class='line'><span class="kt">int</span><span class="p">(</span><span class="n">a</span><span class="p">)</span>
+</span><span class='line'><span class="c1">//旧式强制类型转换</span>
+</span><span class='line'><span class="c1">//在合法使用static_cast或const_cast的地方，提供相应功能，如果两者皆不合法，执行reinterpret_cast</span>
+</span></code></pre></td></tr></table></div></figure>
+
+]]></content>
+  </entry>
+  
+  <entry>
+    <title type="html"><![CDATA[C++ Primer 读书笔记 4]]></title>
+    <link href="http://ziwu1216.github.com/blog/2013/07/17/c-plus-plus-primer-notes-4/"/>
+    <updated>2013-07-17T23:42:00+08:00</updated>
+    <id>http://ziwu1216.github.com/blog/2013/07/17/c-plus-plus-primer-notes-4</id>
+    <content type="html"><![CDATA[<h2>第四章</h2>
+
+<!--more-->
+
+
+<h3>4.1</h3>
+
+<p>关于数组定义</p>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+<span class='line-number'>9</span>
+<span class='line-number'>10</span>
+<span class='line-number'>11</span>
+</pre></td><td class='code'><pre><code class='c'><span class='line'><span class="kt">int</span> <span class="n">size</span> <span class="o">=</span> <span class="mi">100</span><span class="p">;</span>
+</span><span class='line'><span class="kt">int</span> <span class="n">vals</span><span class="p">[</span><span class="n">size</span><span class="p">];</span><span class="c1">//错，因为size不是const，所以只有运行时才能确定值，不能用于指定数组维数</span>
+</span><span class='line'>
+</span><span class='line'><span class="kt">int</span> <span class="n">ia</span><span class="p">[]</span> <span class="o">=</span> <span class="p">{</span><span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">};</span>
+</span><span class='line'><span class="c1">//显示初始化的数组不需要指定维数。如果指定维数，大于提供元素个数，其余默认初始化（0或默认构造）。</span>
+</span><span class='line'><span class="c1">//若没有显式初始化</span>
+</span><span class='line'><span class="c1">//内置类型的数组，在函数体外元素均初始化为0，函数体内无初始化</span>
+</span><span class='line'><span class="c1">//类类型的数组，无论在哪里定义，都调用该类的默认构造函数进行初始化。若没有默认构造函数，必须显示初始化</span>
+</span><span class='line'>
+</span><span class='line'><span class="kt">char</span> <span class="n">ca1</span><span class="p">[]</span> <span class="o">=</span> <span class="p">{</span><span class="sc">&#39;C&#39;</span><span class="p">,</span> <span class="sc">&#39;+&#39;</span><span class="p">,</span> <span class="err">&#39;</span><span class="o">+</span><span class="p">,</span> <span class="sc">&#39;\0&#39;</span><span class="p">};</span>
+</span><span class='line'><span class="kt">char</span> <span class="n">ca2</span><span class="p">[]</span> <span class="o">=</span> <span class="s">&quot;C++&quot;</span><span class="p">;</span><span class="c1">//同样有结束字符</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>数组下标的正确类型是<code>size_t</code></p>
+
+<h3>4.2</h3>
+
+<p>取地址符<code>&amp;</code>只能用于左值</p>
+
+<p>建议指针定义时初始化，如果还没有对象，初始化为0</p>
+
+<p>指针和引用的区别：</p>
+
+<ul>
+<li>定义引用时必须初始化，以后始终指向同一个特定对象</li>
+<li>给引用赋值，修改的是该引用所关联的对象的值，而不是使引用关联另一个对象</li>
+</ul>
+
+
+<p>在表达式中使用数组名时，该名字会自动转换为指向数组第一个元素的指针</p>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+</pre></td><td class='code'><pre><code class='c'><span class='line'><span class="kt">int</span> <span class="n">ia</span><span class="p">[]</span> <span class="o">=</span> <span class="p">{</span><span class="mi">0</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">4</span><span class="p">,</span> <span class="mi">6</span><span class="p">,</span> <span class="mi">8</span><span class="p">};</span>
+</span><span class='line'><span class="kt">int</span> <span class="o">*</span><span class="n">ip</span> <span class="o">=</span> <span class="n">ia</span><span class="p">;</span> <span class="c1">//ip指向ia[0]</span>
+</span><span class='line'><span class="kt">int</span> <span class="o">*</span><span class="n">ip2</span> <span class="o">=</span> <span class="n">ia</span> <span class="o">+</span><span class="mi">4</span><span class="p">;</span> <span class="c1">//指向ia[4]</span>
+</span><span class='line'><span class="kt">ptrdiff_t</span> <span class="n">n</span> <span class="o">=</span> <span class="n">ip2</span> <span class="o">-</span> <span class="n">ip</span><span class="p">;</span><span class="c1">// 4</span>
+</span><span class='line'>
+</span><span class='line'><span class="kt">int</span> <span class="o">*</span><span class="n">p</span> <span class="o">=</span> <span class="o">&amp;</span><span class="n">ia</span><span class="p">[</span><span class="mi">2</span><span class="p">];</span>
+</span><span class='line'><span class="kt">int</span> <span class="n">k</span> <span class="o">=</span> <span class="n">p</span><span class="p">[</span><span class="o">-</span><span class="mi">2</span><span class="p">];</span> <span class="c1">//ia[0]</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>只要定义的多个变量具有相同的类型，就可以在for循环的初始化语句中同时定义它们</p>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+</pre></td><td class='code'><pre><code class='c'><span class='line'><span class="k">for</span> <span class="p">(</span><span class="kt">int</span> <span class="o">*</span><span class="n">pbegin</span> <span class="o">=</span> <span class="n">int_arr</span><span class="p">,</span> <span class="o">*</span><span class="n">pend</span> <span class="o">=</span> <span class="n">int_arr</span> <span class="o">+</span> <span class="n">arr_sz</span><span class="p">;</span> <span class="n">pbegin</span> <span class="o">!=</span> <span class="n">pend</span><span class="p">;</span> <span class="o">++</span><span class="n">pbegin</span><span class="p">)</span>
+</span><span class='line'>  <span class="n">dosomething</span><span class="p">;</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>关于const</p>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+<span class='line-number'>9</span>
+<span class='line-number'>10</span>
+<span class='line-number'>11</span>
+<span class='line-number'>12</span>
+</pre></td><td class='code'><pre><code class='c'><span class='line'><span class="k">const</span> <span class="kt">double</span> <span class="o">*</span><span class="n">cptr</span><span class="p">;</span><span class="c1">//指向const对象的指针</span>
+</span><span class='line'>
+</span><span class='line'><span class="k">const</span> <span class="kt">double</span> <span class="n">pi</span> <span class="o">=</span> <span class="mf">3.14</span><span class="p">;</span>
+</span><span class='line'><span class="kt">double</span> <span class="o">*</span><span class="n">ptr</span> <span class="o">=</span> <span class="o">&amp;</span><span class="n">pi</span><span class="p">;</span> <span class="c1">//错误！不能把const对象的地址赋给指向非const对象的指针</span>
+</span><span class='line'><span class="c1">//但允许把非const对象的地址赋给指向const对象的指针，常见于函数形参</span>
+</span><span class='line'>
+</span><span class='line'><span class="kt">int</span> <span class="o">*</span><span class="k">const</span> <span class="n">curErr</span> <span class="o">=</span> <span class="o">&amp;</span><span class="n">errNum</span><span class="p">;</span><span class="c1">//const指针，定义时初始化</span>
+</span><span class='line'>
+</span><span class='line'><span class="k">typedef</span> <span class="n">string</span> <span class="o">*</span><span class="n">pstring</span><span class="p">;</span>
+</span><span class='line'><span class="k">const</span> <span class="n">pstring</span> <span class="n">cstr</span><span class="p">;</span> <span class="c1">//等价于string *const cstr;</span>
+</span><span class='line'>
+</span><span class='line'><span class="n">string</span> <span class="k">const</span> <span class="n">s1</span><span class="p">;</span> <span class="c1">//等价于const string s1;</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<h3>4.3</h3>
+
+<p>字符串字面值是const char类型的数组，是C风格字符串（以null结束的字符数组）的实例。</p>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+</pre></td><td class='code'><pre><code class='c'><span class='line'><span class="k">const</span> <span class="kt">char</span> <span class="o">*</span><span class="n">cp</span> <span class="o">=</span> <span class="s">&quot;C++&quot;</span><span class="p">;</span> <span class="c1">//指向第一个元素的指针</span>
+</span><span class='line'>
+</span><span class='line'><span class="k">while</span><span class="p">(</span><span class="o">*</span><span class="n">cp</span><span class="p">)</span>              <span class="c1">//null字符为false</span>
+</span><span class='line'><span class="p">{</span>
+</span><span class='line'>  <span class="k">do</span> <span class="n">something</span><span class="p">;</span>
+</span><span class='line'>  <span class="n">cp</span><span class="o">++</span><span class="p">;</span>
+</span><span class='line'><span class="p">}</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>关于char指针的输出</p>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+<span class='line-number'>9</span>
+<span class='line-number'>10</span>
+</pre></td><td class='code'><pre><code class='c'><span class='line'><span class="k">const</span> <span class="kt">char</span> <span class="o">*</span><span class="n">cp</span> <span class="o">=</span> <span class="s">&quot;C++&quot;</span><span class="p">;</span>
+</span><span class='line'><span class="n">cout</span><span class="o">&lt;&lt;*</span><span class="n">cp</span><span class="o">&lt;&lt;</span><span class="n">endl</span><span class="p">;</span>       <span class="c1">//C</span>
+</span><span class='line'><span class="n">cout</span><span class="o">&lt;&lt;</span><span class="n">cp</span><span class="o">&lt;&lt;</span><span class="n">endl</span><span class="p">;</span>        <span class="c1">//C++</span>
+</span><span class='line'><span class="n">cout</span><span class="o">&lt;&lt;</span><span class="p">(</span><span class="kt">void</span><span class="o">*</span><span class="p">)</span><span class="n">cp</span><span class="o">&lt;&lt;</span><span class="n">endl</span><span class="p">;</span> <span class="c1">//0x804e739</span>
+</span><span class='line'>
+</span><span class='line'><span class="kt">char</span> <span class="n">ch</span> <span class="o">=</span> <span class="sc">&#39;c&#39;</span><span class="p">;</span>
+</span><span class='line'><span class="kt">char</span> <span class="o">*</span><span class="n">p</span> <span class="o">=</span> <span class="o">&amp;</span><span class="n">ch</span><span class="p">;</span>
+</span><span class='line'><span class="n">cout</span><span class="o">&lt;&lt;*</span><span class="n">p</span><span class="o">&lt;&lt;</span><span class="n">endl</span><span class="p">;</span>        <span class="c1">//c</span>
+</span><span class='line'><span class="n">cout</span><span class="o">&lt;&lt;</span><span class="n">p</span><span class="o">&lt;&lt;</span><span class="n">endl</span><span class="p">;</span>         <span class="c1">//c</span>
+</span><span class='line'><span class="n">cout</span><span class="o">&lt;&lt;</span><span class="p">(</span><span class="kt">void</span><span class="o">*</span><span class="p">)</span><span class="n">p</span><span class="o">&lt;&lt;</span><span class="n">endl</span><span class="p">;</span>  <span class="c1">//0xbf7481fb</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>标准库函数</p>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+<span class='line-number'>9</span>
+<span class='line-number'>10</span>
+<span class='line-number'>11</span>
+<span class='line-number'>12</span>
+<span class='line-number'>13</span>
+<span class='line-number'>14</span>
+<span class='line-number'>15</span>
+</pre></td><td class='code'><pre><code class='c'><span class='line'><span class="cp">#include &lt;cstring&gt;</span>
+</span><span class='line'><span class="n">strlen</span><span class="p">(</span><span class="n">s</span><span class="p">)</span>   <span class="c1">//不包括null的长度</span>
+</span><span class='line'><span class="n">strcmp</span><span class="p">(</span><span class="n">s1</span><span class="p">,</span> <span class="n">s2</span><span class="p">)</span>
+</span><span class='line'><span class="n">strncpy</span><span class="p">(</span><span class="n">s1</span><span class="p">,</span> <span class="n">s2</span><span class="p">,</span> <span class="n">n</span><span class="p">)</span>
+</span><span class='line'><span class="n">strncat</span><span class="p">(</span><span class="n">s1</span><span class="p">,</span> <span class="n">s2</span><span class="p">,</span> <span class="n">n</span><span class="p">)</span>
+</span><span class='line'>
+</span><span class='line'><span class="kt">char</span> <span class="n">largeStr</span><span class="p">[</span><span class="mi">16</span><span class="o">+</span><span class="mi">18</span><span class="o">+</span><span class="mi">2</span><span class="p">];</span>      <span class="c1">//记住预留存放null的空间</span>
+</span><span class='line'><span class="n">strncpy</span><span class="p">(</span><span class="n">largeStr</span><span class="p">,</span> <span class="n">cp1</span><span class="p">,</span> <span class="mi">17</span><span class="p">);</span>  <span class="c1">//比使用相应简化版本strcpy(largeStr, cp1)安全</span>
+</span><span class='line'><span class="n">strncat</span><span class="p">(</span><span class="n">largeStr</span><span class="p">,</span> <span class="s">&quot; &quot;</span><span class="p">,</span> <span class="mi">2</span><span class="p">);</span>   <span class="c1">//包括null的大小</span>
+</span><span class='line'><span class="n">strncat</span><span class="p">(</span><span class="n">largeStr</span><span class="p">,</span> <span class="n">cp2</span><span class="p">,</span> <span class="mi">19</span><span class="p">);</span>
+</span><span class='line'>
+</span><span class='line'><span class="c1">//对应C++标准库类型string，增强安全性，且提高效率</span>
+</span><span class='line'><span class="n">string</span> <span class="n">largeStr</span> <span class="o">=</span> <span class="n">cp1</span><span class="p">;</span>
+</span><span class='line'><span class="n">largeStr</span> <span class="o">+=</span> <span class="s">&quot; &quot;</span><span class="p">;</span>
+</span><span class='line'><span class="n">largeStr</span> <span class="o">+=</span> <span class="n">cp2</span><span class="p">;</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>动态数组</p>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+</pre></td><td class='code'><pre><code class='c'><span class='line'><span class="kt">int</span> <span class="o">*</span><span class="n">pia</span> <span class="o">=</span> <span class="n">new</span> <span class="kt">int</span><span class="p">[</span><span class="mi">10</span><span class="p">];</span>  <span class="c1">//内置类型无初始化。类类型使用默认构造函数初始化</span>
+</span><span class='line'><span class="kt">int</span> <span class="o">*</span><span class="n">pia2</span> <span class="o">=</span> <span class="n">new</span> <span class="kt">int</span><span class="p">[</span><span class="mi">10</span><span class="p">];</span> <span class="c1">//所有元素初始化为0。不能像数组变量一样提供非默认值的初始化</span>
+</span><span class='line'><span class="k">const</span> <span class="kt">int</span> <span class="o">*</span><span class="n">pci_bad</span> <span class="o">=</span> <span class="n">new</span> <span class="k">const</span> <span class="kt">int</span><span class="p">[</span><span class="mi">10</span><span class="p">];</span><span class="c1">//错误！const必须初始化</span>
+</span><span class='line'><span class="kt">char</span> <span class="o">*</span><span class="n">p</span> <span class="o">=</span> <span class="n">new</span> <span class="kt">char</span><span class="p">[</span><span class="mi">0</span><span class="p">];</span>   <span class="c1">//合法</span>
+</span><span class='line'><span class="kt">char</span> <span class="n">arr</span><span class="p">[</span><span class="mi">0</span><span class="p">];</span>             <span class="c1">//错误！</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<ul>
+<li>可以把C风格字符串用在任何可以使用字符串字面值的地方，例如对string对象进行初始化或赋值</li>
+<li>不可直接使用string对象在要求C风格字符串的地方，但可以使用<code>const char *str = st2.c_str();</code></li>
+<li>可以使用数组初始化vector。<code>vector&lt;int&gt; ivec(int_arr, int_arr + arr_size);</code></li>
+</ul>
+
+
+<h3>4.4</h3>
+
+<p>严格的说，C++没有多维数组，只是数组的数组</p>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+<span class='line-number'>9</span>
+<span class='line-number'>10</span>
+</pre></td><td class='code'><pre><code class='c'><span class='line'><span class="kt">int</span> <span class="n">ia</span><span class="p">[</span><span class="mi">3</span><span class="p">][</span><span class="mi">4</span><span class="p">]</span> <span class="o">=</span> <span class="p">{</span>
+</span><span class='line'>  <span class="p">{</span><span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">3</span><span class="p">},</span>
+</span><span class='line'>  <span class="p">{</span><span class="mi">4</span><span class="p">,</span> <span class="mi">5</span><span class="p">,</span> <span class="mi">6</span><span class="p">,</span> <span class="mi">7</span><span class="p">},</span>
+</span><span class='line'>  <span class="p">{</span><span class="mi">8</span><span class="p">,</span> <span class="mi">9</span><span class="p">,</span> <span class="mi">10</span><span class="p">,</span> <span class="mi">11</span><span class="p">};</span>   <span class="c1">//大小为3的数组，其中每个元素是一个大小为4的数组,3行，4列</span>
+</span><span class='line'><span class="kt">int</span> <span class="n">ia</span><span class="p">[</span><span class="mi">3</span><span class="p">][</span><span class="mi">4</span><span class="p">]</span> <span class="o">=</span> <span class="p">{</span><span class="mi">0</span><span class="p">,</span><span class="mi">1</span><span class="p">,</span><span class="mi">2</span><span class="p">,</span><span class="mi">3</span><span class="p">,</span><span class="mi">4</span><span class="p">,</span><span class="mi">5</span><span class="p">,</span><span class="mi">6</span><span class="p">,</span><span class="mi">7</span><span class="p">,</span><span class="mi">8</span><span class="p">,</span><span class="mi">9</span><span class="p">,</span><span class="mi">10</span><span class="p">,</span><span class="mi">11</span><span class="p">};</span><span class="c1">//等价</span>
+</span><span class='line'>
+</span><span class='line'><span class="kt">int</span><span class="err">（</span><span class="o">*</span><span class="n">ip</span><span class="err">）</span><span class="p">[</span><span class="mi">4</span><span class="p">]</span> <span class="o">=</span> <span class="n">ia</span><span class="p">;</span><span class="c1">//多维数组名其实是指向第一个内层数组的指针.从内向外理解，指向含有4个元素的数组的指针</span>
+</span><span class='line'>
+</span><span class='line'><span class="k">typedef</span> <span class="kt">int</span> <span class="n">int_array</span><span class="p">[</span><span class="mi">4</span><span class="p">];</span><span class="c1">//更易理解</span>
+</span><span class='line'><span class="n">int_array</span> <span class="o">*</span><span class="n">ip</span> <span class="o">=</span> <span class="n">ia</span><span class="p">;</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+
+]]></content>
+  </entry>
+  
+  <entry>
+    <title type="html"><![CDATA[C++ Primer 读书笔记 3]]></title>
+    <link href="http://ziwu1216.github.com/blog/2013/07/17/c-plus-plus-primer-notes-3/"/>
+    <updated>2013-07-17T23:42:00+08:00</updated>
+    <id>http://ziwu1216.github.com/blog/2013/07/17/c-plus-plus-primer-notes-3</id>
+    <content type="html"><![CDATA[<p>之前一直在看，但好久没更博客了，所以这次会一次性有很多笔记</p>
+
+<!--more-->
+
+
+<h2>第三章</h2>
+
+<h3>3.1</h3>
+
+<p>在头文件中，不要放置<code>using</code>声明，否则相当于在每个包含该头文件的程序中都放置了同一<code>using</code>声明，不管程序是否需要。</p>
+
+<h3>3.2 string类型</h3>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+</pre></td><td class='code'><pre><code class='c'><span class='line'><span class="cp">#include &lt;string&gt;</span>
+</span><span class='line'><span class="n">using</span> <span class="n">std</span><span class="o">::</span><span class="n">string</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<h4>构造函数</h4>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+</pre></td><td class='code'><pre><code class='c'><span class='line'><span class="n">string</span> <span class="n">s1</span><span class="p">;</span>
+</span><span class='line'><span class="n">string</span> <span class="n">s2</span><span class="p">(</span><span class="n">s1</span><span class="p">);</span>
+</span><span class='line'><span class="n">string</span> <span class="n">s3</span><span class="p">(</span><span class="s">&quot;value&quot;</span><span class="p">);</span>
+</span><span class='line'><span class="n">string</span> <span class="n">s4</span><span class="p">(</span><span class="n">n</span><span class="p">,</span><span class="sc">&#39;c&#39;</span><span class="p">);</span><span class="c1">//n个c</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<h4>读写</h4>
+
+<p><code>cin&gt;&gt;s</code>会读取并忽略开头所有空白字符（空格、换行、制表），读取字符直到再次遇到空白字符</p>
+
+<p><code>getline(cin, line)</code>从输入流的下一行读取，并保存读取的内容到string对象中，但不包括换行符，与<code>&gt;&gt;</code>的区别是不忽略开头的换行符，假设输入的第一个是换行符，则<code>line</code>为空string</p>
+
+<h4>string相关操作</h4>
+
+<p><code>string.size()</code>返回<code>string::size_type</code>类型，属于配套类型，可以使string类的使用与机器无关。不要将<code>size()</code>返回值赋给int，因为容易溢出。<br/>
+string类的关系比较符区分大小写，通常大写字母小于任意小写字母。<br/>
+<code>string s3 = s1 + s2;</code>或<code>s1 += s2;</code>可以连接字符串。当进行string和字符串字面值混合连接时，必须保证至少有一个操作数时string的，否则非法。</p>
+
+<h4>字符的处理</h4>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+</pre></td><td class='code'><pre><code class='c'><span class='line'><span class="n">isalnum</span><span class="p">(</span><span class="n">c</span><span class="p">)</span><span class="c1">//是否是字母或数字</span>
+</span><span class='line'><span class="n">isalpha</span><span class="p">(</span><span class="n">c</span><span class="p">)</span><span class="c1">//是否是字母</span>
+</span><span class='line'><span class="n">iscntrl</span><span class="p">(</span><span class="n">c</span><span class="p">)</span><span class="c1">//是否是控制字符</span>
+</span><span class='line'><span class="n">isdigit</span><span class="p">(</span><span class="n">c</span><span class="p">)</span><span class="c1">//是否是数字</span>
+</span><span class='line'><span class="n">ispunct</span><span class="p">(</span><span class="n">c</span><span class="p">)</span><span class="c1">//是否是标点符号</span>
+</span><span class='line'><span class="n">islower</span><span class="p">(</span><span class="n">c</span><span class="p">)</span><span class="c1">//是否是小写字母</span>
+</span><span class='line'><span class="n">toupper</span><span class="p">(</span><span class="n">c</span><span class="p">)</span><span class="c1">//如果是小写字母，返回其大写字母形式，否则直接返回c</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>name.h是C标准库头文件，而相应的cname则是对应得c++版本，cname中定义的名字都在std空间内，而name.h中不是</p>
+
+<h3>3.3 vector类型</h3>
+
+<p>vector之前也有过<a href="http://ziwu1216.github.com/blog/2013/03/14/data-structures-notes-3/">一些笔记</a></p>
+
+<p>vector以及其他标准库容器对象的重要属性就在于可以在运行时高效地添加元素。虽然可以对给定元素个数的vector对象预先分配内存，但更有效的方法是先初始化一个空vector对象，再动态增加元素。</p>
+
+<h3>3.4 迭代器</h3>
+
+<p>除了使用下标<code>vec[n]</code>来访问元素外，还可以用迭代器<code>vector&lt;int&gt;::iterator</code>。所有容器都支持迭代器，但只有少数容器支持下标。<br/>
+<code>iter1 - iter2</code>得到的类型是<code>difference_type</code>，可正可负<br/>
+<code>vi.begin() + vi.size()/2</code>可以直接指向正中间的元素</p>
+
+<h3>3.5 bitset类型</h3>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+<span class='line-number'>9</span>
+<span class='line-number'>10</span>
+<span class='line-number'>11</span>
+<span class='line-number'>12</span>
+<span class='line-number'>13</span>
+<span class='line-number'>14</span>
+<span class='line-number'>15</span>
+<span class='line-number'>16</span>
+<span class='line-number'>17</span>
+<span class='line-number'>18</span>
+<span class='line-number'>19</span>
+</pre></td><td class='code'><pre><code class='c'><span class='line'><span class="cp">#include &lt;bitset&gt;</span>
+</span><span class='line'>
+</span><span class='line'><span class="n">bitset</span><span class="o">&lt;</span><span class="mi">32</span><span class="o">&gt;</span> <span class="n">b</span><span class="p">;</span><span class="c1">//尖括号内是bitset的长度，必需参数</span>
+</span><span class='line'><span class="n">bitset</span><span class="o">&lt;</span><span class="mi">128</span><span class="o">&gt;</span> <span class="n">bitvec1</span><span class="p">(</span><span class="n">Oxffff</span><span class="p">);</span><span class="c1">//不足的位被置为0</span>
+</span><span class='line'><span class="c1">//string对象下标最大的字符用来初始化bitset下标为0的位。具体见后图</span>
+</span><span class='line'><span class="n">string</span> <span class="n">str</span> <span class="o">=</span> <span class="s">&quot;1101&quot;</span><span class="p">;</span>
+</span><span class='line'><span class="n">bitset</span><span class="o">&lt;</span><span class="mi">32</span><span class="o">&gt;</span> <span class="n">bitvec4</span><span class="p">(</span><span class="n">str</span><span class="p">);</span><span class="c1">//第2和第3位置为1，其余为0</span>
+</span><span class='line'><span class="n">bitset</span><span class="o">&lt;</span><span class="mi">32</span><span class="o">&gt;</span><span class="n">bitvec5</span><span class="p">(</span><span class="n">str</span><span class="p">,</span> <span class="mi">5</span><span class="p">,</span> <span class="mi">4</span><span class="p">);</span><span class="c1">//使用从str[5]开始的4个字符的子串来初始化，子串也是从右向左</span>
+</span><span class='line'>
+</span><span class='line'><span class="n">b</span><span class="p">.</span><span class="n">any</span><span class="p">()</span><span class="c1">//是否存在1</span>
+</span><span class='line'><span class="n">b</span><span class="p">.</span><span class="n">none</span><span class="p">()</span><span class="c1">//是否不存在1</span>
+</span><span class='line'><span class="n">b</span><span class="p">.</span><span class="n">count</span><span class="p">()</span><span class="c1">//1的个数</span>
+</span><span class='line'><span class="n">b</span><span class="p">[</span><span class="n">pos</span><span class="p">]</span>
+</span><span class='line'><span class="n">b</span><span class="p">.</span><span class="n">test</span><span class="p">(</span><span class="n">pos</span><span class="p">)</span><span class="c1">//pos处是否为1</span>
+</span><span class='line'><span class="n">b</span><span class="p">.</span><span class="n">set</span><span class="p">(</span><span class="n">pos</span><span class="p">)</span><span class="c1">//若没有pos参数，所有位都置1</span>
+</span><span class='line'><span class="n">b</span><span class="p">.</span><span class="n">reset</span><span class="p">(</span><span class="n">pos</span><span class="p">)</span>
+</span><span class='line'><span class="n">b</span><span class="p">.</span><span class="n">flip</span><span class="p">(</span><span class="n">pos</span><span class="p">)</span><span class="c1">//取反</span>
+</span><span class='line'><span class="n">b</span><span class="p">[</span><span class="n">pos</span><span class="p">].</span><span class="n">flip</span><span class="p">()</span><span class="c1">//也可以</span>
+</span><span class='line'><span class="n">b</span><span class="p">.</span><span class="n">to_ulong</span><span class="p">()</span><span class="c1">//返回unsigned long,bitvec4转化为13</span>
+</span></code></pre></td></tr></table></div></figure>
+
+]]></content>
+  </entry>
   
   <entry>
     <title type="html"><![CDATA[『转载整理』C++关键字]]></title>
@@ -2101,442 +2875,6 @@ ECMAScript没有类的概念，它是通过原型链来达到同样的效果的�
 <li>检查ppt，不要出现错别字等等，否则容易让人觉得自己对这次演讲重视不够</li>
 </ul>
 
-]]></content>
-  </entry>
-  
-  <entry>
-    <title type="html"><![CDATA[hello octopress 2：流程记录]]></title>
-    <link href="http://ziwu1216.github.com/blog/2013/01/05/hello-octopress-2/"/>
-    <updated>2013-01-05T18:01:00+08:00</updated>
-    <id>http://ziwu1216.github.com/blog/2013/01/05/hello-octopress-2</id>
-    <content type="html"><![CDATA[<p>打了一段时间页游，好久不更新这里了，果然意志不坚啊。再写的时候生疏了很多，所以简单记录一下整个流程，方便以后参考。</p>
-
-<!--more-->
-
-
-<p>进入octopress的目录</p>
-
-<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-</pre></td><td class='code'><pre><code class=''><span class='line'>cd /directory/to/octopress</span></code></pre></td></tr></table></div></figure>
-
-
-<p>使配置生效。这个应该可以改变写配置命令的地方使其自动生效吧，我懒得改了。</p>
-
-<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-</pre></td><td class='code'><pre><code class=''><span class='line'>source ~/.bash_profile</span></code></pre></td></tr></table></div></figure>
-
-
-<p>生成新博客，注意方括号之前不要留空格</p>
-
-<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-</pre></td><td class='code'><pre><code class=''><span class='line'>rake new_post["title"]</span></code></pre></td></tr></table></div></figure>
-
-
-<p>修改生成的页面，其中category的写法是这样滴</p>
-
-<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-<span class='line-number'>2</span>
-</pre></td><td class='code'><pre><code class=''><span class='line'># Multiple categories example 1
-</span><span class='line'>categories: [CSS3, Sass, Media Queries]</span></code></pre></td></tr></table></div></figure>
-
-
-<p>写好后在本机4000端口实时预览</p>
-
-<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-</pre></td><td class='code'><pre><code class=''><span class='line'>rake preview</span></code></pre></td></tr></table></div></figure>
-
-
-<p>生成文件</p>
-
-<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-</pre></td><td class='code'><pre><code class=''><span class='line'>rake generate </span></code></pre></td></tr></table></div></figure>
-
-
-<p>发布文件到github</p>
-
-<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-</pre></td><td class='code'><pre><code class=''><span class='line'>rake deploy </span></code></pre></td></tr></table></div></figure>
-
-
-<p>搞定！</p>
-
-<p>可以不时备个份</p>
-
-<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-<span class='line-number'>2</span>
-<span class='line-number'>3</span>
-</pre></td><td class='code'><pre><code class=''><span class='line'>git add .
-</span><span class='line'>git commit -m "changes"
-</span><span class='line'>git push origin source</span></code></pre></td></tr></table></div></figure>
-
-]]></content>
-  </entry>
-  
-  <entry>
-    <title type="html"><![CDATA[C++ Primer 读书笔记 1]]></title>
-    <link href="http://ziwu1216.github.com/blog/2013/01/05/c-plus-plus-primer-notes-1/"/>
-    <updated>2013-01-05T15:50:00+08:00</updated>
-    <id>http://ziwu1216.github.com/blog/2013/01/05/c-plus-plus-primer-notes-1</id>
-    <content type="html"><![CDATA[<p>最近在看一些源代码，立刻发现自己的C++功底相当的弱，于是决定静心开始读经典的《C++ Primer》中文版，开头似乎是入门的知识，所以决定做些笔记，偶尔加些自己的验证。这样以后直接翻笔记就行了。笔记很零碎，感觉很适合C++考试的选择题……汗。</p>
-
-<p>书籍信息：C++ Primer 中文版（第4版）Stanley B. Lippman, Josee Lajoie, Barbara E. Moo 著；李师贤等译；人民邮电出版社</p>
-
-<p>以下为第一章笔记。</p>
-
-<!--more-->
-
-
-<h2>第一章</h2>
-
-<h3>1.1</h3>
-
-<ul>
-<li><p>返回值必须和函数的返回类型相同，或者可以转换成函数的返回类型<br/>
-【需要返回double时可以return int，反之不行】</p></li>
-<li><p>常见C++程序文件后缀： *.cc *.cxx *.cpp *.cp *.C</p></li>
-</ul>
-
-
-<h3>1.2</h3>
-
-<ul>
-<li><p>iostream库的基础是两种命名为istream和ostream的类型，分别表示输入流和输出流。标准库定义了4个IO对象，处理输入时使用命名为cin的istream类型对象，也称为标准输入。处理输出时使用命名为cout的ostream类型对象，也称为标准输出。另外，cerr和clog都是ostream对象。<br/>
-【都忘了原来istream是类啊】</p></li>
-<li><p>输出操作符&lt;&lt;：接受两个操作数，左操作数必须是ostream对象，右操作数是要输出的值，返回输出流本身（即左操作数）。输入操作符类推。</p></li>
-<li><p>endl称为操纵符（manipulator），换行，刷新与设备相关联的缓冲区，用户立即看到写入到流中的输出。忘记刷新输出流可能会造成输出停留在缓冲区中，如果程序崩溃，将会导致对程序崩溃位置的错误推断。</p></li>
-<li><p>使用命名空间，可以避免由于无意中使用了与库中所定义名字相同的名字而引起冲突。从而我们可以使用与标准库相同的名字。</p></li>
-<li><p>空格符不允许出现在预处理指示中<br/>
-【<br/>
-预处理是指在编译前所作的工作。例如#include, #define等<br/>
-带参宏定义中，宏名和形参表之间不能有空格出现<br/>
-例如<code>#define MAX(a,b) (a&gt;b)?a:b</code>不能写成<code>#define MAX (a,b) (a&gt;b)?a:b</code><br/>
-】</p></li>
-</ul>
-
-
-<h3>1.3</h3>
-
-<ul>
-<li>注释对不可嵌套。临时忽略一段代码更好的方法，是用编辑器在要忽略的每一行代码前面插入单行注释//，这样就无需担心是否已包含注释对/**/</li>
-</ul>
-
-
-<h3>1.4</h3>
-
-<ul>
-<li><p>for(int val = 1; val &lt;= 10; ++ val)执行顺序：</p>
-
-<ol>
-<li>创建val并初始化为1</li>
-<li>测试val是否&lt;= 10<br/>
-【<br/>
-第一次进入时就要测试！！<br/>
-<code>for(int val = 11; val &lt;= 10; ++ val) cout&lt;&lt;val&lt;&lt;endl;</code><br/>
-不会有输出<br/>
-】</li>
-<li>如果是，则执行for循环体；如果不是，则退出循环</li>
-<li>Val递增</li>
-<li>重复第2步的测试</li>
-</ol>
-</li>
-<li><p>读入未知数目的输入<br/>
-<code>while(cin &gt;&gt; value) sum += value;</code><br/>
-测试cin，即测试流的状态。如果流有效，测试成功。遇到文件结束符或无效输入【如类型和value不符合】，条件失败。<br/>
-【</p></li>
-</ul>
-
-
-<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-<span class='line-number'>2</span>
-<span class='line-number'>3</span>
-<span class='line-number'>4</span>
-<span class='line-number'>5</span>
-<span class='line-number'>6</span>
-<span class='line-number'>7</span>
-</pre></td><td class='code'><pre><code class='c'><span class='line'><span class="kt">int</span> <span class="nf">main</span><span class="p">()</span>
-</span><span class='line'><span class="p">{</span>
-</span><span class='line'>  <span class="kt">int</span> <span class="n">value</span><span class="p">;</span>
-</span><span class='line'>  <span class="k">while</span><span class="p">(</span><span class="n">cin</span> <span class="o">&gt;&gt;</span> <span class="n">value</span><span class="p">)</span>
-</span><span class='line'>      <span class="n">cout</span><span class="o">&lt;&lt;</span><span class="n">value</span><span class="o">&lt;&lt;</span><span class="n">endl</span><span class="p">;</span>
-</span><span class='line'>  <span class="k">return</span> <span class="mi">0</span><span class="p">;</span>
-</span><span class='line'><span class="p">}</span>
-</span></code></pre></td></tr></table></div></figure>
-
-
-<p>在输入<code>1 2 3 回车</code>后会显示</p>
-
-<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-<span class='line-number'>2</span>
-<span class='line-number'>3</span>
-<span class='line-number'>4</span>
-</pre></td><td class='code'><pre><code class='c'><span class='line'><span class="mi">1</span> <span class="mi">2</span> <span class="mi">3</span>
-</span><span class='line'><span class="mi">1</span>
-</span><span class='line'><span class="mi">2</span>
-</span><span class='line'><span class="mi">3</span>
-</span></code></pre></td></tr></table></div></figure>
-
-
-<p>可以继续输入。<br/>
-在输入<code>1 2 3 ^Z 回车</code>或<code>1 2 3 str 回车</code>后会显示</p>
-
-<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-<span class='line-number'>2</span>
-<span class='line-number'>3</span>
-<span class='line-number'>4</span>
-<span class='line-number'>5</span>
-</pre></td><td class='code'><pre><code class='c'><span class='line'><span class="mi">1</span> <span class="mi">2</span> <span class="mi">3</span> <span class="n">str</span>
-</span><span class='line'><span class="mi">1</span>
-</span><span class='line'><span class="mi">2</span>
-</span><span class='line'><span class="mi">3</span>
-</span><span class='line'><span class="err">请按任意键继续</span><span class="p">.</span> <span class="p">.</span> <span class="p">.</span>
-</span></code></pre></td></tr></table></div></figure>
-
-
-<p>不可以继续输入。<br/>
-回车的作用：windows是行缓冲，只有按下回车后，系统才会将输入的这一行数据存放到程序的输入缓存中。<br/>
-】</p>
-
-<ul>
-<li>文件结束符，windows下ctrl+z，unix下ctrl+d</li>
-</ul>
-
-
-<h3>1.5</h3>
-
-<ul>
-<li>标准库的头文件用&lt;>， 非标准库的文件用””</li>
-</ul>
-
-]]></content>
-  </entry>
-  
-  <entry>
-    <title type="html"><![CDATA[hello octopress]]></title>
-    <link href="http://ziwu1216.github.com/blog/2012/11/28/hello-octopress/"/>
-    <updated>2012-11-28T13:56:00+08:00</updated>
-    <id>http://ziwu1216.github.com/blog/2012/11/28/hello-octopress</id>
-    <content type="html"><![CDATA[<p>理论上来说，这才应该是我第一篇博客……描述博客的搭建过程。只是作为一个博客菜鸟 + octopress菜鸟 + linux菜鸟，我其实也是依葫芦画瓢，照着官网的步骤和别人的博客一步一步做的。所以过程就不赘述了，列一下我的主要参考网站和解决的一些小问题吧</p>
-
-<!--more-->
-
-
-<h2>主要参考网站</h2>
-
-<ul>
-<li><p><a href="http://octopress.org/">octopress官网</a></p>
-
-<p>  官网的文档写的非常简明清晰，其实不需要其他教程，基本上照着做就行了</p></li>
-<li><p><a href="http://blog.devtang.com/blog/2012/02/10/setup-blog-based-on-github/">搭建参考</a></p>
-
-<p>  这篇博文总结了根据国内需求进行的一些配置，比如删除twitter和增加分享到国内微博等等</p></li>
-<li><p><a href="http://wowubuntu.com/markdown/#link">markdown语法</a></p>
-
-<p>  我是最近用github之后才开始接触markdown的，所以还是经常要查一下语法</p></li>
-</ul>
-
-
-<h2>遇到的问题</h2>
-
-<h3>用rbenv安装ruby</h3>
-
-<p>我不得不说，如果没有特殊理由的话，还是用rvm吧……万一遇到问题，网上可以搜到很多解决方法。我没了解过ruby，随意挑了rbenv来安装，过程实在是纠结……</p>
-
-<h4>1.ruby的版本</h4>
-
-<p>官网上在<a href="http://octopress.org/docs/setup/rbenv/">Installing Ruby With Rbenv</a>页面说用<code>rbenv install 1.9.3-p0</code>安装ruby，但我clone的octopress项目中<code>.rbenv-version</code>文件其实写的是<code>1.9.3-p194</code>，所以会提示版本未安装。直接按照<code>.rbenv-version</code>里要求的版本安装就行。</p>
-
-<h4>2.缺少zlib依赖</h4>
-
-<pre><code>sudo apt-get install zlib1g-dev
-</code></pre>
-
-<h4>3.缺少openssl依赖</h4>
-
-<p>这个问题纠结了我半天，反复卸载安装了好几次。网上的解决方案大多是针对rvm的，搜寻资料也很痛苦。最后在<a href="https://gist.github.com/1200482">这里</a>找到了解决方案</p>
-
-<p>安装依赖库，我开始只安装了openssl，是不够的</p>
-
-<pre><code>sudo apt-get install openssl
-sudo apt-get install libssl-dev
-sudo apt-get install libssl0.9.8
-</code></pre>
-
-<p>安装rbenv，按照官网来就行</p>
-
-<p>安装ruby-build</p>
-
-<pre><code>git clone git@github.com:sstephenson/ruby-build.git
-cd ruby-build
-./install.sh
-</code></pre>
-
-<p>然后才能安装ruby</p>
-
-<pre><code>ruby-build 1.9.3-p194 ~/.rbenv/versions/1.9.3-p194 --with-openssl-dir=/usr/local
-rbenv rehash
-</code></pre>
-
-<p>如果要设置全局ruby的版本的话可以用<code>rbenv global 1.9.3-p194</code></p>
-
-<p>进入octopress文件夹下可以查询ruby是否安装成功<code>ruby -v</code></p>
-
-<p>检查下openssl是否正常，应该返回<code>true</code></p>
-
-<pre><code>irb
-require 'openssl' 
-</code></pre>
-
-<h3>用root用户<code>rake deploy</code>时提示ssh密钥错误</h3>
-
-<p>这大概是只有我这种小白才会犯的错误……是因为root用户和普通用户存放密钥的文件夹不一样，所以尽量用同一个用户操作，或者把密钥拷贝一份</p>
-
-<h3>添加Jiathis分享插件时显示一小块空白</h3>
-
-<p>参考<a href="http://geeksavetheworld.com/blog/2012/11/05/add-jiathis-to-octopress-blog/">这篇博文</a></p>
-
-<h3>在侧栏添加分类列表</h3>
-
-<p>我主要是觉得侧栏太空了……参考<a href="http://codemacro.com/2012/07/18/add-category-list-to-octopress/">这篇博文</a></p>
-
-<h2>其他</h2>
-
-<p>其实对octopress博客的个性化还有很多，可以搜到很多教程，只是我比较懒。作为有一个菜鸟，我觉得默认主题已经很漂亮啦:)</p>
-
-<p>我之前做项目接触了github，然后搜教程的时候突然发现可以用它写博客，所以一时好奇才写的。希望能记录下平时看到或者学到的东西，虽然水平有限，不值一哂，但对我自己来说毕竟是花过力气的东西，还是留些痕迹做纪念吧，也省得经常觉得自己很颓废</p>
-
-<p>最近会整理一些以前的文档，用【旧】标注的文章可能会有些过时。我其实是个好奇心甚重的人，但是有点浅尝辄止的毛病，所以可以预感到我的“helloworld”分类下会有很多乱七八糟的东西……</p>
-
-<h3>希望我能坚持下去</h3>
-]]></content>
-  </entry>
-  
-  <entry>
-    <title type="html"><![CDATA[『旧』 hello android 1.0：Linux下开发环境搭建]]></title>
-    <link href="http://ziwu1216.github.com/blog/2012/11/26/old-hello-android-1-dot-0/"/>
-    <updated>2012-11-26T23:32:00+08:00</updated>
-    <id>http://ziwu1216.github.com/blog/2012/11/26/old-hello-android-1-dot-0</id>
-    <content type="html"><![CDATA[<p>这是4月左右写的，软件的版本可能比较旧了，仅供参考</p>
-
-<p>以下为搭建过程，包括文件下载、java安装、eclipse和ADT安装、SDK Manager配置等</p>
-
-<!--more-->
-
-
-<h2>需要准备的安装文件</h2>
-
-<ul>
-<li>android-sdk_r17-linux.tgz</li>
-<li>ADT-17.0.0.zip</li>
-<li>jdk-7u3-linux-i586.tar.gz</li>
-<li>eclipse-jee-indigo-SR2-linux-gtk.tar.gz
-
-<h3>下载地址</h3>
-
-<p><a href="http://developer.android.com/sdk/index.html">http://developer.android.com/sdk/index.html</a></p></li>
-</ul>
-
-
-<p><a href="http://developer.android.com/sdk/eclipse-adt.html">http://developer.android.com/sdk/eclipse-adt.html</a></p>
-
-<p><a href="http://www.oracle.com/technetwork/java/javase/downloads/index.html">http://www.oracle.com/technetwork/java/javase/downloads/index.html</a></p>
-
-<p><a href="http://www.eclipse.org/downloads/">http://www.eclipse.org/downloads/</a></p>
-
-<p>将其拷贝到一个文件夹，以/home/android/为例</p>
-
-<h2>Java环境安装配置</h2>
-
-<h3>1.解压文件</h3>
-
-<p>进入安装文件目录<code>cd /home/android/</code></p>
-
-<p>在lib下创建目录用于安装<code>sudo mkdir /usr/lib/java</code></p>
-
-<p>解压到目录下<code>sudo tar zxvf ./jdk-7u3-linux-i586.tar.gz -C /usr/lib/java/</code></p>
-
-<h3>2.配置环境变量</h3>
-
-<pre><code>sudo gedit /etc/bash.bashrc
-</code></pre>
-
-<p>在其中加入如下内容：</p>
-
-<pre><code>export JAVA_HOME=/usr/lib/java/jdk1.7.0_03
-export JRE_HOME=${JAVA_HOME}/jre
-export CLASSPATH=.:${JAVA_HOME}/lib:${JRE_HOME}/lib
-export PATH=${JAVA_HOME}/bin:$PATH
-</code></pre>
-
-<p>保存退出，重新开启终端</p>
-
-<h3>3.验证是否安装成功</h3>
-
-<p>执行命令</p>
-
-<pre><code>java -version 
-</code></pre>
-
-<p>显示</p>
-
-<pre><code>java version "1.7.0_03" 
-Java(TM) SE Runtime Environment (build 1.7.0_03-b04) 
-Java HotSpot(TM) Client VM (build 22.1-b02, mixed mode)
-</code></pre>
-
-<p>说明安装成功</p>
-
-<h2>eclipse安装</h2>
-
-<p>进入安装文件目录<code>cd /home/android/</code></p>
-
-<p>解压文件<code>tar zxvf eclipse-jee-indigo-SR2-linux-gtk.tar.gz</code></p>
-
-<p>进入解压后的eclipse目录，执行eclipse文件，即可启动eclipse</p>
-
-<h2>android SDK安装</h2>
-
-<h3>1.解压文件</h3>
-
-<p>进入安装文件目录<code>cd /home/android/</code></p>
-
-<p>解压文件<code>tar zxvf android-sdk_r17-linux.tgz</code></p>
-
-<h3>2.安装ADT插件</h3>
-
-<p>在线安装容易连接不上网站，所以选择离线安装</p>
-
-<p>启动 Eclipse, 在菜单栏选择 Help > Install New Software&#8230;.</p>
-
-<p>单击右上角的Add按钮，在弹出的对话框中，Name填写 &#8220;ADT&#8221;,单击Archive按钮，找到插件所在到包ADT-17.0.0.zip，点击OK</p>
-
-<p><img src="http://ziwu1216.github.com/images/hello-android-1-0-add.png" title="add repository" alt="图片加载失败 :("></p>
-
-<p>选择所有安装包，点击next根据提示进行安装，同意所有条款。把Contact all update sites during install to find required software 前面的复选框取消掉，否则下载会很慢</p>
-
-<p><img src="http://ziwu1216.github.com/images/hello-android-1-0-adt-install.png" title="ADT install" alt="图片加载失败 :("></p>
-
-<p>安装完重启eclipse，开头的对话框可以先取消，后续会安装</p>
-
-<p>在eclipse中选择Window > Preferences..，在弹出的对话框中左边选择Android标签，右边SDK location选择Android SDK的目录，单击apply，再单击ok。在此过程中会弹出一个对话框问你是否要参加google的满意度调查报告，可以选择参加还是不参加，单击process按钮即可</p>
-
-<p><img src="http://ziwu1216.github.com/images/hello-android-1-0-preferences.png" title="eclipse preferences" alt="图片加载失败 :("></p>
-
-<h3>3.配置Android SDK Manager</h3>
-
-<p>进入android sdk安装目录下的tools目录，运行Android SDK Manager</p>
-
-<pre><code>cd /home/android/android-sdk-linux/tools/ 
-./android 
-</code></pre>
-
-<p>在tools>options选中force https……http，等待列表刷新后，选中tools和想要版本的android平台，进行安装</p>
-
-<p><img src="http://ziwu1216.github.com/images/hello-android-1-0-sdkManager-setting.png" title="SDK Manager setting" alt="图片加载失败 :(">
-<img src="http://ziwu1216.github.com/images/hello-android-1-0-sdkManager.png" title="SDK Manager" alt="图片加载失败 :("></p>
-
-<p>*不知道为什么，从eclipse启动SDK Manager时，tools选项里没有options……推荐从目录运行</p>
-
-<p>*一些第三方插件如htc的工具等，需要注册，可以暂时不安装</p>
 ]]></content>
   </entry>
   

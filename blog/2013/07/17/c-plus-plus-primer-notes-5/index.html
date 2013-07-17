@@ -1,0 +1,383 @@
+
+<!DOCTYPE html>
+<!--[if IEMobile 7 ]><html class="no-js iem7"><![endif]-->
+<!--[if lt IE 9]><html class="no-js lte-ie8"><![endif]-->
+<!--[if (gt IE 8)|(gt IEMobile 7)|!(IEMobile)|!(IE)]><!--><html class="no-js" lang="en"><!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  <title>C++ Primer 读书笔记 5 - Jean's Blog</title>
+  <meta name="author" content="Jean">
+
+  
+  <meta name="description" content="第五章 5.1 %求余符号，只支持整型操作数，bool char short int long 5.2 短路求值：expr1 &amp;&amp; expr2 逻辑与，只有expr1为true时，才会计算expr2。逻辑或类似 5.3 位操作符将整型操作数视为二进制位的集合， &hellip;">
+  
+
+  <!-- http://t.co/dKP3o1e -->
+  <meta name="HandheldFriendly" content="True">
+  <meta name="MobileOptimized" content="320">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+
+  
+  <link rel="canonical" href="http://ziwu1216.github.com/blog/2013/07/17/c-plus-plus-primer-notes-5/">
+  <link href="/favicon.png" rel="icon">
+  <link href="/stylesheets/screen.css" media="screen, projection" rel="stylesheet" type="text/css">
+  <link href="/stylesheets/data-table.css" media="screen, projection" rel="stylesheet" type="text/css" />
+  <script src="/javascripts/modernizr-2.0.js"></script>
+  <script src="/javascripts/ender.js"></script>
+  <script src="/javascripts/octopress.js" type="text/javascript"></script>
+  <link href="/atom.xml" rel="alternate" title="Jean's Blog" type="application/atom+xml">
+  <!--Fonts from Google"s Web font directory at http://google.com/webfonts -->
+
+  
+
+</head>
+
+<body   >
+  <header role="banner"><hgroup>
+  <h1><a href="/">Jean's Blog</a></h1>
+  
+    <h2>Try and Enjoy</h2>
+  
+</hgroup>
+
+</header>
+  <nav role="navigation"><ul class="subscription" data-subscription="rss">
+  <li><a href="/atom.xml" rel="subscribe-rss" title="subscribe via RSS">RSS</a></li>
+  
+</ul>
+  
+<form action="http://google.com/search" method="get">
+  <fieldset role="search">
+    <input type="hidden" name="q" value="site:ziwu1216.github.com" />
+    <input class="search" type="text" name="q" results="0" placeholder="Search"/>
+  </fieldset>
+</form>
+  
+<ul class="main-navigation">
+  <li><a href="/">Blog</a></li>
+  <li><a href="/blog/archives">Archives</a></li>
+</ul>
+
+</nav>
+  <div id="main">
+    <div id="content">
+      <div>
+<article class="hentry" role="article">
+  
+  <header>
+    
+      <h1 class="entry-title">C++ Primer 读书笔记 5</h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2013-07-17T23:43:00+08:00" pubdate data-updated="true">Jul 17<span>th</span>, 2013</time>
+        
+      </p>
+    
+  </header>
+
+
+<div class="entry-content"><h2>第五章</h2>
+
+<!--more-->
+
+
+<h3>5.1</h3>
+
+<p><code>%</code>求余符号，只支持整型操作数，<code>bool</code> <code>char</code> <code>short</code> <code>int</code> <code>long</code></p>
+
+<h3>5.2</h3>
+
+<p>短路求值：<code>expr1 &amp;&amp; expr2</code> 逻辑与，只有expr1为true时，才会计算expr2。逻辑或类似</p>
+
+<h3>5.3</h3>
+
+<p>位操作符将整型操作数视为二进制位的集合，为每一位提供检验和设置的功能，也可用于bitset类型的操作数</p>
+
+<table>
+<thead>
+<tr>
+<th align="center">操作符   </th>
+<th align="center">  功能</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td align="center">~       </td>
+<td align="center">  位求反</td>
+</tr>
+<tr>
+<td align="center">&lt;&lt;      </td>
+<td align="center">  左移，填入0</td>
+</tr>
+<tr>
+<td align="center">>>      </td>
+<td align="center">  右移，无符号数填入0，有符号数填入符号位副本或者0值</td>
+</tr>
+<tr>
+<td align="center">&amp;       </td>
+<td align="center">  位与</td>
+</tr>
+<tr>
+<td align="center">^       </td>
+<td align="center">  位异或</td>
+</tr>
+<tr>
+<td align="center">“竖”打不出来 </td>
+<td align="center"> 位或</td>
+</tr>
+</tbody>
+</table>
+
+
+<p>大多数二元操作符都是左结合：<code>( cout&lt;&lt; "hi" ) &lt;&lt; "there";</code></p>
+
+<h3>5.4</h3>
+
+<p>赋值操作符具有右结合性<br/>
+复合赋值操作符：<code>+=</code> (减 / 乘 / 除) <code>&lt;&lt;=</code> <code>&gt;&gt;=</code> <code>&amp;=</code> (位异或 / 位或)。<br/>
+使用复合赋值操作符时，左操作数只计算了一次</p>
+
+<h3>5.5</h3>
+
+<p>前自增返回修改后的值作为表达式结果，所以返回对象本身，是左值。后自增返回未修改的值，是右值</p>
+
+<h3>5.7</h3>
+
+<p><code>cond ? expr1 : expr2</code>cond总是要计算的，true则计算expr1,false则计算expr2</p>
+
+<h3>5.8</h3>
+
+<p>sizeof返回size_t类型</p>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+</pre></td><td class='code'><pre><code class='c'><span class='line'><span class="k">sizeof</span><span class="p">(</span><span class="n">type</span> <span class="n">name</span><span class="p">);</span>
+</span><span class='line'><span class="k">sizeof</span><span class="p">(</span><span class="n">expr</span><span class="p">);</span>
+</span><span class='line'><span class="k">sizeof</span> <span class="n">expr</span><span class="p">;</span>
+</span><span class='line'>
+</span><span class='line'><span class="k">sizeof</span><span class="err">（</span><span class="kt">char</span><span class="p">)</span> <span class="c1">//保证得1 （推断：单位为byte）</span>
+</span><span class='line'><span class="k">sizeof</span><span class="p">(</span><span class="err">引用）</span><span class="c1">//返回存放此引用类型对象所需的内存空间的大小</span>
+</span><span class='line'><span class="k">sizeof</span><span class="p">(</span><span class="err">指针）</span><span class="c1">//返回存放指针所需的内存大小</span>
+</span><span class='line'><span class="k">sizeof</span><span class="p">(</span><span class="err">数组）</span><span class="c1">//等效于sizeof（元素类型）* 元素个数</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<h3>5.9</h3>
+
+<p>逗号操作符的表达式从左向右计算，结果是最右边表达式的值</p>
+
+<h3>5.10</h3>
+
+<p><code>if (ia[index++] &lt; ia[index])</code>此表达式行为未定义，因为&lt;不保证先求解左操作数还是右操作数</p>
+
+<h3>5.11</h3>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+</pre></td><td class='code'><pre><code class='c'><span class='line'><span class="n">string</span> <span class="o">*</span><span class="n">ps</span> <span class="o">=</span> <span class="n">new</span> <span class="n">string</span><span class="p">(</span><span class="mi">10</span><span class="p">,</span> <span class="sc">&#39;9&#39;</span><span class="p">);</span> <span class="c1">//初始化为999999999</span>
+</span><span class='line'><span class="n">string</span> <span class="o">*</span><span class="n">ps2</span> <span class="o">=</span> <span class="n">new</span> <span class="n">string</span><span class="p">();</span>       <span class="c1">//值初始化为空string</span>
+</span><span class='line'><span class="kt">int</span> <span class="n">x</span><span class="p">();</span><span class="c1">//声明了函数。值初始化的()必须放在类型名后面，而非变量后</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<h3>5.12</h3>
+
+<p><a href="http://mwtx.blog.163.com/blog/static/3893912920117246365145/">整型提升</a><br/>
+两个操作数都不是三种浮点类型之一，它们一定是某种整值类型。在确定共同的目标提升类型之前，编译器将在所有小于int的整值类型上施加一个被称为整型提升(integral promotion)的过程。整型提升就是char、short int和位段类型（无论signed或unsigned）以及枚举类型将被提升为int， 前提是int 能够完整地容纳原先的数据，否则将被转换为unsigned int。wchar_t和枚举类型被提升为能够表示其底层类型(underlying type)所有值的最小整数类型。 <br/>
+一旦整型提升执行完毕，类型比较就又一次开始。如果一个操作数是unsigned long型，则第二个也被转换成unsigned long型。<br/>
+如果该类型所有可能值都包容在int内（取决于机器），则被提升为int。否则被提升为unsigned int。<br/>
+如果涉及到int提升为unsigned int且int恰好为负数，则结果是该负数对该类型的取值个数求模后的值.</p>
+
+<p><code>while(cin&gt;&gt;s)</code>将istream类型转换为bool类型，意味着要检验流的状态，如果最后一次尝试成功，则true；否则false</p>
+
+<h4><a href="http://blog.csdn.net/geeeeeeee/article/details/3427920">强制类型转换</a></h4>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+<span class='line-number'>9</span>
+</pre></td><td class='code'><pre><code class='c'><span class='line'><span class="n">static_cast</span><span class="o">&lt;</span><span class="kt">int</span><span class="o">&gt;</span><span class="p">(</span><span class="n">a</span><span class="p">)</span>
+</span><span class='line'><span class="n">dynamic_cast</span><span class="o">&lt;&gt;</span><span class="p">()</span>      <span class="c1">//支持运行时识别指针或引用所指向的对象</span>
+</span><span class='line'><span class="n">const_cast</span><span class="o">&lt;&gt;</span><span class="p">()</span>        <span class="c1">//转换掉const性质</span>
+</span><span class='line'><span class="n">reinterpret_cast</span><span class="o">&lt;&gt;</span><span class="p">()</span>  <span class="c1">//为操作数的位模式提供较低层次的重新解释</span>
+</span><span class='line'>
+</span><span class='line'><span class="p">(</span><span class="kt">char</span><span class="o">*</span><span class="p">)</span><span class="n">a</span>
+</span><span class='line'><span class="kt">int</span><span class="p">(</span><span class="n">a</span><span class="p">)</span>
+</span><span class='line'><span class="c1">//旧式强制类型转换</span>
+</span><span class='line'><span class="c1">//在合法使用static_cast或const_cast的地方，提供相应功能，如果两者皆不合法，执行reinterpret_cast</span>
+</span></code></pre></td></tr></table></div></figure>
+
+</div>
+
+
+  <footer>
+    <p class="meta">
+      
+  
+
+<span class="byline author vcard">Posted by <span class="fn">Jean</span></span>
+
+      
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2013-07-17T23:43:00+08:00" pubdate data-updated="true">Jul 17<span>th</span>, 2013</time>
+      
+
+<span class="categories">
+  
+    <a class='category' href='/blog/categories/c-/'>c++</a>, <a class='category' href='/blog/categories/notes/'>notes</a>
+  
+</span>
+
+
+    </p>
+    
+      <div class="sharing">
+  
+  
+  
+  
+    <!-- JiaThis Button BEGIN -->
+<div class="jiathis_style">
+	<span class="jiathis_txt">分享到：</span>
+	<a class="jiathis_button_tools_1"></a>
+	<a class="jiathis_button_tools_2"></a>
+	<a class="jiathis_button_tools_3"></a>
+	<a class="jiathis_button_tools_4"></a>
+	<a href="http://www.jiathis.com/share?uid=1713528" class="jiathis jiathis_txt jiathis_separator jtico jtico_jiathis" target="_blank">更多</a>
+	<a class="jiathis_counter_style"></a>
+</div>
+<script type="text/javascript">
+var jiathis_config = {data_track_clickback:'true'};
+</script>
+<script type="text/javascript" src="http://v3.jiathis.com/code/jia.js?uid=1351176419875879" charset="utf-8"></script>
+<!-- JiaThis Button END -->
+
+<!-- UY BEGIN -->
+<div id="uyan_frame"></div>
+<script type="text/javascript" id="UYScript" src="http://v1.uyan.cc/js/iframe.js?UYUserId=1713528" async=""></script>
+<!-- UY END -->
+
+  
+</div>
+
+    
+    <p class="meta">
+      
+        <a class="basic-alignment left" href="/blog/2013/07/17/c-plus-plus-primer-notes-4/" title="Previous Post: C++ Primer 读书笔记 4">&laquo; C++ Primer 读书笔记 4</a>
+      
+      
+        <a class="basic-alignment right" href="/blog/2013/07/17/c-plus-plus-primer-notes-6/" title="Next Post: C++ Primer 读书笔记 6">C++ Primer 读书笔记 6 &raquo;</a>
+      
+    </p>
+  </footer>
+</article>
+
+</div>
+
+<aside class="sidebar">
+  
+    <section>
+  <h1>Recent Posts</h1>
+  <ul id="recent_posts">
+    
+      <li class="post">
+        <a href="/blog/2013/07/17/c-plus-plus-primer-notes-6/">C++ Primer 读书笔记 6</a>
+      </li>
+    
+      <li class="post">
+        <a href="/blog/2013/07/17/c-plus-plus-primer-notes-5/">C++ Primer 读书笔记 5</a>
+      </li>
+    
+      <li class="post">
+        <a href="/blog/2013/07/17/c-plus-plus-primer-notes-4/">C++ Primer 读书笔记 4</a>
+      </li>
+    
+      <li class="post">
+        <a href="/blog/2013/07/17/c-plus-plus-primer-notes-3/">C++ Primer 读书笔记 3</a>
+      </li>
+    
+      <li class="post">
+        <a href="/blog/2013/05/25/keywords-in-c-plus-plus/">『转载整理』C++关键字</a>
+      </li>
+    
+  </ul>
+</section>
+<section>
+  <h1>Categories</h1>
+  <ul id="categories">
+    <li class='category'><a href='/blog/categories/android/'>android (2)</a></li>
+<li class='category'><a href='/blog/categories/c-/'>c++ (13)</a></li>
+<li class='category'><a href='/blog/categories/chromium/'>chromium (1)</a></li>
+<li class='category'><a href='/blog/categories/helloworld/'>helloworld (4)</a></li>
+<li class='category'><a href='/blog/categories/interview/'>interview (5)</a></li>
+<li class='category'><a href='/blog/categories/javascript/'>javascript (2)</a></li>
+<li class='category'><a href='/blog/categories/notes/'>notes (11)</a></li>
+<li class='category'><a href='/blog/categories/old/'>old (1)</a></li>
+<li class='category'><a href='/blog/categories/problem-solving/'>problem solving (2)</a></li>
+<li class='category'><a href='/blog/categories/random-thoughts/'>random thoughts (1)</a></li>
+
+  </ul>
+</section>
+
+
+  
+</aside>
+
+
+    </div>
+  </div>
+  <footer role="contentinfo"><p>
+  Copyright &copy; 2013 - Jean -
+  <span class="credit">Powered by <a href="http://octopress.org">Octopress</a></span>
+</p>
+
+</footer>
+  
+
+
+
+
+
+
+
+
+
+
+
+</body>
+</html>
